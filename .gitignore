@@ -1,5 +1,6 @@
 # Temporary demo files (created by demo script)
 demo-file-*.txt
+demo-file-*.md
 
 # OS generated files
 .DS_Store
