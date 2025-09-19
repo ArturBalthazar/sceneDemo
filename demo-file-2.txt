@@ -1,3 +1,0 @@
-This is the second demo file
-Used to show multiple commits and pushes
-Timestamp: Fri Sep 19 18:01:35 UTC 2025
