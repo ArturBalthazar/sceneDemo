@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>BabylonJS Editor Export</title>
+  <style>
+    html, body, #renderCanvas {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #627785, #1e2124);
+      overflow: hidden;
+    }
+    
+    /* Loading overlay styles */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    #loadingOverlay.hidden {
+      display: none;
+    }
+    
+    #loadingText {
+      color: white;
+      text-align: center;
+      font-size: 18px;
+    }
+    
+    .error {
+      color: #ff6b6b;
+      font-size: 16px;
+      max-width: 400px;
+    }
+    
+    /* Bottom panel styles */
+    .bottom-panel {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 120px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .fps-display {
+      font-family: monospace;
+      font-size: 11px;
+      color: #aaa;
+    }
+    
+    .init-audio-btn {
+      background: rgba(34, 197, 94, 0.8);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .init-audio-btn:hover {
+      background: rgba(34, 197, 94, 1);
+    }
+    
+    .init-audio-btn:disabled {
+      background: rgba(100, 100, 100, 0.5);
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="renderCanvas"></canvas>
+  
+  <!-- Loading overlay -->
+  <div id="loadingOverlay">
+    <div id="loadingText">Loading scene...</div>
+  </div>
+  
+  <!-- Bottom panel with FPS and Audio controls -->
+  <div class="bottom-panel">
+    <div class="fps-display" id="fpsDisplay">FPS: --</div>
+    <button class="init-audio-btn" id="initAudioBtn">Initialize Audio</button>
+  </div>
+  
+  <!-- Babylon.js CDN -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://cdn.babylonjs.com/ammo.js" defer></script>
+  
+  <!-- Main application script -->
+  <script src="app.js"></script>
+</body>
+</html>
