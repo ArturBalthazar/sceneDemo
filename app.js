@@ -444,7 +444,54 @@
       }
     });
 
-    // Custom logic data is embedded above
+    // Load custom logic data from customLogic.json file
+    showLoading('Loading custom logic...');
+    let customLogicData = null;
+    
+    try {
+      console.log('🧠 Attempting to load custom logic from customLogic.json');
+      const response = await fetch('customLogic.json', { 
+        cache: 'no-store', 
+        headers: { 'Cache-Control': 'no-cache' } 
+      });
+      
+      if (response.ok) {
+        customLogicData = await response.json();
+        console.log('🧠 Loaded custom logic data from file:', customLogicData);
+        
+        // Load script contents from separate files
+        if (customLogicData && customLogicData.objectLogics) {
+          for (const [objectId, logics] of Object.entries(customLogicData.objectLogics)) {
+            for (const logic of logics) {
+              if (logic.scriptPath && !logic.scriptContent) {
+                try {
+                  console.log('🧠 Loading script file:', logic.scriptPath);
+                  const scriptResponse = await fetch(logic.scriptPath, { 
+                    cache: 'no-store', 
+                    headers: { 'Cache-Control': 'no-cache' } 
+                  });
+                  
+                  if (scriptResponse.ok) {
+                    logic.scriptContent = await scriptResponse.text();
+                    console.log('🧠 Loaded script content for:', logic.scriptName);
+                  } else {
+                    console.error('🧠 Failed to load script file:', logic.scriptPath, scriptResponse.status);
+                  }
+                } catch (error) {
+                  console.error('🧠 Error loading script file:', logic.scriptPath, error);
+                }
+              }
+            }
+          }
+        }
+      } else if (response.status === 404) {
+        console.log('🧠 No customLogic.json found - no custom logic to load');
+      } else {
+        console.error('🧠 Failed to load customLogic.json:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.log('🧠 No custom logic data available (this is normal if no custom logic was added):', error.message);
+    }
 
     // Initialize custom logic manager and load logics
     if (customLogicData && scene) {
