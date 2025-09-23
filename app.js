@@ -28,6 +28,9 @@
   let audioInitialized = false;
   let activeController = null; // Track active controller for spatial audio
   
+  // Custom Logic system variables
+  let customLogicManager = null;
+  
   // Performance monitoring
   let fpsCounter = null;
   let lastFpsUpdate = 0;
@@ -37,6 +40,147 @@
   function getChildTokenFromId(id) {
     const i = id.lastIndexOf(MESH_TAG);
     return i >= 0 ? id.slice(i + MESH_TAG.length) : null;
+  }
+
+  // Custom Logic Manager for executing user scripts (synced with viewer.js)
+  class CustomLogicManager {
+    constructor(scene) {
+      this.scene = scene;
+      this.activeLogics = new Map(); // objectId -> array of logic instances
+      console.log('🧠 CustomLogicManager initialized');
+    }
+
+    async loadCustomLogics(customLogicData) {
+      if (!customLogicData || !customLogicData.objectLogics) {
+        console.log('🧠 No custom logic data provided');
+        return;
+      }
+
+      console.log('🧠 Loading custom logics:', customLogicData.objectLogics);
+
+      for (const [objectId, logics] of Object.entries(customLogicData.objectLogics)) {
+        const babylonObject = this.scene.getNodeById(objectId);
+        
+        if (!babylonObject) {
+          console.warn('🧠 Object ' + objectId + ' not found in scene, skipping logic');
+          continue;
+        }
+
+        const objectLogics = [];
+
+        for (const logicData of logics) {
+          if (!logicData.enabled) {
+            console.log('🧠 Logic ' + logicData.scriptName + ' disabled, skipping');
+            continue;
+          }
+
+          try {
+            // Execute the script content to get the class
+            const LogicClass = this.executeScript(logicData.scriptContent);
+            
+            if (!LogicClass) {
+              console.error('🧠 Failed to load logic class from ' + logicData.scriptName);
+              continue;
+            }
+
+            // Create instance and set parameters
+            console.log('🧠 Creating instance of LogicClass:', LogicClass);
+            const logicInstance = new LogicClass();
+            console.log('🧠 Logic instance created:', logicInstance);
+            
+            // Check if attach method exists
+            if (typeof logicInstance.attach !== 'function') {
+              console.error('🧠 Logic instance does not have attach method:', logicInstance);
+              continue;
+            }
+            
+            // Set parameters in the params object (new static inspector format)
+            logicInstance.params = logicData.parameters;
+            console.log('🧠 Set params for ' + logicData.scriptName + ':', logicData.parameters);
+            
+            // Also set parameters directly for backward compatibility with old format
+            Object.keys(logicData.parameters).forEach(function(key) {
+              logicInstance[key] = logicData.parameters[key];
+            });
+
+            // Attach to the Babylon object
+            console.log('🧠 Attaching logic to object:', babylonObject.name || babylonObject.id);
+            logicInstance.attach(babylonObject, this.scene);
+            
+            objectLogics.push({
+              instance: logicInstance,
+              scriptName: logicData.scriptName,
+              enabled: logicData.enabled
+            });
+            
+            console.log('✅ Successfully loaded and attached logic: ' + logicData.scriptName + ' to ' + (babylonObject.name || babylonObject.id));
+          } catch (error) {
+            console.error('🧠 Error loading logic ' + logicData.scriptName + ':', error);
+          }
+        }
+
+        if (objectLogics.length > 0) {
+          this.activeLogics.set(objectId, objectLogics);
+        }
+      }
+
+      console.log('🧠 Successfully loaded ' + this.activeLogics.size + ' objects with custom logic');
+    }
+
+    executeScript(scriptContent) {
+      try {
+        // Create a function that returns the class when executed
+        const scriptFunction = new Function('BABYLON', 'scene', 'console', scriptContent + '; return typeof BehaviorClass !== "undefined" ? BehaviorClass : null;');
+        
+        // Execute the script with BABYLON and scene context
+        const LogicClass = scriptFunction(BABYLON, this.scene, console);
+        
+        if (!LogicClass) {
+          console.error('🧠 Script did not export BehaviorClass');
+          return null;
+        }
+        
+        console.log('🧠 Successfully executed script, got class:', LogicClass);
+        return LogicClass;
+      } catch (error) {
+        console.error('🧠 Error executing script:', error);
+        return null;
+      }
+    }
+
+    update(deltaTime) {
+      // Update all active logic instances
+      for (const [objectId, logics] of this.activeLogics) {
+        for (const logicData of logics) {
+          if (logicData.enabled && logicData.instance && typeof logicData.instance.update === 'function') {
+            try {
+              logicData.instance.update(deltaTime);
+            } catch (error) {
+              console.error('🧠 Error updating logic ' + logicData.scriptName + ':', error);
+            }
+          }
+        }
+      }
+    }
+
+    dispose() {
+      console.log('🧠 Disposing custom logic manager...');
+      
+      for (const [objectId, logics] of this.activeLogics) {
+        for (const logic of logics) {
+          try {
+            if (logic.instance && typeof logic.instance.dispose === 'function') {
+              logic.instance.dispose();
+            }
+          } catch (error) {
+            console.error('🧠 Error disposing logic ' + logic.scriptName + ':', error);
+          }
+        }
+      }
+      
+      this.activeLogics.clear();
+      console.log('🧠 Custom logic manager disposed');
+    }
   }
 
   // Show loading
@@ -256,6 +400,11 @@
     engine.runRenderLoop(() => {
       if (scene) {
         scene.render();
+        
+        // Update custom logic instances
+        if (customLogicManager) {
+          customLogicManager.update(engine.getDeltaTime() / 1000); // Convert to seconds
+        }
       }
     });
 
@@ -278,6 +427,9 @@
       if (cameraCollisionManager) {
         cameraCollisionManager.dispose();
       }
+      if (customLogicManager) {
+        customLogicManager.dispose();
+      }
       // Dispose audio elements
       if (audioNodes) {
         for (const audioNode of audioNodes) {
@@ -291,6 +443,15 @@
         audioInitialized = false;
       }
     });
+
+    // Custom logic data is embedded above
+
+    // Initialize custom logic manager and load logics
+    if (customLogicData && scene) {
+      customLogicManager = new CustomLogicManager(scene);
+      await customLogicManager.loadCustomLogics(customLogicData);
+      console.log('🧠 Custom logic system initialized');
+    }
 
     // Hide loading overlay
     hideLoading();
