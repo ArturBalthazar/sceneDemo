@@ -1,0 +1,2056 @@
+{
+  "version": 1,
+  "sceneVersion": 211,
+  "sceneSettings": {
+    "environment": {
+      "clearColor": [
+        0.0196078431372549,
+        0.011764705882352941,
+        0.047058823529411764,
+        0.72
+      ],
+      "ambientColor": [
+        0,
+        0,
+        0
+      ],
+      "useIBL": true,
+      "iblPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/environment7.env",
+      "iblIntensity": 1,
+      "useSkybox": false,
+      "skyboxType": "none",
+      "skyboxPanoramaPath": null,
+      "skyboxMaterial": "fromIBL",
+      "skyboxTextures": {
+        "nx": null,
+        "ny": null,
+        "nz": null,
+        "px": null,
+        "py": null,
+        "pz": null
+      },
+      "fogMode": "none"
+    },
+    "imageProcessing": {
+      "contrast": 1,
+      "exposure": 1,
+      "toneMappingEnabled": false,
+      "toneMappingType": "standard",
+      "vignetteEnabled": false,
+      "vignetteWeight": 1,
+      "vignetteStretch": 0,
+      "vignetteFov": 1.5,
+      "vignetteColor": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "ditheringEnabled": false,
+      "ditheringIntensity": 0.5
+    },
+    "physics": {
+      "enabled": false,
+      "gravity": [
+        0,
+        -9.81,
+        0
+      ],
+      "timeStep": 0.016666666666666666,
+      "iterations": 10
+    }
+  },
+  "nodes": [
+    {
+      "id": "camera1",
+      "kind": "camera",
+      "name": "Camera",
+      "transform": {
+        "position": [
+          8.65,
+          5,
+          -8.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "enabled": true,
+      "camera": {
+        "type": "ArcRotate",
+        "active": true,
+        "minZ": 0.1,
+        "maxZ": 10000,
+        "fov": 0.6981317007977318,
+        "alpha": 0.8263596688750303,
+        "beta": 1.382796031796552,
+        "radius": 6.92546090979461,
+        "target": [
+          -0.950729720677392,
+          0.5107028367169619,
+          0.6934002310592681
+        ],
+        "targetMode": "position",
+        "targetObject": null
+      },
+      "customBehaviors": [
+        {
+          "id": "fc3aaa07-c6fd-4df8-8bbe-17ad95679071",
+          "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/scripts/Script_001.js",
+          "scriptName": "Script_001",
+          "parameters": [
+            {
+              "name": "disableControls",
+              "type": "toggle",
+              "value": true,
+              "inspectorType": "boolean",
+              "label": "Disable Camera Controls"
+            },
+            {
+              "name": "reattachOnDetach",
+              "type": "toggle",
+              "value": true,
+              "inspectorType": "boolean",
+              "label": "Restore Controls When Removed"
+            }
+          ],
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "light1",
+      "kind": "light",
+      "name": "Light",
+      "transform": {
+        "position": [
+          0,
+          10,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "enabled": true,
+      "light": {
+        "type": "Hemispheric",
+        "intensity": 0.7,
+        "color": [
+          1,
+          1,
+          1
+        ],
+        "enabled": true,
+        "groundColor": [
+          0.3,
+          0.3,
+          0.3
+        ]
+      }
+    },
+    {
+      "id": "root::byd-seagull",
+      "kind": "model",
+      "name": "byd_seagull",
+      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/byd_seagull.gltf",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/byd_seagull.gltf",
+        "file": "byd_seagull.gltf",
+        "importedAsset": true
+      },
+      "customBehaviors": [
+        {
+          "id": "3f2b9b79-7587-4839-ac3d-f44df5b6aeec",
+          "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/scripts/Script_002.js",
+          "scriptName": "Script_002",
+          "parameters": [
+            {
+              "name": "strength",
+              "type": "number",
+              "value": 1,
+              "inspectorType": "number",
+              "label": "Strength",
+              "min": 0,
+              "max": 20,
+              "step": 0.01
+            },
+            {
+              "name": "strenght",
+              "type": "number",
+              "value": 1,
+              "inspectorType": "number",
+              "label": "Strenght (alias)",
+              "min": 0,
+              "max": 20,
+              "step": 0.01
+            }
+          ],
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-aggregated-1-c2eg1w",
+      "kind": "mesh",
+      "name": "byd_aggregated_1",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_aggregated_1"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-aggregated-2-dnwob9",
+      "kind": "mesh",
+      "name": "byd_aggregated_2",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_aggregated_2"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-atlas-dark-2hotxi",
+      "kind": "mesh",
+      "name": "byd_atlas_dark",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_atlas_dark"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-atlas-metallic-ot4knr",
+      "kind": "mesh",
+      "name": "byd_atlas_metallic",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_atlas_metallic"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-black-piano-ayk2bi",
+      "kind": "mesh",
+      "name": "byd_black_piano",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_black_piano"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-body-kasrpr",
+      "kind": "mesh",
+      "name": "byd_body",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_body"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-buttons-dqcvrh",
+      "kind": "mesh",
+      "name": "byd_buttons",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_buttons"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-carpet-paungv",
+      "kind": "mesh",
+      "name": "byd_carpet",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_carpet"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-ceiling-aovlid",
+      "kind": "mesh",
+      "name": "byd_ceiling",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_ceiling"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-color-atlas-02-6cpivi",
+      "kind": "mesh",
+      "name": "byd_color_atlas_02",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_color_atlas_02"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-emissiveglow-ut3yd2",
+      "kind": "mesh",
+      "name": "byd_emissiveGlow",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_emissiveGlow"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-glass-linktl",
+      "kind": "mesh",
+      "name": "byd_glass",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_glass"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-01-g6uqeu",
+      "kind": "mesh",
+      "name": "byd_leather_01",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_01"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-02-lf4y2z",
+      "kind": "mesh",
+      "name": "byd_leather_02",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_02"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-03-bl68ql",
+      "kind": "mesh",
+      "name": "byd_leather_03",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_03"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-04-cbbqjm",
+      "kind": "mesh",
+      "name": "byd_leather_04",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_04"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-05-esexxi",
+      "kind": "mesh",
+      "name": "byd_leather_05",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_05"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-06-sa4umo",
+      "kind": "mesh",
+      "name": "byd_leather_06",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_06"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-black-02-nioomo",
+      "kind": "mesh",
+      "name": "byd_leather_black_02",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_black_02"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-black-03-vqqd2r",
+      "kind": "mesh",
+      "name": "byd_leather_black_03",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_black_03"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-black-04-eyvyqq",
+      "kind": "mesh",
+      "name": "byd_leather_black_04",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_black_04"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-black-06-zfp9f0",
+      "kind": "mesh",
+      "name": "byd_leather_black_06",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_black_06"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-hv4ov9",
+      "kind": "mesh",
+      "name": "byd_leather_dark_blue",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_dark_blue"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-wheel-537ujg",
+      "kind": "mesh",
+      "name": "byd_leather_dark_blue_wheel",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_dark_blue_wheel"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-light-blue-05-2357pi",
+      "kind": "mesh",
+      "name": "byd_leather_light_blue_05",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_light_blue_05"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-light-blue-06-czrp1l",
+      "kind": "mesh",
+      "name": "byd_leather_light_blue_06",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_light_blue_06"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-blue-u8tgv0",
+      "kind": "mesh",
+      "name": "byd_leather_perforated_blue",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_perforated_blue"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-dark-blue-ydq9q2",
+      "kind": "mesh",
+      "name": "byd_leather_perforated_dark_blue",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_perforated_dark_blue"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-red-ya707x",
+      "kind": "mesh",
+      "name": "byd_leather_perforated_red",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_perforated_red"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-pink-03-x6rlep",
+      "kind": "mesh",
+      "name": "byd_leather_pink_03",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_pink_03"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-pink-05-sw3i3r",
+      "kind": "mesh",
+      "name": "byd_leather_pink_05",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_pink_05"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-leather-pink-06-ezph5y",
+      "kind": "mesh",
+      "name": "byd_leather_pink_06",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_leather_pink_06"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-lights-bmo8s0",
+      "kind": "mesh",
+      "name": "byd_lights",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_lights"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metal-paint-e78tz2",
+      "kind": "mesh",
+      "name": "byd_metal_paint",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metal_paint"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metallic-black-eputza",
+      "kind": "mesh",
+      "name": "byd_metallic_black",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metallic_black"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metallic-blue-o8575v",
+      "kind": "mesh",
+      "name": "byd_metallic_blue",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metallic_blue"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metallic-pink-uhe4b7",
+      "kind": "mesh",
+      "name": "byd_metallic_pink",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metallic_pink"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-01-a8vf1e",
+      "kind": "mesh",
+      "name": "byd_metallic_plastic_01",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metallic_plastic_01"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-02-x8vdzy",
+      "kind": "mesh",
+      "name": "byd_metallic_plastic_02",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metallic_plastic_02"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-03-zedage",
+      "kind": "mesh",
+      "name": "byd_metallic_plastic_03",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_metallic_plastic_03"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-orange-hk8dmw",
+      "kind": "mesh",
+      "name": "byd_orange",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_orange"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-pink-fmbny2",
+      "kind": "mesh",
+      "name": "byd_pink",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_pink"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-plastic-detail-t3b9nr",
+      "kind": "mesh",
+      "name": "byd_plastic_detail",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_plastic_detail"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-plastic-pattern-z8z8kn",
+      "kind": "mesh",
+      "name": "byd_plastic_pattern",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_plastic_pattern"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive0-ad1uzy",
+      "kind": "mesh",
+      "name": "byd_plastic_skin_primitive0",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_plastic_skin_primitive0"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive1-u5wsdw",
+      "kind": "mesh",
+      "name": "byd_plastic_skin_primitive1",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_plastic_skin_primitive1"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-shadow-64ljzv",
+      "kind": "mesh",
+      "name": "byd_shadow",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_shadow"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-steering-wheel-s6htra",
+      "kind": "mesh",
+      "name": "byd_steering_wheel",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_steering_wheel"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-stitches-brvtc9",
+      "kind": "mesh",
+      "name": "byd_stitches",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_stitches"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-stitches-orange-763jeg",
+      "kind": "mesh",
+      "name": "byd_stitches_orange",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_stitches_orange"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-stitches-pink-5nhhp5",
+      "kind": "mesh",
+      "name": "byd_stitches_pink",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_stitches_pink"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-stitches-yellow-sxlkaw",
+      "kind": "mesh",
+      "name": "byd_stitches_yellow",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_stitches_yellow"
+      }
+    },
+    {
+      "id": "root::byd-seagull::mesh::byd-yellow-3z6coh",
+      "kind": "mesh",
+      "name": "byd_yellow",
+      "parentId": "root::byd-seagull",
+      "transform": {
+        "position": [
+          0,
+          -14.750495910644531,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.008168119937181473,
+          0.008168119937181473,
+          0.008168119937181473
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::byd-seagull",
+        "sourceMeshName": "byd_yellow"
+      }
+    },
+    {
+      "id": "c46e954c-999a-495c-8d86-e5871ac51bbf",
+      "kind": "particle",
+      "name": "Particle Effect",
+      "transform": {
+        "position": [
+          0,
+          2,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "particle": {
+        "id": "c46e954c-999a-495c-8d86-e5871ac51bbf",
+        "name": "Particle Effect",
+        "runtime": "ParticleSystem",
+        "capacity": 5000,
+        "playOnStart": true,
+        "disposeOnStop": false,
+        "billboardMode": "ALL",
+        "blendMode": "STANDARD",
+        "updateSpeed": 0.01,
+        "emitRate": 200,
+        "emitter": {
+          "kind": "sphere",
+          "radius": 500,
+          "radiusRange": 0.1
+        },
+        "minEmitPower": 0,
+        "maxEmitPower": 0,
+        "gravity": [
+          0,
+          0,
+          0
+        ],
+        "direction1": [
+          0,
+          1,
+          0
+        ],
+        "direction2": [
+          0,
+          0,
+          0
+        ],
+        "minAngularSpeed": -1,
+        "maxAngularSpeed": 1,
+        "minSize": 5,
+        "maxSize": 10,
+        "minLifeTime": 2,
+        "maxLifeTime": 4,
+        "enableColorGradients": true,
+        "colorGradients": [
+          {
+            "t": 0,
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0
+          },
+          {
+            "t": 0.2,
+            "r": 0.9607843137254902,
+            "g": 0.9607843137254902,
+            "b": 0.9607843137254902,
+            "a": 1
+          },
+          {
+            "t": 0.8,
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          {
+            "t": 1,
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0
+          }
+        ],
+        "textureUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/assets/star_07.png"
+      }
+    }
+  ],
+  "materialOverrides": {
+    "Aggregated_1": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_tires_Aggregated_Material_diffuse.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_tires_Aggregated_Material_metalness-mk_tires_Aggregated_Material_roughness.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_tires_Aggregated_Material_normal.png"
+    },
+    "Aggregated_2": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_color_atlas_02_steering_wheel_Aggregated_Material_diffuse.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_color_atlas_02_steering_wheel_Aggregated_Material_metalness-mk_color_atlas_02_steering_wheel_Aggregated_Material_roughness.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_color_atlas_02_steering_wheel_Aggregated_Material_normal.png"
+    },
+    "byd_atlas_dark": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Atlas_buttons_Black_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Atlas_buttons_normal_normal_png.png"
+    },
+    "byd_atlas_metallic": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Atlas_buttons_color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Atlas_buttons_normal_normal_png.png"
+    },
+    "Carpet": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Carpet_Loop_BaseColor_png_001.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Carpet_Loop_Roughness_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Carpet_Loop_Normal_png_001.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_carpet_png.png"
+    },
+    "Ceiling": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Carpet_Loop_BaseColor_png_001.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Carpet_Loop_Roughness_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Carpet_Loop_Normal_png_001.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_ceiling_png.png"
+    },
+    "Atlasflow_01": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/AtlasColorTexture_png.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/AtlasGrayTexture_png.png"
+    },
+    "emissiveGlow": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/radial-gradient_png.png",
+      "emissiveTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/radial-gradient_png.png"
+    },
+    "Atlasflow_03": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/AtlasGrayTexture_alpha_png.png"
+    },
+    "Leather_black_static": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_01_png.png"
+    },
+    "byd_leather_black_02": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_02_png.png"
+    },
+    "byd_leather_black_03": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_03_png.png"
+    },
+    "byd_leather_black_04": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_04_png.png"
+    },
+    "byd_leather_black_06": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_06_png.png"
+    },
+    "byd_leather_dark_blue": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/leatherdarkblue.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_05_png.png"
+    },
+    "byd_leather_dark_blue_wheel": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/leatherdarkblue.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_steering_wheel_png.png"
+    },
+    "byd_leather_light_blue_05": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-LightBlue-Color_2_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_05_png.png"
+    },
+    "byd_leather_light_blue_06": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-LightBlue-Color_2_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_06_png.png"
+    },
+    "byd_leather_perforated_blue": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Perforated-BlueTrim_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_perforated_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_04_png.png"
+    },
+    "byd_leather_perforated_dark_blue": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Perforated-DarkBlue_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_perforated_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_02_png.png"
+    },
+    "byd_leather_perforated_red": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather-Perforated-BlackTrim_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_perforated_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_04_png.png"
+    },
+    "byd_leather_pink_03": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Untitled.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_03_png.png"
+    },
+    "byd_leather_pink_05": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Untitled.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_05_png.png"
+    },
+    "byd_leather_pink_06": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Untitled.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_leather_06_png.png"
+    },
+    "Light": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_lights_trunk_Aggregated_Material_diffuse.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_lights_trunk_Aggregated_Material_metalness-mk_lights_trunk_Aggregated_Material_roughness.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_lights_trunk_Aggregated_Material_normal.png"
+    },
+    "Plastic_Diamond_Pattern_Detail": {
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Plastic-BIG_Diamonds_Normal_png.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_plastic_detail_png.png"
+    },
+    "Plastic_Diamond_Pattern": {
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/Plastic-Small_Diamonds_Normal_png.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_plastic_pattern_png.png"
+    },
+    "Plastic_skin": {
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_plastic_skin-BYD-Rough-Plastic_Roughness-2.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/BYD-Rough-Plastic_Normal-2_jpg.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_plastic_skin-BYD-Rough-Plastic_Roughness-2.png"
+    },
+    "byd_plastic_skin_wheel": {
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_steering_wheel-BYD-Rough-Plastic_Roughness-2.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/BYD-Rough-Plastic_Normal-2_jpg.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/mk_steering_wheel-BYD-Rough-Plastic_Roughness-2.png"
+    },
+    "Shadow": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/InspectShadow-4.png"
+    },
+    "byd_stitches_orange": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/StitchesOPC_png.png"
+    },
+    "byd_stitches_pink": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/StitchesOPC_png.png"
+    },
+    "byd_stitches_yellow": {
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d66d98d6-600a-4052-9cd8-9d96d16430a5/StitchesOPC_png.png"
+    }
+  }
+}
