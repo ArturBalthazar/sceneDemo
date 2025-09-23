@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 220,
+  "sceneVersion": 331,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -83,7 +83,7 @@
         "active": true,
         "minZ": 0.1,
         "maxZ": 10000,
-        "fov": 0.6981317007977318,
+        "fov": 0.6108652381980153,
         "alpha": 0.8263596688750303,
         "beta": 1.382796031796552,
         "radius": 6.92546090979461,
