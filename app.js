@@ -103,9 +103,47 @@
               logicInstance[key] = logicData.parameters[key];
             });
 
+            // Create context with proper scope handling (same as viewer.js)
+            const scene = this.scene;
+            const context = {
+              scene: scene,
+              engine: scene.getEngine(),
+              resolveAsset: function(ref) { return ref; }, // Simple passthrough for now
+              getByRef: function(nodeRef) {
+                // Handle nodeRef parameter - can be object ID or object reference
+                if (!nodeRef) return null;
+                
+                // If it's already a Babylon object, return it
+                if (nodeRef.dispose && typeof nodeRef.dispose === 'function') {
+                  return nodeRef;
+                }
+                
+                // If it's an object with id property (from CustomLogic UI)
+                if (typeof nodeRef === 'object' && nodeRef.id) {
+                  return scene.getNodeById(nodeRef.id);
+                }
+                
+                // If it's a string ID directly
+                if (typeof nodeRef === 'string') {
+                  return scene.getNodeById(nodeRef);
+                }
+                
+                console.warn('🧠 getByRef: Unrecognized nodeRef format:', nodeRef);
+                return null;
+              }
+            };
+
             // Attach to the Babylon object
             console.log('🧠 Attaching logic to object:', babylonObject.name || babylonObject.id);
-            logicInstance.attach(babylonObject, this.scene);
+            console.log('🧠 Context:', context);
+            
+            try {
+              logicInstance.attach(babylonObject, context);
+              console.log('🧠 Attach method called successfully');
+            } catch (attachError) {
+              console.error('🧠 Error calling attach method:', attachError);
+              continue;
+            }
             
             objectLogics.push({
               instance: logicInstance,
