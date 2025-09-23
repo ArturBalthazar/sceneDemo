@@ -129,7 +129,8 @@
 
     executeScript(scriptContent) {
       try {
-        console.log('🧠 Executing script:', scriptContent);
+        console.log('🧠 Executing script content length:', scriptContent.length);
+        console.log('🧠 First 200 chars of script:', scriptContent.substring(0, 200));
         
         let transformedScript = scriptContent;
         
@@ -159,39 +160,28 @@
           console.log('🧠 Transformed TypeScript to JavaScript');
         }
         
-        // Create a function that returns the class (same pattern as viewer.js)
+        // Create a function that returns the class (simplified approach)
         console.log('🧠 Creating script function with transformed script:', transformedScript);
         
-        const scriptFunction = new Function('BABYLON', 
-          transformedScript + '
-' +
-          '// Debug: Check if CustomLogic exists
-' +
-          'if (typeof CustomLogic === "undefined") {
-' +
-          '  console.error("🧠 CustomLogic class not found in script");
-' +
-          '  return null;
-' +
-          '}
-' +
-          'console.log("🧠 CustomLogic class found:", CustomLogic);
-' +
-          'return CustomLogic;'
-        );
+        // Build the function body step by step to avoid escaping issues
+        var functionBody = transformedScript;
+        functionBody += '\n\n';
+        functionBody += 'if (typeof CustomLogic === "undefined") {\n';
+        functionBody += '  console.error("🧠 CustomLogic class not found in script");\n';
+        functionBody += '  return null;\n';
+        functionBody += '}\n';
+        functionBody += 'console.log("🧠 CustomLogic class found:", CustomLogic);\n';
+        functionBody += 'return CustomLogic;';
+        
+        const scriptFunction = new Function('BABYLON', functionBody);
         
         // Execute with BABYLON as parameter
         const LogicClass = scriptFunction(BABYLON);
-        
-        if (!LogicClass) {
-          console.error('🧠 Script did not export CustomLogic class');
-          return null;
-        }
-        
-        console.log('🧠 Successfully executed script, got class:', LogicClass);
+        console.log('🧠 Script function returned:', LogicClass);
         return LogicClass;
       } catch (error) {
-        console.error('🧠 Error executing script:', error);
+        console.error('🧠 Script execution error:', error);
+        console.error('🧠 Script content:', scriptContent);
         return null;
       }
     }
