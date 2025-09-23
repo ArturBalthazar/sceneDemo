@@ -908,6 +908,7 @@
           // Set common camera properties (use exact values from editor)
           camera.minZ = typeof cameraProps.minZ === 'number' ? cameraProps.minZ : 0.1;
           camera.maxZ = typeof cameraProps.maxZ === 'number' ? cameraProps.maxZ : 100;
+          camera.fov = cameraProps.fov || Math.PI / 4;
           
           // Apply enabled state
           const cameraEnabled = node.enabled !== false;
