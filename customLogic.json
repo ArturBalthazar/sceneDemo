@@ -9,7 +9,7 @@
           "disableControls": true,
           "reattachOnDetach": true
         },
-        "scriptPath": "scripts/camera1_Script_001_0.js"
+        "scriptPath": "scripts/Script_001.js"
       }
     ],
     "root::byd-seagull": [
@@ -21,7 +21,7 @@
           "strength": 1,
           "strenght": 1
         },
-        "scriptPath": "scripts/root::byd-seagull_Script_002_0.js"
+        "scriptPath": "scripts/Script_002.js"
       }
     ]
   }
