@@ -1,0 +1,28 @@
+{
+  "objectLogics": {
+    "camera1": [
+      {
+        "id": "fc3aaa07-c6fd-4df8-8bbe-17ad95679071",
+        "scriptName": "Script_001",
+        "enabled": true,
+        "parameters": {
+          "disableControls": true,
+          "reattachOnDetach": true
+        },
+        "scriptPath": "scripts/camera1_Script_001_0.js"
+      }
+    ],
+    "root::byd-seagull": [
+      {
+        "id": "3f2b9b79-7587-4839-ac3d-f44df5b6aeec",
+        "scriptName": "Script_002",
+        "enabled": true,
+        "parameters": {
+          "strength": 1,
+          "strenght": 1
+        },
+        "scriptPath": "scripts/root::byd-seagull_Script_002_0.js"
+      }
+    ]
+  }
+}
