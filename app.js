@@ -129,14 +129,62 @@
 
     executeScript(scriptContent) {
       try {
-        // Create a function that returns the class when executed
-        const scriptFunction = new Function('BABYLON', 'scene', 'console', scriptContent + '; return typeof BehaviorClass !== "undefined" ? BehaviorClass : null;');
+        console.log('🧠 Executing script:', scriptContent);
         
-        // Execute the script with BABYLON and scene context
-        const LogicClass = scriptFunction(BABYLON, this.scene, console);
+        let transformedScript = scriptContent;
+        
+        // Check if this is TypeScript syntax (has export or type annotations)
+        const isTypeScript = /exports+defaults+class|:s*w+s*=/.test(scriptContent);
+        
+        if (isTypeScript) {
+          console.log('🧠 Detected TypeScript syntax, transforming...');
+          
+          // Transform TypeScript to JavaScript (same as viewer.js)
+          transformedScript = transformedScript.replace(/exports+defaults+classs+(w+)/g, 'class $1');
+          transformedScript = transformedScript.replace(/(w+):s*[w[]|'"s<>()]+(s*=s*[^;]+;)/g, '$1$2');
+          transformedScript = transformedScript.replace(/(w+)s*([^)]*:s*[^)]+)/g, function(match, methodName) {
+            const paramMatch = match.match(/(([^)]+))/);
+            if (paramMatch) {
+              const params = paramMatch[1].split(',').map(function(param) {
+                const paramName = param.trim().split(':')[0].trim();
+                return paramName;
+              }).join(', ');
+              return methodName + '(' + params + ')';
+            }
+            return match;
+          });
+          transformedScript = transformedScript.replace(/Array<[^>]+>/g, 'Array');
+          transformedScript = transformedScript.replace(/(private|public|protected)s+/g, '');
+          
+          console.log('🧠 Transformed TypeScript to JavaScript');
+        }
+        
+        // Create a function that returns the class (same pattern as viewer.js)
+        console.log('🧠 Creating script function with transformed script:', transformedScript);
+        
+        const scriptFunction = new Function('BABYLON', 
+          transformedScript + '
+' +
+          '// Debug: Check if CustomLogic exists
+' +
+          'if (typeof CustomLogic === "undefined") {
+' +
+          '  console.error("🧠 CustomLogic class not found in script");
+' +
+          '  return null;
+' +
+          '}
+' +
+          'console.log("🧠 CustomLogic class found:", CustomLogic);
+' +
+          'return CustomLogic;'
+        );
+        
+        // Execute with BABYLON as parameter
+        const LogicClass = scriptFunction(BABYLON);
         
         if (!LogicClass) {
-          console.error('🧠 Script did not export BehaviorClass');
+          console.error('🧠 Script did not export CustomLogic class');
           return null;
         }
         
