@@ -2,58 +2,58 @@
   "objectLogics": {
     "__scene__": [
       {
-        "id": "73da6b5e-3610-48a1-9785-37415119d235",
-        "scriptName": "Script_003.js",
+        "id": "488cf065-6e08-48d4-a1a7-598c3e8e9784",
+        "scriptName": "Script_001_copy.js",
         "enabled": true,
         "parameters": {
           "colorYellowBtn": {
             "id": "button_001",
-            "name": "Button",
+            "name": "Body-Yellow",
             "type": "button"
           },
           "colorWhiteBtn": {
             "id": "button_002",
-            "name": "Button Copy 1",
+            "name": "Body-White",
             "type": "button"
           },
           "colorBlackBtn": {
-            "id": "button_003",
-            "name": "Button Copy 2",
+            "id": "button_004",
+            "name": "Body-Black",
             "type": "button"
           },
           "colorPinkBtn": {
-            "id": "button_004",
-            "name": "Button Copy 1 Copy 1",
+            "id": "button_003",
+            "name": "Body-Pink",
             "type": "button"
           },
           "trimLightBlueBtn": {
             "id": "button_005",
-            "name": "Button",
+            "name": "Trim-LightBlue",
             "type": "button"
           },
           "trimPinkBtn": {
-            "id": "button_006",
-            "name": "Button Copy 1",
+            "id": "button_007",
+            "name": "Trim-Pink",
             "type": "button"
           },
           "trimDarkBlueBtn": {
-            "id": "button_007",
-            "name": "Button Copy 2",
+            "id": "button_006",
+            "name": "Trim-DarkBlue",
             "type": "button"
           },
           "viewSwapBtn": {
             "id": "button_008",
-            "name": "Button Copy 1 Copy 1",
+            "name": "Button",
             "type": "button"
           },
           "exteriorCameraRef": {
-            "id": "ca01883a-4d36-4d1b-8e3d-1d1e085214c8",
-            "name": "Camera_02",
+            "id": "camera1",
+            "name": "Camera",
             "type": "camera"
           },
           "interiorCameraRef": {
-            "id": "camera1",
-            "name": "Camera",
+            "id": "ebf30953-d4bb-4994-9c33-9b11da2924b8",
+            "name": "Camera_02",
             "type": "camera"
           },
           "carRef": {
@@ -63,37 +63,7 @@
           },
           "rotationStrength": 0.01
         },
-        "scriptPath": "scripts/Script_003.js"
-      }
-    ],
-    "defaultCube": [
-      {
-        "id": "f1b72e96-2e4c-48eb-827a-8729ff75eec9",
-        "scriptName": "Script_001.js",
-        "enabled": true,
-        "parameters": {
-          "myUIElement": {
-            "id": "button_009",
-            "name": "Button_02",
-            "type": "button"
-          }
-        },
-        "scriptPath": "scripts/Script_001.js"
-      }
-    ],
-    "ground": [
-      {
-        "id": "d46454bd-cf31-4166-aab8-1b0ade922bab",
-        "scriptName": "Script_001.js",
-        "enabled": true,
-        "parameters": {
-          "myUIElement": {
-            "id": "button_010",
-            "name": "Button_03",
-            "type": "button"
-          }
-        },
-        "scriptPath": "scripts/Script_001.js"
+        "scriptPath": "scripts/Script_001_copy.js"
       }
     ]
   }
