@@ -28,6 +28,10 @@
   let audioInitialized = false;
   let activeController = null; // Track active controller for spatial audio
   
+  // Spatial UI system variables
+  let spatialUINodes = []; // Store spatial UI objects
+  let spatialUIContainer = null; // DOM container for spatial UI elements
+  
   // Custom Logic system variables
   let customLogicManager = null;
   
@@ -40,6 +44,106 @@
   function getChildTokenFromId(id) {
     const i = id.lastIndexOf(MESH_TAG);
     return i >= 0 ? id.slice(i + MESH_TAG.length) : null;
+  }
+
+  // Spatial UI update function
+  function updateSpatialUI(scene, engine) {
+    if (!scene || !spatialUINodes || spatialUINodes.length === 0) return;
+    if (!window.uiLoader) return; // UI not loaded yet
+    
+    const camera = scene.activeCamera;
+    if (!camera) return;
+    
+    const viewMatrix = camera.getViewMatrix();
+    const cameraPos = camera.position;
+    
+    spatialUINodes.forEach(spatialUI => {
+      if (!spatialUI.enabled || !spatialUI.transform.isEnabled()) {
+        // Hide if disabled
+        if (spatialUI.domElement) {
+          spatialUI.domElement.style.display = 'none';
+        }
+        return;
+      }
+      
+      // Get or find DOM element
+      if (!spatialUI.domElement && spatialUI.uiElementId) {
+        spatialUI.domElement = window.uiLoader.getElement(spatialUI.uiElementId);
+        if (spatialUI.domElement) {
+          // Mark as spatial UI for special handling
+          spatialUI.domElement.dataset.spatialUI = 'true';
+          spatialUI.domElement.dataset.uiElementId = spatialUI.uiElementId;
+          spatialUI.domElement.style.position = 'absolute';
+          spatialUI.domElement.style.pointerEvents = 'auto';
+          console.log('🎨 Linked spatial UI DOM element:', spatialUI.uiElementId);
+        }
+      }
+      
+      if (!spatialUI.domElement) return;
+      
+      const anchorPos = spatialUI.transform.getAbsolutePosition();
+      const distance = BABYLON.Vector3.Distance(anchorPos, cameraPos);
+      
+      // Distance culling
+      if (distance > spatialUI.maxDistance || distance < spatialUI.minDistance) {
+        spatialUI.domElement.style.display = 'none';
+        return;
+      }
+      
+      // Occlusion test (check if behind camera)
+      if (spatialUI.occlusionTest) {
+        const viewSpacePos = BABYLON.Vector3.TransformCoordinates(anchorPos, viewMatrix);
+        if (viewSpacePos.z < 0) {
+          spatialUI.domElement.style.display = 'none';
+          return;
+        }
+      }
+      
+      // Project to screen space
+      const screenPos = BABYLON.Vector3.Project(
+        anchorPos,
+        BABYLON.Matrix.Identity(),
+        scene.getTransformMatrix(),
+        camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
+      );
+      
+      // Check screen bounds
+      const isInScreenBounds =
+        screenPos.x >= 0 &&
+        screenPos.x <= engine.getRenderWidth() &&
+        screenPos.y >= 0 &&
+        screenPos.y <= engine.getRenderHeight();
+      
+      if (!isInScreenBounds) {
+        spatialUI.domElement.style.display = 'none';
+        return;
+      }
+      
+      // Update position
+      spatialUI.domElement.style.display = '';
+      spatialUI.domElement.style.left = screenPos.x + 'px';
+      spatialUI.domElement.style.top = screenPos.y + 'px';
+      spatialUI.domElement.style.transform = 'translate(-50%, -50%)'; // Center on anchor
+      
+      // Scale with distance
+      if (spatialUI.scaleWithDistance) {
+        const scale = Math.max(0.5, Math.min(2, 10 / distance));
+        spatialUI.domElement.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+      }
+      
+      // Fade with distance
+      if (spatialUI.fadeWithDistance) {
+        const fadeStart = spatialUI.maxDistance * 0.7;
+        const opacity = distance > fadeStart 
+          ? Math.max(0, 1 - (distance - fadeStart) / (spatialUI.maxDistance - fadeStart))
+          : 1;
+        spatialUI.domElement.style.opacity = opacity;
+      }
+      
+      // Z-index based on distance (closer = higher z-index)
+      const zIndex = Math.floor(10000 - distance * 100);
+      spatialUI.domElement.style.zIndex = zIndex;
+    });
   }
 
   // Custom Logic Manager for executing user scripts (synced with viewer.js)
@@ -59,11 +163,18 @@
       console.log('🧠 Loading custom logics:', customLogicData.objectLogics);
 
       for (const [objectId, logics] of Object.entries(customLogicData.objectLogics)) {
-        const babylonObject = this.scene.getNodeById(objectId);
-        
-        if (!babylonObject) {
-          console.warn('🧠 Object ' + objectId + ' not found in scene, skipping logic');
-          continue;
+        // Handle scene-level logic (objectId === '__scene__')
+        let babylonObject;
+        if (objectId === '__scene__') {
+          babylonObject = this.scene;
+          console.log('🧠 Attaching logic to scene itself');
+        } else {
+          babylonObject = this.scene.getNodeById(objectId);
+          
+          if (!babylonObject) {
+            console.warn('🧠 Object ' + objectId + ' not found in scene, skipping logic');
+            continue;
+          }
         }
 
         const objectLogics = [];
@@ -130,6 +241,79 @@
                 
                 console.warn('🧠 getByRef: Unrecognized nodeRef format:', nodeRef);
                 return null;
+              },
+              getUIElement: function(uiElementRef, maxWaitMs) {
+                // Handle uiElement parameter - can be object with id or string ID
+                // Returns a Promise that resolves when the element is found (waits for spatial UI to render)
+                if (maxWaitMs === undefined) maxWaitMs = 5000;
+                
+                return new Promise(function(resolve, reject) {
+                  if (!uiElementRef) {
+                    resolve(null);
+                    return;
+                  }
+                  
+                  if (!window.uiLoader) {
+                    console.warn('🧠 getUIElement: UI loader not available');
+                    resolve(null);
+                    return;
+                  }
+                  
+                  // Extract the UI element ID
+                  var elementId;
+                  if (typeof uiElementRef === 'object' && uiElementRef.id) {
+                    elementId = uiElementRef.id;
+                  } else if (typeof uiElementRef === 'string') {
+                    elementId = uiElementRef;
+                  } else {
+                    console.warn('🧠 getUIElement: Unrecognized uiElement format:', uiElementRef);
+                    resolve(null);
+                    return;
+                  }
+                  
+                  // Try to find element immediately
+                  var tryFindElement = function() {
+                    // First, try spatial (anchored) version
+                    var spatialElement = document.querySelector('[data-ui-element-id="' + elementId + '"][data-spatial-ui="true"]');
+                    if (spatialElement) {
+                      console.log('🧠 getUIElement: Found spatial UI for ' + elementId);
+                      return spatialElement;
+                    }
+                    
+                    // Otherwise, try screen UI version
+                    var element = window.uiLoader.getElement(elementId);
+                    if (element) {
+                      console.log('🧠 getUIElement: Found screen UI for ' + elementId);
+                      return element;
+                    }
+                    
+                    return null;
+                  };
+                  
+                  // Try immediately
+                  var element = tryFindElement();
+                  if (element) {
+                    resolve(element);
+                    return;
+                  }
+                  
+                  // If not found, poll for it (spatial UI might not be rendered yet)
+                  console.log('🧠 getUIElement: Element ' + elementId + ' not found immediately, polling...');
+                  var startTime = Date.now();
+                  var pollInterval = setInterval(function() {
+                    var foundElement = tryFindElement();
+                    
+                    if (foundElement) {
+                      clearInterval(pollInterval);
+                      console.log('🧠 getUIElement: Found ' + elementId + ' after ' + (Date.now() - startTime) + 'ms');
+                      resolve(foundElement);
+                    } else if (Date.now() - startTime > maxWaitMs) {
+                      clearInterval(pollInterval);
+                      console.warn('🧠 getUIElement: Element ' + elementId + ' not found after ' + maxWaitMs + 'ms');
+                      resolve(null);
+                    }
+                  }, 100); // Check every 100ms
+                });
               }
             };
 
@@ -256,6 +440,642 @@
       
       this.activeLogics.clear();
       console.log('🧠 Custom logic manager disposed');
+    }
+  }
+
+  // UI Loader for rendering UI elements (synced with viewer.js)
+  class UILoader {
+    constructor(scene, engine, sceneGraph) {
+      this.scene = scene;
+      this.engine = engine;
+      this.sceneGraph = sceneGraph; // For spatial UI detection
+      this.elements = [];
+      this.elementMap = new Map();
+      this.container = null;
+      this.globalAnimations = [];
+      console.log('🎨 UILoader initialized');
+    }
+
+    async loadUI() {
+      try {
+        // Try to load animations.json from local path
+        try {
+          const animResponse = await fetch('./UI/animations.json', { cache: 'no-store' });
+          if (animResponse.ok) {
+            const animData = await animResponse.json();
+            this.globalAnimations = animData.animations || [];
+            console.log('✅ Loaded ' + this.globalAnimations.length + ' global animations');
+            this.injectAnimationStyles();
+          }
+        } catch (error) {
+          console.log('ℹ️ No animations.json found');
+        }
+        
+        // Try to load ui.json from local path
+        const response = await fetch('./UI/ui.json', {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache' }
+        });
+        
+        if (!response.ok) {
+          console.log('ℹ️ No UI configuration found');
+          return false;
+        }
+        
+        const uiConfig = await response.json();
+        
+        // Filter out anchored UI elements - they're rendered in 3D space, not as screen overlay
+        const anchoredUIIds = new Set();
+        
+        // Get anchored UI IDs from scene graph
+        if (this.sceneGraph && this.sceneGraph.nodes) {
+          this.sceneGraph.nodes.forEach(function(node) {
+            if (node.kind === 'spatialui' && node.spatialUI && node.spatialUI.linkedUIElementId) {
+              anchoredUIIds.add(node.spatialUI.linkedUIElementId);
+            }
+          });
+        }
+        
+        // Filter out anchored elements
+        this.elements = (uiConfig.elements || []).filter(function(el) {
+          return !el.anchoredTo && !anchoredUIIds.has(el.id);
+        });
+        
+        console.log('✅ Loaded ' + this.elements.length + ' UI elements (anchored elements excluded)');
+        return true;
+      } catch (error) {
+        console.log('ℹ️ No UI to load:', error.message);
+        return false;
+      }
+    }
+
+    initializeUI(canvasElement) {
+      if (!canvasElement || this.elements.length === 0) return;
+      
+      // Create UI overlay container
+      this.container = document.createElement('div');
+      this.container.id = 'ui-overlay';
+      this.container.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 1000;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        width: 100%;
+        height: 100%;
+        align-items: start;
+        justify-items: start;
+      `;
+      
+      // Insert after canvas
+      canvasElement.parentElement.appendChild(this.container);
+      
+      // Build hierarchy and maintain array order
+      var byParent = new Map();
+      this.elements.forEach(function(el) {
+        var parentKey = el.parentId || null;
+        if (!byParent.has(parentKey)) {
+          byParent.set(parentKey, []);
+        }
+        byParent.get(parentKey).push(el);
+      });
+      
+      // Sort each group: overlays last (render on top)
+      byParent.forEach(function(elements) {
+        elements.sort(function(a, b) {
+          var aIsOverlay = a.isOverlay ?? false;
+          var bIsOverlay = b.isOverlay ?? false;
+          
+          if (aIsOverlay && !bIsOverlay) return 1;
+          if (!aIsOverlay && bIsOverlay) return -1;
+          return 0;
+        });
+      });
+      
+      // Render root elements
+      var rootElements = byParent.get(null) || [];
+      var self = this;
+      rootElements.forEach(function(element) {
+        if (element.visible !== false) {
+          var domElement = self.renderElement(element, byParent);
+          if (domElement) {
+            self.container.appendChild(domElement);
+            self.elementMap.set(element.id, domElement);
+          }
+        }
+      });
+      
+      console.log('✅ UI initialized with ' + this.elementMap.size + ' elements');
+    }
+
+    renderElement(element, byParent) {
+      // Skip rendering overlay elements
+      if (element.isOverlay) return null;
+      
+      var allChildren = byParent.get(element.id) || [];
+      var children = allChildren.filter(function(child) { return !child.isOverlay; });
+      var hasChildren = children.length > 0;
+      var isRootElement = !element.parentId;
+      
+      var domElement;
+      switch (element.type) {
+        case 'button':
+          domElement = document.createElement('button');
+          domElement.textContent = element.content?.text || '';
+          break;
+        case 'text':
+          domElement = document.createElement('div');
+          domElement.textContent = element.content?.text || 'Text';
+          break;
+        case 'box':
+          domElement = document.createElement('div');
+          break;
+        case 'image':
+          domElement = document.createElement('img');
+          if (element.content?.imageUrl) {
+            // In exported version, images are in assets/ folder
+            domElement.src = './assets/' + element.content.imageUrl.split('/').pop();
+            console.log('🖼️ Loading image:', domElement.src);
+          }
+          domElement.alt = element.name || 'Image';
+          domElement.style.width = '100%';
+          domElement.style.height = '100%';
+          domElement.style.objectFit = 'contain';
+          break;
+        case 'input':
+          domElement = document.createElement('input');
+          domElement.type = 'text';
+          domElement.placeholder = element.content?.placeholder || '';
+          break;
+        default:
+          domElement = document.createElement('div');
+      }
+      
+      domElement.id = element.id;
+      domElement.dataset.uiName = element.name;
+      domElement.dataset.uiType = element.type;
+      
+      this.applyStyles(domElement, element.style, hasChildren, isRootElement);
+      
+      // Apply animations
+      if (element.assignedAnimations && element.assignedAnimations.length > 0) {
+        var animationDurations = element.animationDurations || {};
+        var animationNames = [];
+        var animationDurationsList = [];
+        var self = this;
+        
+        element.assignedAnimations.forEach(function(animId) {
+          var animation = self.globalAnimations.find(function(anim) { return anim.id === animId; });
+          if (animation) {
+            animationNames.push(animation.internalName);
+            animationDurationsList.push((animationDurations[animId] || '1') + 's');
+          }
+        });
+        
+        if (animationNames.length > 0) {
+          domElement.style.animation = animationNames.map(function(name, i) {
+            return name + ' ' + animationDurationsList[i] + ' infinite';
+          }).join(', ');
+        }
+      }
+      
+      // Apply hover and active state styles
+      if (element.hoverStyle || element.activeStyle) {
+        this.applyPseudoStates(domElement, element);
+      }
+      
+      // Apply effects
+      if (element.effects && element.effects.length > 0) {
+        this.applyEffects(domElement, element.effects);
+        this.applyPseudoEffects(domElement, element);
+      }
+      
+      // Handle visibility
+      if (element.visible === false) {
+        domElement.style.display = 'none';
+      }
+      
+      if (element.enabled !== false) {
+        domElement.style.pointerEvents = 'auto';
+      }
+      
+      // Custom logic support
+      var self = this;
+      if (element.customLogic) {
+        try {
+          var handler = new Function('element', 'scene', 'engine', element.customLogic);
+          domElement.addEventListener('click', function(e) {
+            e.stopPropagation();
+            handler(domElement, self.scene, self.engine);
+          });
+        } catch (error) {
+          console.error('Failed to attach custom logic to ' + element.id, error);
+        }
+      }
+      
+      // Render overlay
+      var overlay = allChildren.find(function(child) { return child.isOverlay; });
+      if (overlay && overlay.visible !== false) {
+        var overlayEl = document.createElement('div');
+        overlayEl.classList.add('ui-overlay');
+        this.applyStyles(overlayEl, overlay.style || {}, false, false);
+        if (overlay.effects && overlay.effects.length > 0) {
+          this.applyEffects(overlayEl, overlay.effects);
+          this.applyPseudoEffects(overlayEl, overlay);
+        }
+        overlayEl.style.position = 'absolute';
+        overlayEl.style.pointerEvents = 'none';
+        overlayEl.style.margin = '0';
+        overlayEl.style.padding = '0';
+        overlayEl.style.gap = '0';
+        overlayEl.style.boxSizing = 'border-box';
+        domElement.appendChild(overlayEl);
+      }
+      
+      // Render children
+      var self = this;
+      children.forEach(function(child) {
+        if (child.visible !== false) {
+          var childElement = self.renderElement(child, byParent);
+          if (childElement) {
+            domElement.appendChild(childElement);
+            self.elementMap.set(child.id, childElement);
+          }
+        }
+      });
+      
+      return domElement;
+    }
+
+    applyPseudoStates(domElement, element) {
+      var uniqueClass = 'ui-element-' + element.id;
+      domElement.classList.add(uniqueClass);
+      
+      if (element.hoverStyle || element.activeStyle) {
+        domElement.style.pointerEvents = 'auto';
+      }
+      
+      var cssRules = '';
+      
+      if (element.hoverStyle) {
+        var hoverStyles = Object.entries(element.hoverStyle)
+          .map(function([key, value]) {
+            var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+            return cssKey + ': ' + value + ' !important;';
+          })
+          .join(' ');
+        cssRules += '.' + uniqueClass + ':hover { ' + hoverStyles + ' }\n';
+      }
+      
+      if (element.activeStyle) {
+        var activeStyles = Object.entries(element.activeStyle)
+          .map(function([key, value]) {
+            var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+            return cssKey + ': ' + value + ' !important;';
+          })
+          .join(' ');
+        cssRules += '.' + uniqueClass + ':active { ' + activeStyles + ' }\n';
+      }
+      
+      if (cssRules) {
+        var styleTag = document.getElementById('ui-pseudo-states');
+        if (!styleTag) {
+          styleTag = document.createElement('style');
+          styleTag.id = 'ui-pseudo-states';
+          document.head.appendChild(styleTag);
+        }
+        styleTag.textContent += cssRules;
+      }
+    }
+
+    applyEffects(domElement, effects) {
+      var filters = [];
+      var shadows = [];
+      
+      effects.forEach(function(effect) {
+        if (effect.enabled === false) return;
+        
+        switch (effect.type) {
+          case 'dropShadow':
+            shadows.push((effect.shadowX || '0px') + ' ' + (effect.shadowY || '0px') + ' ' + (effect.shadowBlur || '0px') + ' ' + (effect.shadowSpread || '0px') + ' ' + (effect.shadowColor || 'rgba(0,0,0,0.25)'));
+            break;
+          case 'innerShadow':
+            shadows.push('inset ' + (effect.shadowX || '0px') + ' ' + (effect.shadowY || '0px') + ' ' + (effect.shadowBlur || '0px') + ' ' + (effect.shadowSpread || '0px') + ' ' + (effect.shadowColor || 'rgba(0,0,0,0.25)'));
+            break;
+          case 'blur':
+            filters.push('blur(' + (effect.blurAmount || '0px') + ')');
+            break;
+          case 'frostedBackground':
+            domElement.style.backdropFilter = 'blur(' + (effect.frostedBlur || '10px') + ')';
+            if (!domElement.style.backgroundColor) {
+              domElement.style.backgroundColor = 'rgba(255,255,255,' + (effect.frostedOpacity || 0.8) + ')';
+            }
+            break;
+        }
+      });
+      
+      if (shadows.length > 0) {
+        domElement.style.boxShadow = shadows.join(', ');
+      }
+      if (filters.length > 0) {
+        domElement.style.filter = filters.join(' ');
+      }
+    }
+
+    applyPseudoEffects(domElement, element) {
+      var uniqueClass = 'ui-element-' + element.id;
+      domElement.classList.add(uniqueClass);
+      
+      var cssRules = '';
+      
+      // Check if any effect has hover or active settings
+      var hasHoverSettings = element.effects.some(function(eff) { 
+        return eff.hoverSettings && Object.keys(eff.hoverSettings).length > 0; 
+      });
+      var hasActiveSettings = element.effects.some(function(eff) { 
+        return eff.activeSettings && Object.keys(eff.activeSettings).length > 0; 
+      });
+      
+      if (hasHoverSettings || hasActiveSettings) {
+        domElement.style.pointerEvents = 'auto';
+      }
+      
+      // Generate CSS for hover effects
+      if (hasHoverSettings) {
+        var filters = [];
+        var shadows = [];
+        var backdropBlur = null;
+        
+        element.effects.forEach(function(effect) {
+          if (effect.enabled === false) return;
+          
+          var getVal = function(prop) {
+            return effect.hoverSettings?.[prop] !== undefined ? effect.hoverSettings[prop] : effect[prop];
+          };
+          
+          switch (effect.type) {
+            case 'dropShadow':
+              shadows.push((getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
+              break;
+            case 'innerShadow':
+              shadows.push('inset ' + (getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
+              break;
+            case 'blur':
+              filters.push('blur(' + (getVal('blurAmount') || '0px') + ')');
+              break;
+            case 'frostedBackground':
+              backdropBlur = 'blur(' + (getVal('frostedBlur') || '10px') + ')';
+              break;
+          }
+        });
+        
+        var hoverStyles = '';
+        if (shadows.length > 0) hoverStyles += 'box-shadow: ' + shadows.join(', ') + ' !important;';
+        if (filters.length > 0) hoverStyles += 'filter: ' + filters.join(' ') + ' !important;';
+        if (backdropBlur) hoverStyles += 'backdrop-filter: ' + backdropBlur + ' !important;';
+        if (hoverStyles) {
+          cssRules += '.' + uniqueClass + ':hover { ' + hoverStyles + ' }\n';
+        }
+      }
+      
+      // Generate CSS for active effects
+      if (hasActiveSettings) {
+        var filters = [];
+        var shadows = [];
+        var backdropBlur = null;
+        
+        element.effects.forEach(function(effect) {
+          if (effect.enabled === false) return;
+          
+          var getVal = function(prop) {
+            return effect.activeSettings?.[prop] !== undefined ? effect.activeSettings[prop] : effect[prop];
+          };
+          
+          switch (effect.type) {
+            case 'dropShadow':
+              shadows.push((getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
+              break;
+            case 'innerShadow':
+              shadows.push('inset ' + (getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
+              break;
+            case 'blur':
+              filters.push('blur(' + (getVal('blurAmount') || '0px') + ')');
+              break;
+            case 'frostedBackground':
+              backdropBlur = 'blur(' + (getVal('frostedBlur') || '10px') + ')';
+              break;
+          }
+        });
+        
+        var activeStyles = '';
+        if (shadows.length > 0) activeStyles += 'box-shadow: ' + shadows.join(', ') + ' !important;';
+        if (filters.length > 0) activeStyles += 'filter: ' + filters.join(' ') + ' !important;';
+        if (backdropBlur) activeStyles += 'backdrop-filter: ' + backdropBlur + ' !important;';
+        if (activeStyles) {
+          cssRules += '.' + uniqueClass + ':active { ' + activeStyles + ' }\n';
+        }
+      }
+      
+      // Inject CSS rules
+      if (cssRules) {
+        var styleTag = document.getElementById('ui-pseudo-effects');
+        if (!styleTag) {
+          styleTag = document.createElement('style');
+          styleTag.id = 'ui-pseudo-effects';
+          document.head.appendChild(styleTag);
+        }
+        styleTag.textContent += cssRules;
+      }
+    }
+
+    applyStyles(domElement, style, hasChildren, isRootElement) {
+      var css = domElement.style;
+      
+      css.position = style.position || 'relative';
+      css.display = style.display || (hasChildren ? 'flex' : 'inline-block');
+      css.boxSizing = 'border-box';
+      
+      if (isRootElement) {
+        css.gridColumn = '1';
+        css.gridRow = '1';
+      }
+      
+      // Positioning
+      if (style.top) css.top = style.top;
+      if (style.left) css.left = style.left;
+      if (style.right) css.right = style.right;
+      if (style.bottom) css.bottom = style.bottom;
+      
+      // Flex & Grid
+      if (style.flexDirection) css.flexDirection = style.flexDirection;
+      if (style.justifyContent) css.justifyContent = style.justifyContent;
+      if (style.alignItems) css.alignItems = style.alignItems;
+      if (style.alignSelf) css.alignSelf = style.alignSelf;
+      if (style.justifySelf) css.justifySelf = style.justifySelf;
+      if (style.gap) css.gap = style.gap;
+      
+      // Size with aspect-ratio support
+      if (style.width) {
+        if (typeof style.width === 'string' && style.width.includes('aspect-ratio')) {
+          var ratio = style.width.replace('aspect-ratio', '').trim();
+          css.aspectRatio = ratio || '1 / 1';
+          css.width = 'auto';
+        } else {
+          css.width = style.width;
+        }
+      }
+      if (style.height) {
+        if (typeof style.height === 'string' && style.height.includes('aspect-ratio')) {
+          var ratio = style.height.replace('aspect-ratio', '').trim();
+          css.aspectRatio = ratio || '1 / 1';
+          css.height = 'auto';
+        } else {
+          css.height = style.height;
+        }
+      }
+      if (style.minWidth) css.minWidth = style.minWidth;
+      if (style.minHeight) css.minHeight = style.minHeight;
+      if (style.maxWidth) css.maxWidth = style.maxWidth;
+      if (style.maxHeight) css.maxHeight = style.maxHeight;
+      
+      // Spacing
+      if (style.margin) css.margin = style.margin;
+      if (style.marginTop) css.marginTop = style.marginTop;
+      if (style.marginRight) css.marginRight = style.marginRight;
+      if (style.marginBottom) css.marginBottom = style.marginBottom;
+      if (style.marginLeft) css.marginLeft = style.marginLeft;
+      if (style.paddingTop) css.paddingTop = style.paddingTop;
+      if (style.paddingRight) css.paddingRight = style.paddingRight;
+      if (style.paddingBottom) css.paddingBottom = style.paddingBottom;
+      if (style.paddingLeft) css.paddingLeft = style.paddingLeft;
+      
+      // Appearance
+      if (style.backgroundColor) css.backgroundColor = style.backgroundColor;
+      if (style.backgroundImage) {
+        if (style.backgroundImage.startsWith('url(')) {
+          var urlMatch = style.backgroundImage.match(/url\(['"]?(.+?)['"]?\)/);
+          if (urlMatch && urlMatch[1]) {
+            var imagePath = urlMatch[1];
+            // In exported version, convert to assets/ path
+            var imageUrl = imagePath.startsWith('http') ? imagePath : './assets/' + imagePath.split('/').pop();
+            css.backgroundImage = "url('" + imageUrl + "')";
+          } else {
+            css.backgroundImage = style.backgroundImage;
+          }
+          if (!style.backgroundColor) {
+            css.backgroundColor = 'transparent';
+          }
+        } else {
+          css.backgroundImage = style.backgroundImage;
+        }
+      }
+      if (style.backgroundSize) css.backgroundSize = style.backgroundSize;
+      if (style.backgroundPosition) css.backgroundPosition = style.backgroundPosition;
+      if (style.backgroundRepeat) css.backgroundRepeat = style.backgroundRepeat;
+      if (style.color) css.color = style.color;
+      if (style.borderColor) css.borderColor = style.borderColor;
+      if (style.borderWidth) {
+        css.borderWidth = style.borderWidth;
+        css.borderStyle = 'solid';
+      }
+      if (style.borderRadius) css.borderRadius = style.borderRadius;
+      if (style.borderTopLeftRadius) css.borderTopLeftRadius = style.borderTopLeftRadius;
+      if (style.borderTopRightRadius) css.borderTopRightRadius = style.borderTopRightRadius;
+      if (style.borderBottomLeftRadius) css.borderBottomLeftRadius = style.borderBottomLeftRadius;
+      if (style.borderBottomRightRadius) css.borderBottomRightRadius = style.borderBottomRightRadius;
+      if (style.opacity !== undefined) css.opacity = style.opacity;
+      
+      // Typography
+      if (style.fontFamily) css.fontFamily = style.fontFamily;
+      if (style.fontSize) css.fontSize = style.fontSize;
+      if (style.fontWeight) css.fontWeight = style.fontWeight;
+      if (style.fontStyle) css.fontStyle = style.fontStyle;
+      if (style.textAlign) css.textAlign = style.textAlign;
+      if (style.lineHeight) css.lineHeight = style.lineHeight;
+      if (style.letterSpacing) css.letterSpacing = style.letterSpacing;
+      if (style.whiteSpace) css.whiteSpace = style.whiteSpace;
+      if (style.wordBreak) css.wordBreak = style.wordBreak;
+      if (style.overflowWrap) css.overflowWrap = style.overflowWrap;
+      
+      // Other
+      if (style.transform) css.transform = style.transform;
+      if (style.cursor) css.cursor = style.cursor;
+      if (style.overflow) css.overflow = style.overflow;
+      if (style.zIndex !== undefined) css.zIndex = style.zIndex;
+      if (style.transition) css.transition = style.transition;
+      if (style.pointerEvents) css.pointerEvents = style.pointerEvents;
+      if (style.userSelect) css.userSelect = style.userSelect;
+    }
+    
+    injectAnimationStyles() {
+      var styleEl = document.getElementById('ui-animations-styles');
+      if (!styleEl) {
+        styleEl = document.createElement('style');
+        styleEl.id = 'ui-animations-styles';
+        document.head.appendChild(styleEl);
+      }
+      
+      var css = '';
+      this.globalAnimations.forEach(function(animation) {
+        if (!animation.keyframes || animation.keyframes.length === 0) return;
+        
+        css += '@keyframes ' + animation.internalName + ' {\n';
+        
+        animation.keyframes.forEach(function(keyframe) {
+          css += '  ' + keyframe.percentage + '% {\n';
+          
+          Object.entries(keyframe.properties).forEach(function([property, value]) {
+            if (property === 'opacity') {
+              css += '    opacity: ' + (value / 100) + ';\n';
+            } else if (property === 'scale') {
+              css += '    transform: scale(' + (value.x || 1) + ', ' + (value.y || 1) + ');\n';
+            } else if (property === 'translate') {
+              var unit = value.unit || 'px';
+              css += '    transform: translate(' + (value.x || 0) + unit + ', ' + (value.y || 0) + unit + ');\n';
+            } else if (property === 'rotation') {
+              css += '    transform: rotate(' + value + 'deg);\n';
+            } else if (property === 'background-color' || property === 'text-color' || property === 'border-color') {
+              var cssProperty = property === 'text-color' ? 'color' : property;
+              css += '    ' + cssProperty + ': ' + value + ';\n';
+            } else if (property === 'width' || property === 'height') {
+              if (typeof value === 'object') {
+                css += '    ' + property + ': ' + value.value + (value.unit || 'px') + ';\n';
+              } else {
+                css += '    ' + property + ': ' + value + ';\n';
+              }
+            } else if (['border-radius', 'border-width', 'padding', 'margin', 'font-size', 'letter-spacing', 'line-height'].indexOf(property) >= 0) {
+              if (typeof value === 'object') {
+                css += '    ' + property + ': ' + value.value + (value.unit || 'px') + ';\n';
+              } else {
+                css += '    ' + property + ': ' + value + ';\n';
+              }
+            }
+          });
+          
+          css += '  }\n';
+        });
+        
+        css += '}\n\n';
+      });
+      
+      styleEl.textContent = css;
+      console.log('✅ Injected CSS animations');
+    }
+
+    getElement(id) {
+      return this.elementMap.get(id);
+    }
+
+    dispose() {
+      if (this.container && this.container.parentElement) {
+        this.container.parentElement.removeChild(this.container);
+      }
+      this.elementMap.clear();
     }
   }
 
@@ -481,6 +1301,9 @@
         if (customLogicManager) {
           customLogicManager.update(engine.getDeltaTime() / 1000); // Convert to seconds
         }
+        
+        // Update spatial UI positions
+        updateSpatialUI(scene, engine);
       }
     });
 
@@ -567,6 +1390,23 @@
       }
     } catch (error) {
       console.log('🧠 No custom logic data available (this is normal if no custom logic was added):', error.message);
+    }
+
+    // Initialize UI loader and load UI (MUST load BEFORE custom logic so scripts can reference UI elements)
+    showLoading('Loading UI...');
+    let uiLoader = null;
+    if (scene && engine) {
+      uiLoader = new UILoader(scene, engine, EXPORTED_SCENE_GRAPH);
+      const uiLoaded = await uiLoader.loadUI();
+      if (uiLoaded) {
+        const canvas = document.getElementById('renderCanvas');
+        uiLoader.initializeUI(canvas);
+        console.log('🎨 UI system initialized');
+      } else {
+        console.log('ℹ️ No UI to load');
+      }
+      // Make uiLoader globally available for custom logic
+      window.uiLoader = uiLoader;
     }
 
     // Initialize custom logic manager and load logics
@@ -906,7 +1746,7 @@
           }
           
           // Set common camera properties (use exact values from editor)
-          camera.minZ = typeof cameraProps.minZ === 'number' ? cameraProps.minZ : 0.1;
+          camera.minZ = typeof cameraProps.minZ === 'number' ? cameraProps.minZ : 0.01;
           camera.maxZ = typeof cameraProps.maxZ === 'number' ? cameraProps.maxZ : 100;
           camera.fov = cameraProps.fov || Math.PI / 4;
           
@@ -1184,6 +2024,40 @@
           });
           
           console.log('✅ Created audio node: ' + node.id + ' (' + (audioProps.audioFile || 'no file') + ')');
+          break;
+        
+        case 'spatialui':
+          console.log('🎨 Creating spatial UI node: ' + node.name);
+          const spatialUIProps = node.spatialUI || {};
+          
+          // Create a transform node to represent the spatial UI position
+          const spatialUITransform = new BABYLON.TransformNode(node.id, scene);
+          spatialUITransform.position = position;
+          spatialUITransform.rotation = rotation;
+          spatialUITransform.scaling = scaling;
+          
+          // Apply visibility and enabled states
+          const spatialUIVisible = node.visible !== false;
+          const spatialUIEnabled = node.enabled !== false;
+          spatialUITransform.setEnabled(spatialUIEnabled && spatialUIVisible);
+          
+          // Store spatial UI data for rendering
+          spatialUINodes.push({
+            id: node.id,
+            name: node.name,
+            transform: spatialUITransform,
+            uiElementId: spatialUIProps.uiElementId,
+            billboardMode: spatialUIProps.billboardMode || 'all',
+            maxDistance: spatialUIProps.maxDistance !== undefined ? spatialUIProps.maxDistance : 10,
+            minDistance: spatialUIProps.minDistance !== undefined ? spatialUIProps.minDistance : 0,
+            occlusionTest: spatialUIProps.occlusionTest !== false,
+            scaleWithDistance: spatialUIProps.scaleWithDistance || false,
+            fadeWithDistance: spatialUIProps.fadeWithDistance || false,
+            enabled: spatialUIEnabled && spatialUIVisible,
+            domElement: null // Will be linked when UI loads
+          });
+          
+          console.log('✅ Created spatial UI node: ' + node.id + ' (UI element: ' + spatialUIProps.uiElementId + ')');
           break;
       }
     } catch (error) {
@@ -1585,6 +2459,13 @@
             // CRITICAL: This applies IBL to scene lighting and material reflections
             scene.environmentTexture = environmentTexture;
             
+            // Apply IBL rotation
+            if (typeof env.iblRotation === 'number') {
+              const rotationRadians = env.iblRotation * Math.PI / 180;
+              environmentTexture.setReflectionTextureMatrix(BABYLON.Matrix.RotationY(rotationRadians));
+              console.log('🔄 Applied IBL rotation:', env.iblRotation, 'degrees');
+            }
+            
             // Set intensity immediately
             scene.environmentIntensity = env.iblIntensity || 1;
             
@@ -1651,6 +2532,56 @@
       if ('ditheringIntensity' in ipc) {
         ipc.ditheringIntensity = ip.ditheringIntensity || 0.5;
       }
+      
+      // Highlight Layer
+      if (typeof ip.highlightEnabled === 'boolean') {
+        if (ip.highlightEnabled) {
+          if (!scene.highlightLayer) {
+            scene.highlightLayer = new BABYLON.HighlightLayer('highlightLayer', scene);
+          }
+          const hl = scene.highlightLayer;
+          if (typeof ip.highlightBlurHorizontalSize === 'number') {
+            hl.blurHorizontalSize = ip.highlightBlurHorizontalSize;
+          }
+          if (typeof ip.highlightBlurVerticalSize === 'number') {
+            hl.blurVerticalSize = ip.highlightBlurVerticalSize;
+          }
+          hl.innerGlow = false;
+          hl.outerGlow = true;
+          console.log('✅ Highlight layer enabled');
+        } else if (scene.highlightLayer) {
+          scene.highlightLayer.dispose();
+          scene.highlightLayer = null;
+          console.log('🔄 Highlight layer disabled');
+        }
+      }
+
+      // Glow Layer
+      if (typeof ip.glowEnabled === 'boolean') {
+        if (ip.glowEnabled) {
+          if (!scene.glowLayer) {
+            scene.glowLayer = new BABYLON.GlowLayer('glowLayer', scene);
+          }
+          const gl = scene.glowLayer;
+          if (typeof ip.glowIntensity === 'number') {
+            gl.intensity = ip.glowIntensity;
+          }
+          if (typeof ip.glowBlurKernelSize === 'number') {
+            gl.blurKernelSize = ip.glowBlurKernelSize;
+          }
+          if (Array.isArray(ip.glowColor) && ip.glowColor.length === 4) {
+            const [gr, gg, gb, ga] = ip.glowColor;
+            gl.customEmissiveColorSelector = (mesh, subMesh, material, result) => {
+              result.set(gr, gg, gb, ga);
+            };
+          }
+          console.log('✅ Glow layer enabled with intensity:', ip.glowIntensity);
+        } else if (scene.glowLayer) {
+          scene.glowLayer.dispose();
+          scene.glowLayer = null;
+          console.log('🔄 Glow layer disabled');
+        }
+      }
     }
 
     // SKYBOX - VISUAL BACKDROP ONLY (NO LIGHTING/REFLECTION EFFECTS)
@@ -1691,6 +2622,14 @@
           console.log('🌄 Applying panoramic skybox:', panoPath);
           const tex = new BABYLON.Texture(panoPath, scene, false, true, BABYLON.Texture.TRILINEAR_SAMPLINGMODE);
           tex.coordinatesMode = BABYLON.Texture.FIXED_EQUIRECTANGULAR_MODE;
+          
+          // Apply skybox rotation
+          if (typeof env.skyboxRotation === 'number') {
+            const rotationRadians = env.skyboxRotation * Math.PI / 180;
+            tex.setReflectionTextureMatrix(BABYLON.Matrix.RotationY(rotationRadians));
+            console.log('🔄 Applied skybox rotation:', env.skyboxRotation, 'degrees');
+          }
+          
           skyboxMaterial.reflectionTexture = tex;
           skybox.isVisible = true;
         } else if (sbType === 'cube' && env.skyboxTextures) {
@@ -1701,6 +2640,14 @@
             console.log('🧊 Applying cube skybox with faces:', urls);
             const cube = BABYLON.CubeTexture.CreateFromImages(urls, scene);
             cube.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+            
+            // Apply skybox rotation
+            if (typeof env.skyboxRotation === 'number') {
+              const rotationRadians = env.skyboxRotation * Math.PI / 180;
+              cube.setReflectionTextureMatrix(BABYLON.Matrix.RotationY(rotationRadians));
+              console.log('🔄 Applied skybox rotation:', env.skyboxRotation, 'degrees');
+            }
+            
             skyboxMaterial.reflectionTexture = cube;
             skybox.isVisible = true;
           } else {
