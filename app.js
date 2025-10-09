@@ -2630,7 +2630,7 @@
         }
       }
 
-      // Glow Layer
+      // Glow Layer - Only glows meshes with emissive materials
       if (typeof ip.glowEnabled === 'boolean') {
         if (ip.glowEnabled) {
           if (!scene.glowLayer) {
@@ -2643,12 +2643,7 @@
           if (typeof ip.glowBlurKernelSize === 'number') {
             gl.blurKernelSize = ip.glowBlurKernelSize;
           }
-          if (Array.isArray(ip.glowColor) && ip.glowColor.length === 4) {
-            const [gr, gg, gb, ga] = ip.glowColor;
-            gl.customEmissiveColorSelector = (mesh, subMesh, material, result) => {
-              result.set(gr, gg, gb, ga);
-            };
-          }
+          // Don't override emissive colors - let materials control their own emissive
           console.log('✅ Glow layer enabled with intensity:', ip.glowIntensity);
         } else if (scene.glowLayer) {
           scene.glowLayer.dispose();
