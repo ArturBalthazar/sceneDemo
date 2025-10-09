@@ -1784,7 +1784,14 @@
               const targetNode = EXPORTED_SCENE_GRAPH.nodes.find(function(n) { return n.id === cameraProps.targetObject; });
               if (targetNode && targetNode.transform.position) {
                 const targetPos = new BABYLON.Vector3(targetNode.transform.position[0], targetNode.transform.position[1], targetNode.transform.position[2]);
-                camera = new BABYLON.ArcRotateCamera(node.id, alpha, beta, radius, targetPos, scene);
+                // Apply target offset
+                const offset = cameraProps.targetOffset || [0, 0, 0];
+                const offsetTargetPos = new BABYLON.Vector3(
+                  targetPos.x + offset[0],
+                  targetPos.y + offset[1],
+                  targetPos.z + offset[2]
+                );
+                camera = new BABYLON.ArcRotateCamera(node.id, alpha, beta, radius, offsetTargetPos, scene);
                 
                 // Store reference for potential dynamic updates (critical for tracking)
                 camera._targetObjectId = cameraProps.targetObject;
@@ -3816,7 +3823,8 @@
               this.trackedCameras.set(node.id, {
                 camera: babylonCamera,
                 targetObjectId: node.camera.targetObject,
-                targetObject: targetObject
+                targetObject: targetObject,
+                targetOffset: node.camera.targetOffset || [0, 0, 0]
               });
               
               foundCount++;
@@ -3832,13 +3840,21 @@
         for (const [cameraId, trackingData] of this.trackedCameras) {
           const camera = trackingData.camera;
           const targetObject = trackingData.targetObject;
+          const targetOffset = trackingData.targetOffset;
           
           if (camera instanceof BABYLON.ArcRotateCamera && targetObject) {
             // CRITICAL FIX: Use world position to account for parent hierarchy movement
             // When child objects move with their parents (e.g., via input controls), 
             // their local position stays the same but world position changes
             const worldPosition = targetObject.getAbsolutePosition();
-            camera.target.copyFrom(worldPosition);
+            
+            // Apply target offset
+            const offset = targetOffset || [0, 0, 0];
+            camera.target.set(
+              worldPosition.x + offset[0],
+              worldPosition.y + offset[1],
+              worldPosition.z + offset[2]
+            );
           }
         }
       },
