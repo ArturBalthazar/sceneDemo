@@ -1164,6 +1164,11 @@
       cameraTrackingManager.initialize();
       console.log('📹 Camera tracking system initialized');
       
+      // Initialize camera shake for natural camera motion effects
+      const cameraShakeManager = createCameraShakeManager(scene, sceneGraph);
+      cameraShakeManager.initialize();
+      console.log('📹 Camera shake system initialized');
+      
           // Initialize camera collision for preventing wall clipping
       cameraCollisionManager = createCameraCollisionManager(scene, sceneGraph);
       cameraCollisionManager.initialize();
@@ -3790,6 +3795,162 @@
       }
     }
     return false;
+  }
+
+  // Camera Shake System for natural camera motion effects
+  function createCameraShakeManager(scene, sceneGraph) {
+    const manager = {
+      scene: scene,
+      sceneGraph: sceneGraph,
+      cameraShakeTimers: new Map(), // cameraId -> { time, baseTarget, baseAlpha, baseBeta }
+      
+      initialize: function() {
+        this.scanForShakeCameras();
+        this.setupUpdateLoop();
+      },
+      
+      scanForShakeCameras: function() {
+        if (!this.sceneGraph || !this.sceneGraph.nodes) return;
+
+        let foundCount = 0;
+
+        for (const node of this.sceneGraph.nodes) {
+          if (node.kind === 'camera' && node.camera && node.camera.shake && node.camera.shake.preset !== 'none') {
+            const babylonCamera = this.scene.getCameraById(node.id);
+            
+            if (babylonCamera) {
+              this.cameraShakeTimers.set(node.id, {
+                time: 0,
+                baseTarget: babylonCamera instanceof BABYLON.ArcRotateCamera 
+                  ? babylonCamera.target.clone() 
+                  : babylonCamera.position.clone(),
+                baseAlpha: babylonCamera instanceof BABYLON.ArcRotateCamera ? babylonCamera.alpha : 0,
+                baseBeta: babylonCamera instanceof BABYLON.ArcRotateCamera ? babylonCamera.beta : 0
+              });
+              
+              foundCount++;
+              console.log('📹 Camera shake enabled: ' + node.name + ' (' + node.camera.shake.preset + ')');
+            }
+          }
+        }
+
+        console.log('📹 Found ' + foundCount + ' cameras with shake');
+      },
+      
+      updateCameraShakes: function() {
+        const deltaTime = this.scene.getEngine().getDeltaTime();
+
+        for (const [cameraId, shakeState] of this.cameraShakeTimers) {
+          const node = this.sceneGraph.nodes.find(function(n) { return n.id === cameraId; });
+          if (!node || !node.camera || !node.camera.shake) continue;
+
+          const shake = node.camera.shake;
+          if (shake.preset === 'none') continue;
+
+          const camera = this.scene.getCameraById(cameraId);
+          if (!camera) continue;
+
+          // Update shake time based on frequency
+          const frequency = shake.frequency || 1;
+          shakeState.time += deltaTime * 0.001 * frequency;
+
+          // Apply shake based on preset
+          if (shake.preset === 'natural') {
+            const strength = shake.strength || 1;
+            // Scale down parameters by 100x so users can input 0.1, 0.2 instead of 0.001, 0.002
+            const posAmp = (shake.positionAmplitude || 0.2) * strength * 0.01;
+            const rotAmp = (shake.rotationAmplitude || 0.002) * strength * 0.01;
+
+            // Natural idle shake offset (additive)
+            const shakeOffsetX = Math.sin(shakeState.time * 0.6) * posAmp;
+            const shakeOffsetY = Math.sin(shakeState.time * 0.9) * posAmp;
+            const shakeAlpha = Math.sin(shakeState.time * 0.5) * rotAmp;
+            const shakeBeta = Math.cos(shakeState.time * 0.4) * rotAmp;
+
+            // Store shake offsets for visual-only application
+            // These are applied during rendering but don't modify the actual camera properties
+            camera._visualShakeOffset = {
+              x: shakeOffsetX,
+              y: shakeOffsetY,
+              alpha: shakeAlpha,
+              beta: shakeBeta
+            };
+          }
+        }
+      },
+      
+      setupUpdateLoop: function() {
+        if (this.scene && this.cameraShakeTimers.size > 0) {
+          const self = this;
+          
+          // Apply shake before each frame renders
+          this.scene.onBeforeRenderObservable.add(function() {
+            self.updateCameraShakes();
+            
+            // Apply visual shake offsets to cameras (saved to restore later)
+            for (const [cameraId, shakeState] of self.cameraShakeTimers) {
+              const camera = self.scene.getCameraById(cameraId);
+              if (!camera || !camera._visualShakeOffset) continue;
+              
+              const offset = camera._visualShakeOffset;
+              
+              // Save original values
+              if (!camera._originalBeforeShake) {
+                camera._originalBeforeShake = {};
+              }
+              
+              if (camera instanceof BABYLON.ArcRotateCamera) {
+                camera._originalBeforeShake.alpha = camera.alpha;
+                camera._originalBeforeShake.beta = camera.beta;
+                camera._originalBeforeShake.target = camera.target.clone();
+                
+                // Apply shake for this frame
+                camera.target = camera.target.add(new BABYLON.Vector3(offset.x, offset.y, 0));
+                camera.alpha += offset.alpha;
+                camera.beta += offset.beta;
+              } else {
+                camera._originalBeforeShake.position = camera.position.clone();
+                camera.position = camera.position.add(new BABYLON.Vector3(offset.x, offset.y, 0));
+              }
+            }
+          });
+          
+          // Restore original values after render to prevent them from being saved/broadcast
+          this.scene.onAfterRenderObservable.add(function() {
+            for (const [cameraId] of self.cameraShakeTimers) {
+              const camera = self.scene.getCameraById(cameraId);
+              if (!camera || !camera._originalBeforeShake) continue;
+              
+              if (camera instanceof BABYLON.ArcRotateCamera) {
+                if (camera._originalBeforeShake.target) {
+                  camera.target = camera._originalBeforeShake.target;
+                }
+                if (camera._originalBeforeShake.alpha !== undefined) {
+                  camera.alpha = camera._originalBeforeShake.alpha;
+                }
+                if (camera._originalBeforeShake.beta !== undefined) {
+                  camera.beta = camera._originalBeforeShake.beta;
+                }
+              } else {
+                if (camera._originalBeforeShake.position) {
+                  camera.position = camera._originalBeforeShake.position;
+                }
+              }
+            }
+          });
+          
+          console.log('📹 Camera shake update loop started');
+        }
+      },
+      
+      dispose: function() {
+        this.cameraShakeTimers.clear();
+        console.log('📹 CameraShakeManager disposed');
+      }
+    };
+    
+    console.log('📹 CameraShakeManager initialized');
+    return manager;
   }
 
   // Camera Tracking System (exact copy from viewer.js)
