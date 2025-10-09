@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 230,
+  "sceneVersion": 243,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -321,7 +321,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-aggregated-1-gy213h",
+      "id": "root::byd-seagull::mesh::byd-aggregated-1-se61el",
       "kind": "mesh",
       "name": "byd_aggregated_1",
       "parentId": "root::byd-seagull",
@@ -351,7 +351,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-aggregated-2-runu5o",
+      "id": "root::byd-seagull::mesh::byd-aggregated-2-ruhfxe",
       "kind": "mesh",
       "name": "byd_aggregated_2",
       "parentId": "root::byd-seagull",
@@ -381,7 +381,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-atlas-dark-p6r98r",
+      "id": "root::byd-seagull::mesh::byd-atlas-dark-7xl7hw",
       "kind": "mesh",
       "name": "byd_atlas_dark",
       "parentId": "root::byd-seagull",
@@ -411,7 +411,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-atlas-metallic-o2k8nh",
+      "id": "root::byd-seagull::mesh::byd-atlas-metallic-l0e1iq",
       "kind": "mesh",
       "name": "byd_atlas_metallic",
       "parentId": "root::byd-seagull",
@@ -441,7 +441,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-black-piano-6iwh06",
+      "id": "root::byd-seagull::mesh::byd-black-piano-i3ixl8",
       "kind": "mesh",
       "name": "byd_black_piano",
       "parentId": "root::byd-seagull",
@@ -471,7 +471,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-body-7sk48n",
+      "id": "root::byd-seagull::mesh::byd-body-uksif2",
       "kind": "mesh",
       "name": "byd_body",
       "parentId": "root::byd-seagull",
@@ -501,7 +501,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-buttons-0pi7ay",
+      "id": "root::byd-seagull::mesh::byd-buttons-eap0la",
       "kind": "mesh",
       "name": "byd_buttons",
       "parentId": "root::byd-seagull",
@@ -531,7 +531,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-carpet-4ghqtz",
+      "id": "root::byd-seagull::mesh::byd-carpet-5pqm91",
       "kind": "mesh",
       "name": "byd_carpet",
       "parentId": "root::byd-seagull",
@@ -561,7 +561,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-ceiling-sv7qm9",
+      "id": "root::byd-seagull::mesh::byd-ceiling-gvdg9e",
       "kind": "mesh",
       "name": "byd_ceiling",
       "parentId": "root::byd-seagull",
@@ -591,7 +591,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-color-atlas-02-treyx4",
+      "id": "root::byd-seagull::mesh::byd-color-atlas-02-vfh6ev",
       "kind": "mesh",
       "name": "byd_color_atlas_02",
       "parentId": "root::byd-seagull",
@@ -621,7 +621,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-emissiveglow-2kl8r1",
+      "id": "root::byd-seagull::mesh::byd-emissiveglow-17obyu",
       "kind": "mesh",
       "name": "byd_emissiveGlow",
       "parentId": "root::byd-seagull",
@@ -651,7 +651,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-glass-jq6kyd",
+      "id": "root::byd-seagull::mesh::byd-glass-25v7zm",
       "kind": "mesh",
       "name": "byd_glass",
       "parentId": "root::byd-seagull",
@@ -681,7 +681,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-01-9tnbpi",
+      "id": "root::byd-seagull::mesh::byd-leather-01-plrs49",
       "kind": "mesh",
       "name": "byd_leather_01",
       "parentId": "root::byd-seagull",
@@ -711,7 +711,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-02-8143zs",
+      "id": "root::byd-seagull::mesh::byd-leather-02-xd1agc",
       "kind": "mesh",
       "name": "byd_leather_02",
       "parentId": "root::byd-seagull",
@@ -741,7 +741,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-03-6dtczp",
+      "id": "root::byd-seagull::mesh::byd-leather-03-hgi2j2",
       "kind": "mesh",
       "name": "byd_leather_03",
       "parentId": "root::byd-seagull",
@@ -771,7 +771,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-04-j5azar",
+      "id": "root::byd-seagull::mesh::byd-leather-04-57sa8d",
       "kind": "mesh",
       "name": "byd_leather_04",
       "parentId": "root::byd-seagull",
@@ -801,7 +801,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-05-yerk7a",
+      "id": "root::byd-seagull::mesh::byd-leather-05-8befbh",
       "kind": "mesh",
       "name": "byd_leather_05",
       "parentId": "root::byd-seagull",
@@ -831,7 +831,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-06-95ju5u",
+      "id": "root::byd-seagull::mesh::byd-leather-06-3g0qot",
       "kind": "mesh",
       "name": "byd_leather_06",
       "parentId": "root::byd-seagull",
@@ -861,7 +861,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-02-fp579a",
+      "id": "root::byd-seagull::mesh::byd-leather-black-02-g53agm",
       "kind": "mesh",
       "name": "byd_leather_black_02",
       "parentId": "root::byd-seagull",
@@ -891,7 +891,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-03-zaeb53",
+      "id": "root::byd-seagull::mesh::byd-leather-black-03-2rcwj2",
       "kind": "mesh",
       "name": "byd_leather_black_03",
       "parentId": "root::byd-seagull",
@@ -921,7 +921,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-04-q7xpm5",
+      "id": "root::byd-seagull::mesh::byd-leather-black-04-r1jms9",
       "kind": "mesh",
       "name": "byd_leather_black_04",
       "parentId": "root::byd-seagull",
@@ -951,7 +951,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-06-0i7s2u",
+      "id": "root::byd-seagull::mesh::byd-leather-black-06-26yqzx",
       "kind": "mesh",
       "name": "byd_leather_black_06",
       "parentId": "root::byd-seagull",
@@ -981,7 +981,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-wuof7t",
+      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-l420gr",
       "kind": "mesh",
       "name": "byd_leather_dark_blue",
       "parentId": "root::byd-seagull",
@@ -1011,7 +1011,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-wheel-l46dj8",
+      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-wheel-33e26g",
       "kind": "mesh",
       "name": "byd_leather_dark_blue_wheel",
       "parentId": "root::byd-seagull",
@@ -1041,7 +1041,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-light-blue-05-r6l7xz",
+      "id": "root::byd-seagull::mesh::byd-leather-light-blue-05-8hr4sf",
       "kind": "mesh",
       "name": "byd_leather_light_blue_05",
       "parentId": "root::byd-seagull",
@@ -1071,7 +1071,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-light-blue-06-ot2asp",
+      "id": "root::byd-seagull::mesh::byd-leather-light-blue-06-t7n9lm",
       "kind": "mesh",
       "name": "byd_leather_light_blue_06",
       "parentId": "root::byd-seagull",
@@ -1101,7 +1101,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-perforated-blue-wtyfm9",
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-blue-v2qcio",
       "kind": "mesh",
       "name": "byd_leather_perforated_blue",
       "parentId": "root::byd-seagull",
@@ -1131,7 +1131,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-perforated-dark-blue-sxbcfp",
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-dark-blue-4gu8wx",
       "kind": "mesh",
       "name": "byd_leather_perforated_dark_blue",
       "parentId": "root::byd-seagull",
@@ -1161,7 +1161,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-perforated-red-8t138d",
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-red-2mmao6",
       "kind": "mesh",
       "name": "byd_leather_perforated_red",
       "parentId": "root::byd-seagull",
@@ -1191,7 +1191,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-pink-03-ha8fn8",
+      "id": "root::byd-seagull::mesh::byd-leather-pink-03-25qaf7",
       "kind": "mesh",
       "name": "byd_leather_pink_03",
       "parentId": "root::byd-seagull",
@@ -1221,7 +1221,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-pink-05-891yif",
+      "id": "root::byd-seagull::mesh::byd-leather-pink-05-pzcsrj",
       "kind": "mesh",
       "name": "byd_leather_pink_05",
       "parentId": "root::byd-seagull",
@@ -1251,7 +1251,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-pink-06-ffjkhm",
+      "id": "root::byd-seagull::mesh::byd-leather-pink-06-mfchcq",
       "kind": "mesh",
       "name": "byd_leather_pink_06",
       "parentId": "root::byd-seagull",
@@ -1281,7 +1281,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-lights-i36uty",
+      "id": "root::byd-seagull::mesh::byd-lights-cwzrsh",
       "kind": "mesh",
       "name": "byd_lights",
       "parentId": "root::byd-seagull",
@@ -1311,7 +1311,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metal-paint-tx1ueg",
+      "id": "root::byd-seagull::mesh::byd-metal-paint-7uoilc",
       "kind": "mesh",
       "name": "byd_metal_paint",
       "parentId": "root::byd-seagull",
@@ -1341,7 +1341,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-black-t6epxm",
+      "id": "root::byd-seagull::mesh::byd-metallic-black-qovaw6",
       "kind": "mesh",
       "name": "byd_metallic_black",
       "parentId": "root::byd-seagull",
@@ -1371,7 +1371,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-blue-7z4rqj",
+      "id": "root::byd-seagull::mesh::byd-metallic-blue-dkl7kg",
       "kind": "mesh",
       "name": "byd_metallic_blue",
       "parentId": "root::byd-seagull",
@@ -1401,7 +1401,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-pink-syhvw4",
+      "id": "root::byd-seagull::mesh::byd-metallic-pink-b2cbl0",
       "kind": "mesh",
       "name": "byd_metallic_pink",
       "parentId": "root::byd-seagull",
@@ -1431,7 +1431,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-plastic-01-72zx3c",
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-01-uet7wr",
       "kind": "mesh",
       "name": "byd_metallic_plastic_01",
       "parentId": "root::byd-seagull",
@@ -1461,7 +1461,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-plastic-02-t223ow",
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-02-vskzk6",
       "kind": "mesh",
       "name": "byd_metallic_plastic_02",
       "parentId": "root::byd-seagull",
@@ -1491,7 +1491,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-plastic-03-6jru78",
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-03-vkgwdo",
       "kind": "mesh",
       "name": "byd_metallic_plastic_03",
       "parentId": "root::byd-seagull",
@@ -1521,7 +1521,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-orange-dh3ame",
+      "id": "root::byd-seagull::mesh::byd-orange-q5d661",
       "kind": "mesh",
       "name": "byd_orange",
       "parentId": "root::byd-seagull",
@@ -1551,7 +1551,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-pink-fx16f2",
+      "id": "root::byd-seagull::mesh::byd-pink-3truft",
       "kind": "mesh",
       "name": "byd_pink",
       "parentId": "root::byd-seagull",
@@ -1581,7 +1581,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-detail-3j5aaq",
+      "id": "root::byd-seagull::mesh::byd-plastic-detail-bir6g6",
       "kind": "mesh",
       "name": "byd_plastic_detail",
       "parentId": "root::byd-seagull",
@@ -1611,7 +1611,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-pattern-gx81xk",
+      "id": "root::byd-seagull::mesh::byd-plastic-pattern-e8qoxb",
       "kind": "mesh",
       "name": "byd_plastic_pattern",
       "parentId": "root::byd-seagull",
@@ -1641,7 +1641,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive0-4uxm5p",
+      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive0-5izsag",
       "kind": "mesh",
       "name": "byd_plastic_skin_primitive0",
       "parentId": "root::byd-seagull",
@@ -1671,7 +1671,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive1-b0je8x",
+      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive1-3dn5h9",
       "kind": "mesh",
       "name": "byd_plastic_skin_primitive1",
       "parentId": "root::byd-seagull",
@@ -1701,7 +1701,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-shadow-x4911w",
+      "id": "root::byd-seagull::mesh::byd-shadow-9yxdjr",
       "kind": "mesh",
       "name": "byd_shadow",
       "parentId": "root::byd-seagull",
@@ -1731,7 +1731,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-steering-wheel-9j2i95",
+      "id": "root::byd-seagull::mesh::byd-steering-wheel-21b5me",
       "kind": "mesh",
       "name": "byd_steering_wheel",
       "parentId": "root::byd-seagull",
@@ -1761,7 +1761,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-shuezf",
+      "id": "root::byd-seagull::mesh::byd-stitches-ibkfgt",
       "kind": "mesh",
       "name": "byd_stitches",
       "parentId": "root::byd-seagull",
@@ -1791,7 +1791,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-orange-dz6wb8",
+      "id": "root::byd-seagull::mesh::byd-stitches-orange-oemqch",
       "kind": "mesh",
       "name": "byd_stitches_orange",
       "parentId": "root::byd-seagull",
@@ -1821,7 +1821,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-pink-agen6k",
+      "id": "root::byd-seagull::mesh::byd-stitches-pink-c5intt",
       "kind": "mesh",
       "name": "byd_stitches_pink",
       "parentId": "root::byd-seagull",
@@ -1851,7 +1851,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-yellow-0bqhzl",
+      "id": "root::byd-seagull::mesh::byd-stitches-yellow-6ts3f8",
       "kind": "mesh",
       "name": "byd_stitches_yellow",
       "parentId": "root::byd-seagull",
@@ -1881,7 +1881,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-yellow-xpb221",
+      "id": "root::byd-seagull::mesh::byd-yellow-v55p6b",
       "kind": "mesh",
       "name": "byd_yellow",
       "parentId": "root::byd-seagull",
