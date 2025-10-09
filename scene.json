@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 391,
+  "sceneVersion": 392,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -1891,7 +1891,7 @@
       "name": "UI Anchor",
       "transform": {
         "position": [
-          2.367370128631592,
+          -1.9017550945281982,
           1.200741171836853,
           0
         ],
