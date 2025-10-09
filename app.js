@@ -498,9 +498,22 @@
         case 'image':
           domElement = document.createElement('img');
           if (element.content?.imageUrl) {
-            // In exported version, images are in assets/ folder
-            domElement.src = './assets/' + element.content.imageUrl.split('/').pop();
-            console.log('🖼️ Loading image:', domElement.src);
+            // In exported version, images are in assets/ folder with their relative path preserved
+            var imageUrl = element.content.imageUrl;
+            if (!imageUrl.startsWith('http')) {
+              // Extract relative path from storage path (e.g., userId/projects/projectId/assets/image.png -> image.png)
+              var pathParts = imageUrl.split('/');
+              var assetsIndex = pathParts.lastIndexOf('assets');
+              if (assetsIndex >= 0 && assetsIndex < pathParts.length - 1) {
+                // Get everything after 'assets/' to preserve subdirectories
+                imageUrl = './assets/' + pathParts.slice(assetsIndex + 1).join('/');
+              } else {
+                // Fallback: just use filename
+                imageUrl = './assets/' + pathParts[pathParts.length - 1];
+              }
+            }
+            domElement.src = imageUrl;
+            console.log('🖼️ Loading image:', imageUrl);
           }
           domElement.alt = element.name || 'Image';
           domElement.style.width = '100%';
@@ -861,8 +874,22 @@
           var urlMatch = style.backgroundImage.match(/url\(['"]?(.+?)['"]?\)/);
           if (urlMatch && urlMatch[1]) {
             var imagePath = urlMatch[1];
-            // In exported version, convert to assets/ path
-            var imageUrl = imagePath.startsWith('http') ? imagePath : './assets/' + imagePath.split('/').pop();
+            // In exported version, convert to assets/ path with relative path preserved
+            var imageUrl;
+            if (imagePath.startsWith('http')) {
+              imageUrl = imagePath;
+            } else {
+              // Extract relative path from storage path (e.g., userId/projects/projectId/assets/Textures/image.png -> Textures/image.png)
+              var pathParts = imagePath.split('/');
+              var assetsIndex = pathParts.lastIndexOf('assets');
+              if (assetsIndex >= 0 && assetsIndex < pathParts.length - 1) {
+                // Get everything after 'assets/' to preserve subdirectories
+                imageUrl = './assets/' + pathParts.slice(assetsIndex + 1).join('/');
+              } else {
+                // Fallback: just use filename
+                imageUrl = './assets/' + pathParts[pathParts.length - 1];
+              }
+            }
             css.backgroundImage = "url('" + imageUrl + "')";
           } else {
             css.backgroundImage = style.backgroundImage;
