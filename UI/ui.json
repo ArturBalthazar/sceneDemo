@@ -698,10 +698,253 @@
       },
       "visible": true,
       "enabled": true
+    },
+    {
+      "id": "image_002",
+      "name": "Image_02",
+      "type": "image",
+      "parentId": null,
+      "style": {
+        "display": "block",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
+        "width": "auto",
+        "height": "70px",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "marginLeft": "20px"
+      },
+      "content": {
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/BYD-Logo.png"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "image_003",
+      "name": "Image_02 Copy 1",
+      "type": "image",
+      "parentId": "button_009",
+      "style": {
+        "display": "block",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "auto",
+        "height": "25px",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px"
+      },
+      "content": {
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/chatIcon.png"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_009",
+      "name": "Button_02",
+      "type": "button",
+      "parentId": "box_007",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-end",
+        "width": "50px",
+        "height": "50px",
+        "backgroundColor": "rgba(247, 247, 248, 0.17)",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "borderTopLeftRadius": "50px",
+        "borderTopRightRadius": "50px",
+        "borderBottomLeftRadius": "50px",
+        "borderBottomRightRadius": "50px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.57)"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "box_007",
+      "name": "Box_04",
+      "type": "box",
+      "parentId": null,
+      "style": {
+        "display": "flex",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-end",
+        "width": "auto",
+        "height": "auto",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "marginBottom": "0px",
+        "marginLeft": "0px",
+        "paddingTop": "20px",
+        "paddingRight": "20px",
+        "paddingBottom": "20px",
+        "paddingLeft": "20px",
+        "gap": "15px",
+        "zIndex": 0,
+        "backgroundColor": "transparent",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "8px",
+        "justifyContent": "flex-end",
+        "alignItems": "flex-start",
+        "flexDirection": "row"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_010",
+      "name": "Button_02 Copy 1",
+      "type": "button",
+      "parentId": "box_007",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-end",
+        "width": "50px",
+        "height": "50px",
+        "backgroundColor": "rgba(247, 247, 248, 0.17)",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "borderTopLeftRadius": "50px",
+        "borderTopRightRadius": "50px",
+        "borderBottomLeftRadius": "50px",
+        "borderBottomRightRadius": "50px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.57)"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "image_004",
+      "name": "Image_02 Copy 1",
+      "type": "image",
+      "parentId": "button_010",
+      "style": {
+        "display": "block",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "auto",
+        "height": "25px",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px"
+      },
+      "content": {
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/audio_on.png"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_011",
+      "name": "Button_02 Copy 1 Copy 1",
+      "type": "button",
+      "parentId": "box_007",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-end",
+        "width": "50px",
+        "height": "50px",
+        "backgroundColor": "rgba(247, 247, 248, 0.17)",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "marginTop": "0px",
+        "marginRight": "0px",
+        "borderTopLeftRadius": "50px",
+        "borderTopRightRadius": "50px",
+        "borderBottomLeftRadius": "50px",
+        "borderBottomRightRadius": "50px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.57)"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "image_005",
+      "name": "Image_02 Copy 1",
+      "type": "image",
+      "parentId": "button_011",
+      "style": {
+        "display": "block",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "auto",
+        "height": "25px",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "marginLeft": "0px",
+        "marginRight": "0px",
+        "marginTop": "0px",
+        "marginBottom": "0px"
+      },
+      "content": {
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/menu_White.png"
+      },
+      "visible": true,
+      "enabled": true
     }
   ],
   "metadata": {
     "createdAt": "2025-10-09T22:13:32.771Z",
-    "lastModified": "2025-10-09T22:43:55.580Z"
+    "lastModified": "2025-10-09T23:34:55.712Z"
   }
 }
