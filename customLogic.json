@@ -1,27 +1,99 @@
 {
   "objectLogics": {
-    "camera1": [
+    "__scene__": [
       {
-        "id": "fc3aaa07-c6fd-4df8-8bbe-17ad95679071",
-        "scriptName": "Script_001",
+        "id": "73da6b5e-3610-48a1-9785-37415119d235",
+        "scriptName": "Script_003.js",
         "enabled": true,
         "parameters": {
-          "disableControls": true,
-          "reattachOnDetach": true
+          "colorYellowBtn": {
+            "id": "button_001",
+            "name": "Button",
+            "type": "button"
+          },
+          "colorWhiteBtn": {
+            "id": "button_002",
+            "name": "Button Copy 1",
+            "type": "button"
+          },
+          "colorBlackBtn": {
+            "id": "button_003",
+            "name": "Button Copy 2",
+            "type": "button"
+          },
+          "colorPinkBtn": {
+            "id": "button_004",
+            "name": "Button Copy 1 Copy 1",
+            "type": "button"
+          },
+          "trimLightBlueBtn": {
+            "id": "button_005",
+            "name": "Button",
+            "type": "button"
+          },
+          "trimPinkBtn": {
+            "id": "button_006",
+            "name": "Button Copy 1",
+            "type": "button"
+          },
+          "trimDarkBlueBtn": {
+            "id": "button_007",
+            "name": "Button Copy 2",
+            "type": "button"
+          },
+          "viewSwapBtn": {
+            "id": "button_008",
+            "name": "Button Copy 1 Copy 1",
+            "type": "button"
+          },
+          "exteriorCameraRef": {
+            "id": "ca01883a-4d36-4d1b-8e3d-1d1e085214c8",
+            "name": "Camera_02",
+            "type": "camera"
+          },
+          "interiorCameraRef": {
+            "id": "camera1",
+            "name": "Camera",
+            "type": "camera"
+          },
+          "carRef": {
+            "id": "root::byd-seagull",
+            "name": "byd_seagull",
+            "type": "mesh"
+          },
+          "rotationStrength": 0.01
         },
-        "scriptPath": "scripts/Script_001.js"
+        "scriptPath": "scripts/Script_003.js.js"
       }
     ],
-    "root::byd-seagull": [
+    "defaultCube": [
       {
-        "id": "3f2b9b79-7587-4839-ac3d-f44df5b6aeec",
-        "scriptName": "Script_002",
+        "id": "f1b72e96-2e4c-48eb-827a-8729ff75eec9",
+        "scriptName": "Script_001.js",
         "enabled": true,
         "parameters": {
-          "strength": 1,
-          "strenght": 1
+          "myUIElement": {
+            "id": "button_009",
+            "name": "Button_02",
+            "type": "button"
+          }
         },
-        "scriptPath": "scripts/Script_002.js"
+        "scriptPath": "scripts/Script_001.js.js"
+      }
+    ],
+    "ground": [
+      {
+        "id": "d46454bd-cf31-4166-aab8-1b0ade922bab",
+        "scriptName": "Script_001.js",
+        "enabled": true,
+        "parameters": {
+          "myUIElement": {
+            "id": "button_010",
+            "name": "Button_03",
+            "type": "button"
+          }
+        },
+        "scriptPath": "scripts/Script_001.js.js"
       }
     ]
   }
