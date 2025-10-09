@@ -29,8 +29,8 @@
   let activeController = null; // Track active controller for spatial audio
   
   // Spatial UI system variables
-  let spatialUINodes = []; // Store spatial UI objects
   let spatialUIContainer = null; // DOM container for spatial UI elements
+  let updateSpatialUI = null; // Function to update spatial UI (defined after scene loads)
   
   // Custom Logic system variables
   let customLogicManager = null;
@@ -44,106 +44,6 @@
   function getChildTokenFromId(id) {
     const i = id.lastIndexOf(MESH_TAG);
     return i >= 0 ? id.slice(i + MESH_TAG.length) : null;
-  }
-
-  // Spatial UI update function
-  function updateSpatialUI(scene, engine) {
-    if (!scene || !spatialUINodes || spatialUINodes.length === 0) return;
-    if (!window.uiLoader) return; // UI not loaded yet
-    
-    const camera = scene.activeCamera;
-    if (!camera) return;
-    
-    const viewMatrix = camera.getViewMatrix();
-    const cameraPos = camera.position;
-    
-    spatialUINodes.forEach(spatialUI => {
-      if (!spatialUI.enabled || !spatialUI.transform.isEnabled()) {
-        // Hide if disabled
-        if (spatialUI.domElement) {
-          spatialUI.domElement.style.display = 'none';
-        }
-        return;
-      }
-      
-      // Get or find DOM element
-      if (!spatialUI.domElement && spatialUI.uiElementId) {
-        spatialUI.domElement = window.uiLoader.getElement(spatialUI.uiElementId);
-        if (spatialUI.domElement) {
-          // Mark as spatial UI for special handling
-          spatialUI.domElement.dataset.spatialUI = 'true';
-          spatialUI.domElement.dataset.uiElementId = spatialUI.uiElementId;
-          spatialUI.domElement.style.position = 'absolute';
-          spatialUI.domElement.style.pointerEvents = 'auto';
-          console.log('🎨 Linked spatial UI DOM element:', spatialUI.uiElementId);
-        }
-      }
-      
-      if (!spatialUI.domElement) return;
-      
-      const anchorPos = spatialUI.transform.getAbsolutePosition();
-      const distance = BABYLON.Vector3.Distance(anchorPos, cameraPos);
-      
-      // Distance culling
-      if (distance > spatialUI.maxDistance || distance < spatialUI.minDistance) {
-        spatialUI.domElement.style.display = 'none';
-        return;
-      }
-      
-      // Occlusion test (check if behind camera)
-      if (spatialUI.occlusionTest) {
-        const viewSpacePos = BABYLON.Vector3.TransformCoordinates(anchorPos, viewMatrix);
-        if (viewSpacePos.z < 0) {
-          spatialUI.domElement.style.display = 'none';
-          return;
-        }
-      }
-      
-      // Project to screen space
-      const screenPos = BABYLON.Vector3.Project(
-        anchorPos,
-        BABYLON.Matrix.Identity(),
-        scene.getTransformMatrix(),
-        camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
-      );
-      
-      // Check screen bounds
-      const isInScreenBounds =
-        screenPos.x >= 0 &&
-        screenPos.x <= engine.getRenderWidth() &&
-        screenPos.y >= 0 &&
-        screenPos.y <= engine.getRenderHeight();
-      
-      if (!isInScreenBounds) {
-        spatialUI.domElement.style.display = 'none';
-        return;
-      }
-      
-      // Update position
-      spatialUI.domElement.style.display = '';
-      spatialUI.domElement.style.left = screenPos.x + 'px';
-      spatialUI.domElement.style.top = screenPos.y + 'px';
-      spatialUI.domElement.style.transform = 'translate(-50%, -50%)'; // Center on anchor
-      
-      // Scale with distance
-      if (spatialUI.scaleWithDistance) {
-        const scale = Math.max(0.5, Math.min(2, 10 / distance));
-        spatialUI.domElement.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
-      }
-      
-      // Fade with distance
-      if (spatialUI.fadeWithDistance) {
-        const fadeStart = spatialUI.maxDistance * 0.7;
-        const opacity = distance > fadeStart 
-          ? Math.max(0, 1 - (distance - fadeStart) / (spatialUI.maxDistance - fadeStart))
-          : 1;
-        spatialUI.domElement.style.opacity = opacity;
-      }
-      
-      // Z-index based on distance (closer = higher z-index)
-      const zIndex = Math.floor(10000 - distance * 100);
-      spatialUI.domElement.style.zIndex = zIndex;
-    });
   }
 
   // Custom Logic Manager for executing user scripts (synced with viewer.js)
@@ -1303,7 +1203,9 @@
         }
         
         // Update spatial UI positions
-        updateSpatialUI(scene, engine);
+        if (updateSpatialUI) {
+          updateSpatialUI();
+        }
       }
     });
 
@@ -1409,7 +1311,172 @@
       window.uiLoader = uiLoader;
     }
 
-    // Initialize custom logic manager and load logics
+    // ============================================================================
+    // Spatial UI Rendering - Render anchored UI in 3D space (synced with viewer.js)
+    // ============================================================================
+    
+    if (scene && EXPORTED_SCENE_GRAPH) {
+      console.log('🎨 Initializing Spatial UI rendering');
+      
+      // Create container for spatial UI elements
+      spatialUIContainer = document.createElement('div');
+      spatialUIContainer.id = 'spatial-ui-container';
+      spatialUIContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1000;
+      `;
+      document.body.appendChild(spatialUIContainer);
+      
+      // Map to track spatial UI DOM elements
+      const spatialUIElements = new Map();
+      
+      // Replace the old updateSpatialUI with the proper one from viewer.js
+      updateSpatialUI = function() {
+        const camera = scene.activeCamera;
+        
+        if (!camera) return;
+        
+        // Find all spatial UI nodes from scene graph
+        const spatialUINodesFromGraph = EXPORTED_SCENE_GRAPH.nodes.filter(function(node) {
+          return node.kind === 'spatialui' && node.spatialUI;
+        });
+        
+        spatialUINodesFromGraph.forEach(function(node) {
+          const id = node.id;
+          const spatialUI = node.spatialUI;
+          const transform = node.transform;
+          
+          if (!spatialUI || !spatialUI.htmlContent) return;
+          
+          // Get or create container for this spatial UI
+          let container = spatialUIElements.get(id);
+          
+          if (!container) {
+            container = document.createElement('div');
+            container.id = 'spatial-ui-container-' + id;
+            container.style.position = 'absolute';
+            container.style.zIndex = '10000';
+            
+            spatialUIContainer.appendChild(container);
+            spatialUIElements.set(id, container);
+          }
+          
+          // Update HTML content only if changed
+          const htmlContent = spatialUI.htmlContent || '';
+          if (container.dataset.lastHtml !== htmlContent) {
+            // Parse the HTML and insert it
+            container.innerHTML = htmlContent;
+            container.dataset.lastHtml = htmlContent;
+            
+            // Get the root UI element (first child)
+            const rootElement = container.firstElementChild;
+            if (rootElement) {
+              // CRITICAL: Replace the root element's inline positioning with relative
+              const style = rootElement.getAttribute('style') || '';
+              const newStyle = style
+                .replace(/position:\s*[^;]+;?/gi, 'position: relative;')
+                .replace(/left:\s*[^;]+;?/gi, '')
+                .replace(/top:\s*[^;]+;?/gi, '')
+                .replace(/right:\s*[^;]+;?/gi, '')
+                .replace(/bottom:\s*[^;]+;?/gi, '')
+                .replace(/transform:\s*[^;]+;?/gi, '');
+              rootElement.setAttribute('style', newStyle);
+              
+              // Mark all interactive elements with data attributes
+              const interactiveElements = container.querySelectorAll('[id]');
+              interactiveElements.forEach(function(child) {
+                child.setAttribute('data-ui-element-id', child.id);
+                child.setAttribute('data-spatial-ui', 'true');
+                // Set pointer-events to auto if not explicitly set
+                const inlineStyle = child.getAttribute('style') || '';
+                if (!inlineStyle.includes('pointer-events')) {
+                  child.style.pointerEvents = 'auto';
+                }
+              });
+            }
+          }
+          
+          const element = container;
+          
+          // Get 3D position from scene object
+          const runtimeObject = scene.getNodeById(id);
+          if (!runtimeObject) return;
+          
+          const anchorPos = runtimeObject.getAbsolutePosition();
+          
+          // Distance check
+          const cameraPos = camera.position;
+          const distance = BABYLON.Vector3.Distance(anchorPos, cameraPos);
+          const maxDist = spatialUI.maxDistance !== undefined ? spatialUI.maxDistance : 100;
+          const minDist = spatialUI.minDistance !== undefined ? spatialUI.minDistance : 0;
+          
+          if (distance > maxDist || distance < minDist) {
+            element.style.display = 'none';
+            return;
+          }
+          
+          // Check occlusion (if behind camera)
+          if (spatialUI.occlusionTest === true) {
+            const viewMatrix = camera.getViewMatrix();
+            const viewSpacePos = BABYLON.Vector3.TransformCoordinates(anchorPos, viewMatrix);
+            
+            if (viewSpacePos.z < 0) {
+              element.style.display = 'none';
+              return;
+            }
+          }
+          
+          // Project 3D position to 2D screen coordinates
+          const screenPos = BABYLON.Vector3.Project(
+            anchorPos,
+            BABYLON.Matrix.Identity(),
+            scene.getTransformMatrix(),
+            camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())
+          );
+          
+          // Check if in screen bounds
+          const isInBounds =
+            screenPos.x >= 0 &&
+            screenPos.x <= engine.getRenderWidth() &&
+            screenPos.y >= 0 &&
+            screenPos.y <= engine.getRenderHeight();
+          
+          if (!isInBounds) {
+            element.style.display = 'none';
+            return;
+          }
+          
+          // Position element directly at anchor point
+          element.style.left = screenPos.x + 'px';
+          element.style.top = screenPos.y + 'px';
+          element.style.transform = 'translate(-50%, -50%)';
+          element.style.display = 'block';
+          element.style.visibility = 'visible';
+          element.style.opacity = '1';
+          
+          // Distance-based scaling
+          if (spatialUI.scaleWithDistance) {
+            const scale = Math.max(0.5, Math.min(2, 5 / distance));
+            element.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+          }
+          
+          // Distance-based fading
+          if (spatialUI.fadeWithDistance) {
+            const fadeFactor = Math.max(0, Math.min(1, (maxDist - distance) / maxDist));
+            element.style.opacity = fadeFactor.toString();
+          }
+        });
+      };
+      
+      console.log('✅ Spatial UI rendering initialized');
+    }
+
+    // Initialize custom logic manager and load logics (AFTER spatial UI so it can reference UI elements)
     if (customLogicData && scene) {
       customLogicManager = new CustomLogicManager(scene);
       await customLogicManager.loadCustomLogics(customLogicData);
