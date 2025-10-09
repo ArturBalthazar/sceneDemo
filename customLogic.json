@@ -63,7 +63,7 @@
           },
           "rotationStrength": 0.01
         },
-        "scriptPath": "scripts/Script_003.js.js"
+        "scriptPath": "scripts/Script_003.js"
       }
     ],
     "defaultCube": [
@@ -78,7 +78,7 @@
             "type": "button"
           }
         },
-        "scriptPath": "scripts/Script_001.js.js"
+        "scriptPath": "scripts/Script_001.js"
       }
     ],
     "ground": [
@@ -93,7 +93,7 @@
             "type": "button"
           }
         },
-        "scriptPath": "scripts/Script_001.js.js"
+        "scriptPath": "scripts/Script_001.js"
       }
     ]
   }
