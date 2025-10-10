@@ -1410,16 +1410,14 @@
             // Get the root UI element (first child)
             const rootElement = container.firstElementChild;
             if (rootElement) {
-              // CRITICAL: Replace the root element's inline positioning with relative
-              const style = rootElement.getAttribute('style') || '';
-              const newStyle = style
-                .replace(/position:\s*[^;]+;?/gi, 'position: relative;')
-                .replace(/left:\s*[^;]+;?/gi, '')
-                .replace(/top:\s*[^;]+;?/gi, '')
-                .replace(/right:\s*[^;]+;?/gi, '')
-                .replace(/bottom:\s*[^;]+;?/gi, '')
-                .replace(/transform:\s*[^;]+;?/gi, '');
-              rootElement.setAttribute('style', newStyle);
+              // CRITICAL: Override positioning properties to prevent double-positioning
+              // Use direct style property assignment to preserve other inline styles like opacity
+              rootElement.style.position = 'relative';
+              rootElement.style.left = '';
+              rootElement.style.top = '';
+              rootElement.style.right = '';
+              rootElement.style.bottom = '';
+              rootElement.style.transform = '';
               
               // Mark all interactive elements with data attributes
               const interactiveElements = container.querySelectorAll('[id]');
@@ -1448,22 +1446,7 @@
           const distance = BABYLON.Vector3.Distance(anchorPos, cameraPos);
           const maxDist = spatialUI.maxDistance !== undefined ? spatialUI.maxDistance : 100;
           const minDist = spatialUI.minDistance !== undefined ? spatialUI.minDistance : 0;
-          
-          if (distance > maxDist || distance < minDist) {
-            element.style.display = 'none';
-            return;
-          }
-          
-          // Check occlusion (if behind camera)
-          if (spatialUI.occlusionTest === true) {
-            const viewMatrix = camera.getViewMatrix();
-            const viewSpacePos = BABYLON.Vector3.TransformCoordinates(anchorPos, viewMatrix);
-            
-            if (viewSpacePos.z < 0) {
-              element.style.display = 'none';
-              return;
-            }
-          }
+          const isInRange = distance >= minDist && distance <= maxDist;
           
           // Project 3D position to 2D screen coordinates
           const screenPos = BABYLON.Vector3.Project(
@@ -1480,18 +1463,10 @@
             screenPos.y >= 0 &&
             screenPos.y <= engine.getRenderHeight();
           
-          if (!isInBounds) {
-            element.style.display = 'none';
-            return;
-          }
-          
           // Position element directly at anchor point
           element.style.left = screenPos.x + 'px';
           element.style.top = screenPos.y + 'px';
           element.style.transform = 'translate(-50%, -50%)';
-          element.style.display = 'block';
-          element.style.visibility = 'visible';
-          element.style.opacity = '1';
           
           // Distance-based scaling
           if (spatialUI.scaleWithDistance) {
@@ -1499,10 +1474,77 @@
             element.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
           }
           
-          // Distance-based fading
-          if (spatialUI.fadeWithDistance) {
-            const fadeFactor = Math.max(0, Math.min(1, (maxDist - distance) / maxDist));
-            element.style.opacity = fadeFactor.toString();
+          // Fade In/Out behavior: smoothly fade when entering/leaving range
+          const rootUIElement = element.firstElementChild;
+          const fadeEnabled = spatialUI.fadeInOut === true;
+          
+          // Store fade state on element
+          if (!element._fadeState) {
+            element._fadeState = {
+              isVisible: false,
+              originalOpacity: 1,
+              hideTimeout: null
+            };
+          }
+          const fadeState = element._fadeState;
+          
+          // Parse transition duration from root UI element's inline style
+          var transitionMs = 300; // Default 300ms
+          if (fadeEnabled && rootUIElement) {
+            const inlineTransition = rootUIElement.style.transition;
+            if (inlineTransition) {
+              // Match patterns like "all 0.3s", "0.3s", "opacity 300ms", etc.
+              const match = inlineTransition.match(/(\d+\.?\d*)(s|ms)/);
+              if (match) {
+                const value = parseFloat(match[1]);
+                transitionMs = match[2] === 's' ? value * 1000 : value;
+              }
+            }
+          }
+          
+          // Store original opacity from root UI element (only once)
+          if (rootUIElement && fadeState.originalOpacity === 1) {
+            const opacityStyle = rootUIElement.style.opacity;
+            if (opacityStyle) {
+              fadeState.originalOpacity = parseFloat(opacityStyle) || 1;
+            }
+          }
+          
+          if (!isInBounds || !isInRange) {
+            // Out of range or bounds
+            if (fadeEnabled && rootUIElement) {
+              // Show element and fade out root UI element smoothly
+              element.style.display = 'block';
+              element.style.visibility = 'visible';
+              rootUIElement.style.opacity = '0';
+              
+              // Wait for transition, then hide container
+              if (fadeState.isVisible && !fadeState.hideTimeout) {
+                fadeState.hideTimeout = setTimeout(function() {
+                  element.style.display = 'none';
+                  fadeState.isVisible = false;
+                  fadeState.hideTimeout = null;
+                }, transitionMs + 50); // Add 50ms buffer
+              }
+            } else {
+              // Instant hide
+              element.style.display = 'none';
+            }
+          } else {
+            // In range and bounds
+            if (fadeState.hideTimeout) {
+              clearTimeout(fadeState.hideTimeout);
+              fadeState.hideTimeout = null;
+            }
+            
+            element.style.display = 'block';
+            element.style.visibility = 'visible';
+            
+            if (fadeEnabled && rootUIElement) {
+              // Fade in: restore original opacity on root UI element
+              rootUIElement.style.opacity = fadeState.originalOpacity.toString();
+              fadeState.isVisible = true;
+            }
           }
         });
       };
