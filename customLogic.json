@@ -2,58 +2,58 @@
   "objectLogics": {
     "__scene__": [
       {
-        "id": "488cf065-6e08-48d4-a1a7-598c3e8e9784",
-        "scriptName": "Script_001_copy.js",
+        "id": "82b4cfc3-4323-411e-a71b-47fa5a3aa5d8",
+        "scriptName": "Script_001.js",
         "enabled": true,
         "parameters": {
           "colorYellowBtn": {
             "id": "button_001",
-            "name": "Body-Yellow",
+            "name": "Body Yellow",
             "type": "button"
           },
           "colorWhiteBtn": {
             "id": "button_002",
-            "name": "Body-White",
+            "name": "Body White",
             "type": "button"
           },
           "colorBlackBtn": {
             "id": "button_004",
-            "name": "Body-Black",
+            "name": "Body Black",
             "type": "button"
           },
           "colorPinkBtn": {
             "id": "button_003",
-            "name": "Body-Pink",
+            "name": "Body Pink",
             "type": "button"
           },
           "trimLightBlueBtn": {
             "id": "button_005",
-            "name": "Trim-LightBlue",
+            "name": "Trim LightBlue",
             "type": "button"
           },
           "trimPinkBtn": {
             "id": "button_007",
-            "name": "Trim-Pink",
+            "name": "Trim Pink",
             "type": "button"
           },
           "trimDarkBlueBtn": {
             "id": "button_006",
-            "name": "Trim-DarkBlue",
+            "name": "Trim DarkBlue",
             "type": "button"
           },
           "viewSwapBtn": {
             "id": "button_008",
-            "name": "Button",
+            "name": "View Switch",
             "type": "button"
           },
           "exteriorCameraRef": {
             "id": "camera1",
-            "name": "Camera",
+            "name": "Exterior Cam",
             "type": "camera"
           },
           "interiorCameraRef": {
-            "id": "ebf30953-d4bb-4994-9c33-9b11da2924b8",
-            "name": "Camera_02",
+            "id": "c88533ff-e5be-4b7d-8105-27cc1f0fd1e0",
+            "name": "Interior Cam",
             "type": "camera"
           },
           "carRef": {
@@ -63,7 +63,7 @@
           },
           "rotationStrength": 0.01
         },
-        "scriptPath": "scripts/Script_001_copy.js"
+        "scriptPath": "scripts/Script_001.js"
       }
     ]
   }
