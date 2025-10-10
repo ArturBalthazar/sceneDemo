@@ -1,69 +1,53 @@
 {
   "objectLogics": {
-    "__scene__": [
+    "root::milling-machine": [
       {
-        "id": "b7704a6b-ecc0-48e9-8b48-410618158d15",
+        "id": "a5e854e5-a830-42f3-9e7e-cb770ce03387",
         "scriptName": "Script_001.js",
         "enabled": true,
         "parameters": {
-          "colorYellowBtn": {
-            "id": "button_002",
-            "name": "Body-Yellow",
-            "type": "button"
-          },
-          "colorWhiteBtn": {
-            "id": "button_003",
-            "name": "Body-White",
-            "type": "button"
-          },
-          "colorBlackBtn": {
-            "id": "button_005",
-            "name": "Body-Black",
-            "type": "button"
-          },
-          "colorPinkBtn": {
-            "id": "button_004",
-            "name": "Body-Pink",
-            "type": "button"
-          },
-          "trimLightBlueBtn": {
-            "id": "button_006",
-            "name": "Tim-LightBlue",
-            "type": "button"
-          },
-          "trimPinkBtn": {
-            "id": "button_008",
-            "name": "Tim-Pink",
-            "type": "button"
-          },
-          "trimDarkBlueBtn": {
-            "id": "button_007",
-            "name": "Tim-DarkBlue",
-            "type": "button"
-          },
-          "viewSwapBtn": {
+          "minRotation": 0,
+          "maxRotation": 20,
+          "rotationSpeed": 0.02,
+          "travelPerTurn": 0.2,
+          "forwardButton": {
             "id": "button_001",
-            "name": "Switch View",
+            "name": "Button",
             "type": "button"
           },
-          "exteriorCameraRef": {
-            "id": "camera1",
-            "name": "Exterior Cam",
-            "type": "camera"
-          },
-          "interiorCameraRef": {
-            "id": "ee7ca17b-f48b-4a80-9673-5915445d183d",
-            "name": "Interior Cam",
-            "type": "camera"
-          },
-          "carRef": {
-            "id": "root::byd-seagull",
-            "name": "byd_seagull",
-            "type": "mesh"
-          },
-          "rotationStrength": 0.01
+          "backwardButton": {
+            "id": "button_002",
+            "name": "Button Copy 1",
+            "type": "button"
+          }
         },
         "scriptPath": "scripts/Script_001.js"
+      },
+      {
+        "id": "5de18ce9-f7d3-4cf1-b727-cc9246e22c16",
+        "scriptName": "Script_001_copy.js",
+        "enabled": true,
+        "parameters": {
+          "crankNameContains": "Saddle_Traverse_Crank",
+          "drivenNameContains": "Saddle",
+          "minRotation": 0,
+          "maxRotation": 10,
+          "rotationSpeed": 0.02,
+          "travelPerTurn": 0.2,
+          "rotationAxis": "Y",
+          "translationAxis": "Y",
+          "forwardButton": {
+            "id": "button_003",
+            "name": "Button Copy 2",
+            "type": "button"
+          },
+          "backwardButton": {
+            "id": "button_004",
+            "name": "Button Copy 1 Copy 1",
+            "type": "button"
+          }
+        },
+        "scriptPath": "scripts/Script_001_copy.js"
       }
     ]
   }
