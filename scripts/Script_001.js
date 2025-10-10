@@ -158,11 +158,31 @@ class CustomLogic {
 
     // Pointer drag handling for car rotation (exterior only)
     this._installPointerDrag();
+    
+    // Asign AO maps
+    this._assignAOMaps();
 
     console.log("✅ Setup complete.");
   }
 
   // --------------------- Helper Methods ---------------------
+
+  _assignAOMaps() {
+    console.log("🔍 Assigning AO maps to the correct slots...");
+    this._scene.meshes.forEach(mesh => {
+      if (!(mesh instanceof BABYLON.Mesh)) return;
+      
+      const material = mesh.material;
+      if (material && material.ambientTexture) {
+        // Ensure the AO map is assigned to the ambient texture slot
+        material.ambientTexture.coordinatesIndex = 1;
+        console.log(`✅ AO map assigned for mesh: ${mesh.name}, material: ${material.name}`);
+      } else {
+        console.log(`⚠️ No ambient texture found for mesh: ${mesh.name}`);
+      }
+    });
+  }
+
 
   _bindUI() {
     // Helper to attach click handlers to GUI or DOM elements
@@ -220,31 +240,8 @@ class CustomLogic {
     addClick(this._ui.trimPinkBtn,      () => this._onTrimClicked("pink"));
     addClick(this._ui.trimDarkBlueBtn,  () => this._onTrimClicked("darkBlue"));
 
-    // Inside the attach() method, after initializing the scene and other settings
-    this._assignAOMaps();
-  
     // View swap
     addClick(this._ui.viewSwapBtn, () => this._toggleViewMode());
-  }
-  
-
-
-  // --------------------- Helper Methods ---------------------
-
-  _assignAOMaps() {
-    console.log("🔍 Assigning AO maps to the correct slots...");
-    this._scene.meshes.forEach(mesh => {
-      if (!(mesh instanceof BABYLON.Mesh)) return;
-      
-      const material = mesh.material;
-      if (material && material.ambientTexture) {
-        // Ensure the AO map is assigned to the ambient texture slot
-        material.ambientTexture.coordinatesIndex = 1;
-        console.log(`✅ AO map assigned for mesh: ${mesh.name}, material: ${material.name}`);
-      } else {
-        console.log(`⚠️ No ambient texture found for mesh: ${mesh.name}`);
-      }
-    });
   }
 
   _isButtonDisabled(btn) {
