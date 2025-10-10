@@ -2971,22 +2971,23 @@
   // Convert storage path to relative asset path (preserve folders after '/assets/' or after '/projects/<id>/')
   function toRelativeAssetPath(storagePath) {
     const pathStr = String(storagePath);
-    // 1) If contains '/assets/', keep everything after it
-    const assetsMarker = '/assets/';
-    const idx = pathStr.indexOf(assetsMarker);
-    if (idx >= 0) {
-      return pathStr.substring(idx + assetsMarker.length);
-    }
-    // 2) If looks like '<uid>/projects/<projectId>/...'
+    // 1) If looks like '<uid>/projects/<projectId>/...', keep everything after projectId
+    //    This preserves the full path: assets/subfolder/file.ext
     const parts = pathStr.split('/');
     const projIdx = parts.indexOf('projects');
     if (projIdx >= 0 && parts.length > projIdx + 2) {
       const after = parts.slice(projIdx + 2).join('/');
       if (after) return after;
     }
+    // 2) If contains '/assets/', keep everything INCLUDING 'assets/'
+    const assetsMarker = '/assets/';
+    const idx = pathStr.indexOf(assetsMarker);
+    if (idx >= 0) {
+      return pathStr.substring(idx + 1); // +1 to skip the leading '/'
+    }
     // 3) Fallback to filename
     const filename = parts[parts.length - 1];
-    if (filename) return filename;
+    if (filename) return 'assets/' + filename; // Add assets/ prefix for bare filenames
     // 4) Ultimate fallback: sanitize path without regex
     return pathStr.split('/').join('_').split('\\').join('_');
   }
