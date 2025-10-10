@@ -2,28 +2,6 @@
   "version": "1.0.0",
   "elements": [
     {
-      "id": "text_001",
-      "name": "Customize your BYD",
-      "type": "text",
-      "parentId": "box_001",
-      "style": {
-        "display": "inline-block",
-        "alignSelf": "flex-start",
-        "justifySelf": "flex-start",
-        "width": "auto",
-        "height": "auto",
-        "color": "#ffffff",
-        "fontSize": "28px",
-        "fontWeight": "700",
-        "fontFamily": "'Trebuchet MS', sans-serif"
-      },
-      "content": {
-        "text": "Customize your BYD"
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
       "id": "box_001",
       "name": "Box",
       "type": "box",
@@ -42,26 +20,25 @@
         "paddingRight": "18px",
         "paddingBottom": "18px",
         "paddingLeft": "18px",
-        "gap": "6px",
+        "gap": "06px",
         "zIndex": 0,
-        "backgroundColor": "rgba(15, 17, 36, 0.5)",
-        "borderColor": "rgba(234, 235, 235, 0.5)",
+        "backgroundColor": "rgba(22, 27, 49, 0.45)",
+        "borderColor": "rgba(191, 197, 202, 0.7)",
         "borderWidth": "1px",
-        "maxWidth": "400%",
-        "flexDirection": "column",
-        "justifyContent": "flex-start",
-        "alignItems": "flex-start",
         "borderTopLeftRadius": "16px",
         "borderTopRightRadius": "16px",
         "borderBottomLeftRadius": "16px",
         "borderBottomRightRadius": "16px",
-        "opacity": 1
+        "maxWidth": "400%",
+        "flexDirection": "column",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start"
       },
       "visible": true,
       "enabled": true,
       "effects": [
         {
-          "id": "effect_1760068871705",
+          "id": "effect_1760103402990",
           "type": "frostedBackground",
           "shadowX": "0px",
           "shadowY": "4px",
@@ -72,14 +49,37 @@
       ]
     },
     {
+      "id": "text_001",
+      "name": "Customize your BYD",
+      "type": "text",
+      "parentId": "box_001",
+      "style": {
+        "display": "inline-block",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
+        "width": "auto",
+        "height": "auto",
+        "color": "#ffffff",
+        "fontSize": "28px",
+        "fontWeight": "700",
+        "fontFamily": "'Trebuchet MS', sans-serif",
+        "whiteSpace": "normal"
+      },
+      "content": {
+        "text": "Customize your BYD"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
       "id": "box_002",
-      "name": "Separator_1",
+      "name": "Separator1",
       "type": "box",
       "parentId": "box_001",
       "style": {
         "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
         "width": "100%",
         "height": "1px",
         "marginTop": "0px",
@@ -92,17 +92,20 @@
         "paddingLeft": "0px",
         "gap": "0px",
         "zIndex": 0,
-        "backgroundColor": "rgba(202, 204, 206, 0.5)",
+        "backgroundColor": "rgba(242, 242, 243, 0.7)",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "8px"
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderBottomRightRadius": "0px"
       },
       "visible": true,
       "enabled": true
     },
     {
       "id": "text_002",
-      "name": "Body Color",
+      "name": "Body Color:",
       "type": "text",
       "parentId": "box_001",
       "style": {
@@ -113,26 +116,27 @@
         "height": "auto",
         "color": "#ffffff",
         "fontSize": "16px",
-        "fontWeight": "400",
-        "fontFamily": "'Courier New', monospace"
+        "fontWeight": "100",
+        "fontFamily": "'Courier New', monospace",
+        "whiteSpace": "nowrap"
       },
       "content": {
-        "text": "Body Color"
+        "text": "Body Color:"
       },
       "visible": true,
       "enabled": true
     },
     {
-      "id": "box_004",
-      "name": "Color Container",
+      "id": "box_003",
+      "name": "Body Color Container",
       "type": "box",
       "parentId": "box_001",
       "style": {
         "display": "flex",
-        "alignSelf": "center",
-        "justifySelf": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
         "width": "100%",
-        "height": "70px",
+        "height": "1px",
         "marginTop": "0px",
         "marginRight": "0px",
         "marginBottom": "0px",
@@ -146,7 +150,10 @@
         "backgroundColor": "transparent",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "8px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderBottomRightRadius": "0px",
         "minHeight": "70px",
         "maxHeight": "200%",
         "flexDirection": "row"
@@ -155,14 +162,14 @@
       "enabled": true
     },
     {
-      "id": "box_003",
-      "name": "Separator_2",
+      "id": "box_004",
+      "name": "Separator2",
       "type": "box",
       "parentId": "box_001",
       "style": {
         "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
         "width": "100%",
         "height": "1px",
         "marginTop": "6px",
@@ -175,17 +182,20 @@
         "paddingLeft": "0px",
         "gap": "0px",
         "zIndex": 0,
-        "backgroundColor": "rgba(197, 199, 201, 0.5)",
+        "backgroundColor": "rgba(242, 242, 243, 0.7)",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "8px"
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderBottomRightRadius": "0px"
       },
       "visible": true,
       "enabled": true
     },
     {
       "id": "text_003",
-      "name": "Interior Trim",
+      "name": "Interior Trim:",
       "type": "text",
       "parentId": "box_001",
       "style": {
@@ -196,24 +206,25 @@
         "height": "auto",
         "color": "#ffffff",
         "fontSize": "16px",
-        "fontWeight": "400",
-        "fontFamily": "'Courier New', monospace"
+        "fontWeight": "100",
+        "fontFamily": "'Courier New', monospace",
+        "whiteSpace": "nowrap"
       },
       "content": {
-        "text": "Interior Trim"
+        "text": "Interior Trim:"
       },
       "visible": true,
       "enabled": true
     },
     {
       "id": "box_005",
-      "name": "Trim Container",
+      "name": "Interior Trim Container",
       "type": "box",
       "parentId": "box_001",
       "style": {
         "display": "flex",
-        "alignSelf": "center",
-        "justifySelf": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
         "width": "100%",
         "height": "1px",
         "marginTop": "0px",
@@ -229,7 +240,10 @@
         "backgroundColor": "transparent",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "8px",
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderBottomRightRadius": "0px",
         "minHeight": "70px",
         "maxHeight": "200%",
         "flexDirection": "row"
@@ -239,13 +253,13 @@
     },
     {
       "id": "box_006",
-      "name": "Separator_3",
+      "name": "Separator3",
       "type": "box",
       "parentId": "box_001",
       "style": {
         "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
+        "alignSelf": "flex-start",
+        "justifySelf": "flex-start",
         "width": "100%",
         "height": "1px",
         "marginTop": "6px",
@@ -258,297 +272,20 @@
         "paddingLeft": "0px",
         "gap": "0px",
         "zIndex": 0,
-        "backgroundColor": "rgba(214, 214, 214, 0.5)",
+        "backgroundColor": "rgba(242, 242, 243, 0.7)",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "8px"
+        "borderTopLeftRadius": "0px",
+        "borderTopRightRadius": "0px",
+        "borderBottomLeftRadius": "0px",
+        "borderBottomRightRadius": "0px"
       },
       "visible": true,
       "enabled": true
     },
     {
       "id": "button_001",
-      "name": "Body Yellow",
-      "type": "button",
-      "parentId": "box_004",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "contain",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/body_yellow.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_002",
-      "name": "Body White",
-      "type": "button",
-      "parentId": "box_004",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "contain",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/body_white.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_003",
-      "name": "Body Pink",
-      "type": "button",
-      "parentId": "box_004",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "contain",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/body_pink.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_004",
-      "name": "Body Black",
-      "type": "button",
-      "parentId": "box_004",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "contain",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/body_black.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_005",
-      "name": "Trim LightBlue",
-      "type": "button",
-      "parentId": "box_005",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "cover",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/trim_lightBlue.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_006",
-      "name": "Trim DarkBlue",
-      "type": "button",
-      "parentId": "box_005",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "cover",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/trim_darkBlue.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_007",
-      "name": "Trim Pink",
-      "type": "button",
-      "parentId": "box_005",
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "backgroundColor": "transparent",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "backgroundSize": "cover",
-        "backgroundPosition": "center",
-        "backgroundRepeat": "no-repeat",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "borderTopLeftRadius": "8px",
-        "borderTopRightRadius": "8px",
-        "borderBottomLeftRadius": "8px",
-        "borderBottomRightRadius": "8px",
-        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/trim_pink.png')",
-        "transition": "all 0.3s ease"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.03) scaleY(1.03)"
-      }
-    },
-    {
-      "id": "button_008",
-      "name": "View Switch",
+      "name": "Switch View",
       "type": "button",
       "parentId": "box_001",
       "style": {
@@ -565,48 +302,310 @@
         "fontWeight": "500",
         "cursor": "pointer",
         "padding": "8px 16px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
         "borderTopLeftRadius": "8px",
         "borderTopRightRadius": "8px",
         "borderBottomLeftRadius": "8px",
         "borderBottomRightRadius": "8px",
         "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.75)",
-        "paddingTop": "0px",
-        "paddingRight": "0px",
-        "paddingBottom": "0px",
-        "paddingLeft": "0px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
         "gap": "8px",
-        "flexDirection": "row",
-        "transition": "all 0.3s ease"
+        "flexDirection": "row"
       },
       "content": {
         "text": ""
       },
       "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760069020737",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "4px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.51)",
-          "hoverSettings": {
-            "shadowBlur": "10px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.01) scaleY(1.04)"
-      }
+      "enabled": true
+    },
+    {
+      "id": "button_002",
+      "name": "Body-Yellow",
+      "type": "button",
+      "parentId": "box_003",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "contain",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/body_yellow.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_003",
+      "name": "Body-White",
+      "type": "button",
+      "parentId": "box_003",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "contain",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/body_white.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_004",
+      "name": "Body-Pink",
+      "type": "button",
+      "parentId": "box_003",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "contain",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/body_pink.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_005",
+      "name": "Body-Black",
+      "type": "button",
+      "parentId": "box_003",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "contain",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/body_black.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_006",
+      "name": "Tim-LightBlue",
+      "type": "button",
+      "parentId": "box_005",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "cover",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/trim_lightBlue.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_007",
+      "name": "Tim-DarkBlue",
+      "type": "button",
+      "parentId": "box_005",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "cover",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/trim_darkBlue.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_008",
+      "name": "Tim-Pink",
+      "type": "button",
+      "parentId": "box_005",
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "100%",
+        "height": "100%",
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "backgroundSize": "cover",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderTopLeftRadius": "8px",
+        "borderTopRightRadius": "8px",
+        "borderBottomLeftRadius": "8px",
+        "borderBottomRightRadius": "8px",
+        "backgroundImage": "url('867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/trim_pink.png')",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true
     },
     {
       "id": "image_001",
-      "name": "Image",
+      "name": "Interior_Img",
       "type": "image",
-      "parentId": "button_008",
+      "parentId": "button_001",
       "style": {
         "display": "block",
         "alignSelf": "center",
@@ -618,16 +617,16 @@
         "borderRadius": "4px"
       },
       "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/interior.png"
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/interior.png"
       },
       "visible": true,
       "enabled": true
     },
     {
       "id": "text_004",
-      "name": "Text",
+      "name": "View Interior",
       "type": "text",
-      "parentId": "button_008",
+      "parentId": "button_001",
       "style": {
         "display": "inline-block",
         "alignSelf": "center",
@@ -660,11 +659,10 @@
         "borderColor": "#6c757d",
         "borderWidth": "0px",
         "borderRadius": "4px",
-        "marginTop": "0px",
         "marginLeft": "20px"
       },
       "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/BYD-Logo.png"
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/BYD-Logo.png"
       },
       "visible": true,
       "enabled": true
@@ -680,29 +678,52 @@
         "justifySelf": "flex-end",
         "width": "auto",
         "height": "auto",
-        "marginTop": "0px",
-        "marginRight": "0px",
-        "marginBottom": "0px",
-        "marginLeft": "0px",
-        "paddingTop": "18px",
-        "paddingRight": "18px",
-        "paddingBottom": "18px",
-        "paddingLeft": "18px",
-        "gap": "16px",
+        "marginTop": "15px",
+        "marginRight": "15px",
+        "marginBottom": "15px",
+        "marginLeft": "15px",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "gap": "15px",
         "zIndex": 0,
         "backgroundColor": "transparent",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
         "borderRadius": "8px",
-        "justifyContent": "flex-end",
-        "alignItems": "flex-start",
         "flexDirection": "row"
       },
       "visible": true,
       "enabled": true
     },
     {
-      "id": "button_009",
+      "id": "image_003",
+      "name": "Menu_Img",
+      "type": "image",
+      "parentId": "button_009",
+      "style": {
+        "display": "block",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "80%",
+        "height": "80%",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "4px",
+        "paddingTop": "4px",
+        "paddingRight": "4px",
+        "paddingBottom": "4px",
+        "paddingLeft": "4px"
+      },
+      "content": {
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/menu_White.png"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
+      "id": "button_010",
       "name": "Audio",
       "type": "button",
       "parentId": "box_007",
@@ -710,8 +731,8 @@
         "display": "inline-flex",
         "justifyContent": "center",
         "alignItems": "center",
-        "alignSelf": "flex-start",
-        "justifySelf": "flex-end",
+        "alignSelf": "center",
+        "justifySelf": "center",
         "width": "50px",
         "height": "50px",
         "backgroundColor": "transparent",
@@ -720,76 +741,51 @@
         "fontWeight": "500",
         "cursor": "pointer",
         "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.5)",
-        "paddingTop": "10px",
-        "paddingRight": "10px",
-        "paddingBottom": "10px",
-        "paddingLeft": "10px",
         "borderTopLeftRadius": "50px",
         "borderTopRightRadius": "50px",
         "borderBottomLeftRadius": "50px",
         "borderBottomRightRadius": "50px",
-        "transition": "all 0.3s ease"
+        "backgroundRepeat": "no-repeat",
+        "paddingTop": "0px",
+        "paddingRight": "0px",
+        "paddingBottom": "0px",
+        "paddingLeft": "0px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)"
       },
       "content": {
         "text": ""
       },
       "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease"
-      }
+      "enabled": true
     },
     {
-      "id": "image_003",
-      "name": "Image_03",
+      "id": "image_004",
+      "name": "Audio_Img",
       "type": "image",
-      "parentId": "button_009",
+      "parentId": "button_010",
       "style": {
         "display": "block",
         "alignSelf": "center",
         "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
+        "width": "80%",
+        "height": "80%",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "4px"
+        "borderRadius": "4px",
+        "paddingTop": "4px",
+        "paddingRight": "4px",
+        "paddingBottom": "4px",
+        "paddingLeft": "4px"
       },
       "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/audio_on.png"
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/audio_on.png"
       },
       "visible": true,
       "enabled": true
     },
     {
-      "id": "button_010",
+      "id": "button_011",
       "name": "Chat",
       "type": "button",
       "parentId": "box_007",
@@ -797,8 +793,8 @@
         "display": "inline-flex",
         "justifyContent": "center",
         "alignItems": "center",
-        "alignSelf": "flex-start",
-        "justifySelf": "flex-end",
+        "alignSelf": "center",
+        "justifySelf": "center",
         "width": "50px",
         "height": "50px",
         "backgroundColor": "transparent",
@@ -807,76 +803,26 @@
         "fontWeight": "500",
         "cursor": "pointer",
         "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.5)",
-        "paddingTop": "12px",
-        "paddingRight": "10px",
-        "paddingBottom": "8px",
-        "paddingLeft": "10px",
         "borderTopLeftRadius": "50px",
         "borderTopRightRadius": "50px",
         "borderBottomLeftRadius": "50px",
         "borderBottomRightRadius": "50px",
-        "transition": "all 0.3s ease"
+        "backgroundRepeat": "no-repeat",
+        "paddingTop": "5px",
+        "paddingRight": "3px",
+        "paddingBottom": "1px",
+        "paddingLeft": "3px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)"
       },
       "content": {
         "text": ""
       },
       "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease"
-      }
-    },
-    {
-      "id": "image_004",
-      "name": "Image_03",
-      "type": "image",
-      "parentId": "button_010",
-      "style": {
-        "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "borderColor": "#6c757d",
-        "borderWidth": "0px",
-        "borderRadius": "4px"
-      },
-      "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/chatIcon.png"
-      },
-      "visible": true,
       "enabled": true
     },
     {
-      "id": "button_011",
+      "id": "button_009",
       "name": "Menu",
       "type": "button",
       "parentId": "box_007",
@@ -884,8 +830,8 @@
         "display": "inline-flex",
         "justifyContent": "center",
         "alignItems": "center",
-        "alignSelf": "flex-start",
-        "justifySelf": "flex-end",
+        "alignSelf": "center",
+        "justifySelf": "center",
         "width": "50px",
         "height": "50px",
         "backgroundColor": "transparent",
@@ -894,536 +840,52 @@
         "fontWeight": "500",
         "cursor": "pointer",
         "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.5)",
-        "paddingTop": "10px",
-        "paddingRight": "10px",
-        "paddingBottom": "10px",
-        "paddingLeft": "10px",
         "borderTopLeftRadius": "50px",
         "borderTopRightRadius": "50px",
         "borderBottomLeftRadius": "50px",
         "borderBottomRightRadius": "50px",
-        "transition": "all 0.3s ease"
+        "backgroundRepeat": "no-repeat",
+        "paddingTop": "4px",
+        "paddingRight": "4px",
+        "paddingBottom": "4px",
+        "paddingLeft": "4px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 0.7)"
       },
       "content": {
         "text": ""
       },
       "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease, all 0.3s ease"
-      }
+      "enabled": true
     },
     {
       "id": "image_005",
-      "name": "Image_03",
+      "name": "Chat_Img",
       "type": "image",
       "parentId": "button_011",
       "style": {
         "display": "block",
         "alignSelf": "center",
         "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
+        "width": "80%",
+        "height": "80%",
         "borderColor": "#6c757d",
         "borderWidth": "0px",
-        "borderRadius": "4px"
+        "borderRadius": "4px",
+        "paddingTop": "4px",
+        "paddingRight": "4px",
+        "paddingBottom": "4px",
+        "paddingLeft": "4px"
       },
       "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/menu_White.png"
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "image_006",
-      "name": "Image_03",
-      "type": "image",
-      "parentId": "button_012",
-      "style": {
-        "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "borderColor": "#6c757d",
-        "borderWidth": "0px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "opacity": 1
-      },
-      "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/interior.png"
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "button_013",
-      "name": "Charging-Port",
-      "type": "button",
-      "parentId": null,
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "35px",
-        "height": "35px",
-        "backgroundColor": "rgba(0, 0, 0, 0.49)",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.2)",
-        "paddingTop": "6px",
-        "paddingRight": "6px",
-        "paddingBottom": "6px",
-        "paddingLeft": "6px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "transition": "all 0.12s ease",
-        "opacity": 1
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        },
-        {
-          "id": "effect_1760078190277",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedBlur": "6px"
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease, all 0.3s ease"
-      },
-      "anchoredTo": "78b4d6b4-b938-4b5b-aebd-9f16ac4b68b0"
-    },
-    {
-      "id": "image_007",
-      "name": "Image_03",
-      "type": "image",
-      "parentId": "button_013",
-      "style": {
-        "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "borderColor": "#6c757d",
-        "borderWidth": "0px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px"
-      },
-      "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/interior.png"
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "button_014",
-      "name": "NFC",
-      "type": "button",
-      "parentId": null,
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "35px",
-        "height": "35px",
-        "backgroundColor": "rgba(0, 0, 0, 0.49)",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.2)",
-        "paddingTop": "6px",
-        "paddingRight": "6px",
-        "paddingBottom": "6px",
-        "paddingLeft": "6px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "transition": "all 0.12s ease",
-        "opacity": 1
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease, all 0.3s ease"
-      },
-      "anchoredTo": "86b6e8ba-7d58-461a-a2de-3e21fdeefa21"
-    },
-    {
-      "id": "image_008",
-      "name": "Image_03",
-      "type": "image",
-      "parentId": "button_014",
-      "style": {
-        "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "borderColor": "#6c757d",
-        "borderWidth": "0px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "opacity": 1
-      },
-      "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/interior.png"
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "button_012",
-      "name": "Door-Closed",
-      "type": "button",
-      "parentId": null,
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "35px",
-        "height": "35px",
-        "backgroundColor": "rgba(0, 0, 0, 0.49)",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.2)",
-        "paddingTop": "6px",
-        "paddingRight": "6px",
-        "paddingBottom": "6px",
-        "paddingLeft": "6px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "transition": "all 0.12s ease",
-        "opacity": 0.81
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease, all 0.3s ease"
-      },
-      "anchoredTo": "efae0838-b603-4014-b0cc-71c4d70d86b5"
-    },
-    {
-      "id": "button_015",
-      "name": "Windows",
-      "type": "button",
-      "parentId": null,
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "35px",
-        "height": "35px",
-        "backgroundColor": "rgba(0, 0, 0, 0.49)",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.2)",
-        "paddingTop": "6px",
-        "paddingRight": "6px",
-        "paddingBottom": "6px",
-        "paddingLeft": "6px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "transition": "all 0.12s ease",
-        "opacity": 1
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease, all 0.3s ease"
-      },
-      "anchoredTo": "7b5806ae-ea55-4098-b60b-a6f6ab57697b"
-    },
-    {
-      "id": "image_009",
-      "name": "Image_03",
-      "type": "image",
-      "parentId": "button_015",
-      "style": {
-        "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "borderColor": "#6c757d",
-        "borderWidth": "0px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px"
-      },
-      "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/interior.png"
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "button_016",
-      "name": "Trunk",
-      "type": "button",
-      "parentId": null,
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "35px",
-        "height": "35px",
-        "backgroundColor": "rgba(0, 0, 0, 0.49)",
-        "color": "#ffffff",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px",
-        "borderWidth": "1px",
-        "borderColor": "rgba(255, 255, 255, 0.2)",
-        "paddingTop": "6px",
-        "paddingRight": "6px",
-        "paddingBottom": "6px",
-        "paddingLeft": "6px",
-        "borderTopLeftRadius": "50px",
-        "borderTopRightRadius": "50px",
-        "borderBottomLeftRadius": "50px",
-        "borderBottomRightRadius": "50px",
-        "transition": "all 0.12s ease",
-        "opacity": 1
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true,
-      "effects": [
-        {
-          "id": "effect_1760068799745",
-          "type": "frostedBackground",
-          "shadowX": "0px",
-          "shadowY": "4px",
-          "shadowBlur": "8px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
-          "frostedOpacity": 0.8
-        },
-        {
-          "id": "effect_1760069734827",
-          "type": "innerShadow",
-          "shadowX": "0px",
-          "shadowY": "0px",
-          "shadowBlur": "3px",
-          "shadowSpread": "0px",
-          "shadowColor": "rgba(255, 255, 255, 0.5)",
-          "hoverSettings": {
-            "shadowColor": "rgba(255, 255, 255, 0.8)",
-            "shadowBlur": "7px"
-          }
-        }
-      ],
-      "hoverStyle": {
-        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1.04) scaleY(1.04)",
-        "transition": "all 0.3s ease, all 0.3s ease, all 0.3s ease"
-      },
-      "anchoredTo": "b2cc0e55-3c5e-4fd5-9fb6-2e262e829550"
-    },
-    {
-      "id": "image_010",
-      "name": "Image_03",
-      "type": "image",
-      "parentId": "button_016",
-      "style": {
-        "display": "block",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "100%",
-        "height": "100%",
-        "borderColor": "#6c757d",
-        "borderWidth": "0px",
-        "borderRadius": "4px"
-      },
-      "content": {
-        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/interior.png"
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f23d66f1-66c5-4b67-9b52-46dc3c9022c0/assets/chatIcon.png"
       },
       "visible": true,
       "enabled": true
     }
   ],
   "metadata": {
-    "createdAt": "2025-10-10T01:30:27.387Z",
-    "lastModified": "2025-10-10T08:08:11.579Z"
+    "createdAt": "2025-10-10T09:06:54.727Z",
+    "lastModified": "2025-10-10T13:55:17.124Z"
   }
 }
