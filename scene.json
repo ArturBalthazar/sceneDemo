@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "sceneVersion": 243,
+  "sceneVersion": 145,
   "sceneSettings": {
     "environment": {
       "clearColor": [
-        0.01568627450980392,
-        0.00784313725490196,
-        0.07058823529411765,
+        0.0196078431372549,
+        0.011764705882352941,
+        0.09019607843137255,
         0.95
       ],
       "ambientColor": [
@@ -15,7 +15,7 @@
         0
       ],
       "useIBL": true,
-      "iblPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/byd-inspector.env",
+      "iblPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/byd-inspector.env",
       "iblIntensity": 0.4,
       "iblRotation": 0,
       "useSkybox": false,
@@ -72,7 +72,7 @@
     {
       "id": "camera1",
       "kind": "camera",
-      "name": "Camera",
+      "name": "Exterior Cam",
       "transform": {
         "position": [
           8.65,
@@ -94,20 +94,69 @@
         "fov": 0.4363323129985824,
         "alpha": 0.9250245035569946,
         "beta": 1.413716694115407,
-        "radius": 8.26518292425297,
+        "radius": 9,
         "target": [
-          -0.835042823857003,
-          0.7546299218381297,
-          1.209965144543178
+          -1.3,
+          0.75,
+          0.8
         ],
         "targetMode": "position",
-        "targetObject": null,
+        "targetObject": null
+      }
+    },
+    {
+      "id": "c88533ff-e5be-4b7d-8105-27cc1f0fd1e0",
+      "kind": "camera",
+      "name": "Interior Cam",
+      "transform": {
+        "position": [
+          5,
+          5,
+          5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "camera": {
+        "type": "ArcRotate",
+        "minZ": 0.1,
+        "maxZ": 1000,
+        "fov": 1.2217304763960306,
+        "active": false,
+        "alpha": -1.5707963267948966,
+        "beta": 1.2217304763960306,
+        "radius": 0.001,
+        "target": [
+          0,
+          1.3,
+          -0.05
+        ],
+        "lowerRadiusLimit": 0,
+        "upperRadiusLimit": 100,
+        "wheelDeltaPercentage": 0.01,
+        "targetMode": "object",
+        "targetObject": "root::byd-seagull",
+        "targetOffset": [
+          0,
+          1.3,
+          -0.05
+        ],
         "shake": {
-          "preset": "none",
-          "strength": 1,
+          "preset": "natural",
+          "strength": 0.2,
           "frequency": 1,
-          "positionAmplitude": 2.4,
-          "rotationAmplitude": 0.209
+          "positionAmplitude": 0.2,
+          "rotationAmplitude": 0.005
         }
       }
     },
@@ -145,59 +194,9 @@
       }
     },
     {
-      "id": "ebf30953-d4bb-4994-9c33-9b11da2924b8",
-      "kind": "camera",
-      "name": "Camera_02",
-      "transform": {
-        "position": [
-          5,
-          5,
-          5
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "camera": {
-        "type": "ArcRotate",
-        "minZ": 0.1,
-        "maxZ": 1000,
-        "fov": 1.2217304763960306,
-        "active": false,
-        "alpha": -1.5707963267948966,
-        "beta": 1.2217304763960306,
-        "radius": 0.001,
-        "target": [
-          0,
-          1.3,
-          -0.05
-        ],
-        "lowerRadiusLimit": 0,
-        "upperRadiusLimit": 100,
-        "wheelDeltaPercentage": 0.01,
-        "targetMode": "position",
-        "shake": {
-          "preset": "none",
-          "strength": 1,
-          "frequency": 1,
-          "positionAmplitude": 0.4,
-          "rotationAmplitude": 0.034
-        }
-      }
-    },
-    {
-      "id": "268c7b45-478a-4e4e-bf56-25791b8f7fda",
+      "id": "a370ae76-c23b-4906-9674-e4a9ac56fec7",
       "kind": "particle",
-      "name": "Particle Effect",
+      "name": "Stars",
       "transform": {
         "position": [
           0,
@@ -218,7 +217,7 @@
       "visible": true,
       "enabled": true,
       "particle": {
-        "id": "268c7b45-478a-4e4e-bf56-25791b8f7fda",
+        "id": "a370ae76-c23b-4906-9674-e4a9ac56fec7",
         "name": "Particle Effect",
         "runtime": "ParticleSystem",
         "capacity": 3000,
@@ -252,10 +251,10 @@
         ],
         "minAngularSpeed": -1,
         "maxAngularSpeed": 1,
-        "minSize": 1.3,
-        "maxSize": 3,
-        "minLifeTime": 15,
-        "maxLifeTime": 30,
+        "minSize": 1.5,
+        "maxSize": 3.5,
+        "minLifeTime": 10,
+        "maxLifeTime": 20,
         "enableColorGradients": true,
         "colorGradients": [
           {
@@ -267,16 +266,16 @@
           },
           {
             "t": 0.2,
-            "r": 0.9137254901960784,
-            "g": 0.9137254901960784,
-            "b": 0.9450980392156862,
+            "r": 0.9764705882352941,
+            "g": 0.9764705882352941,
+            "b": 0.984313725490196,
             "a": 1
           },
           {
             "t": 0.8,
-            "r": 0.9607843137254902,
-            "g": 0.9607843137254902,
-            "b": 0.9607843137254902,
+            "r": 0.9647058823529412,
+            "g": 0.9647058823529412,
+            "b": 0.9725490196078431,
             "a": 1
           },
           {
@@ -287,14 +286,14 @@
             "a": 0
           }
         ],
-        "textureUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/star_07.png"
+        "textureUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/Images/star_07.png"
       }
     },
     {
       "id": "root::byd-seagull",
       "kind": "model",
       "name": "byd_seagull",
-      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/byd_seagull.gltf",
+      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD Seagull/byd_seagull.gltf",
       "transform": {
         "position": [
           0,
@@ -315,13 +314,13 @@
       "visible": true,
       "enabled": true,
       "metadata": {
-        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/byd_seagull.gltf",
+        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD Seagull/byd_seagull.gltf",
         "file": "byd_seagull.gltf",
         "importedAsset": true
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-aggregated-1-se61el",
+      "id": "root::byd-seagull::mesh::byd-aggregated-1-qviqrf",
       "kind": "mesh",
       "name": "byd_aggregated_1",
       "parentId": "root::byd-seagull",
@@ -351,7 +350,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-aggregated-2-ruhfxe",
+      "id": "root::byd-seagull::mesh::byd-aggregated-2-s9hwsm",
       "kind": "mesh",
       "name": "byd_aggregated_2",
       "parentId": "root::byd-seagull",
@@ -381,7 +380,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-atlas-dark-7xl7hw",
+      "id": "root::byd-seagull::mesh::byd-atlas-dark-rphsel",
       "kind": "mesh",
       "name": "byd_atlas_dark",
       "parentId": "root::byd-seagull",
@@ -411,7 +410,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-atlas-metallic-l0e1iq",
+      "id": "root::byd-seagull::mesh::byd-atlas-metallic-to6259",
       "kind": "mesh",
       "name": "byd_atlas_metallic",
       "parentId": "root::byd-seagull",
@@ -441,7 +440,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-black-piano-i3ixl8",
+      "id": "root::byd-seagull::mesh::byd-black-piano-qk0rz7",
       "kind": "mesh",
       "name": "byd_black_piano",
       "parentId": "root::byd-seagull",
@@ -471,7 +470,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-body-uksif2",
+      "id": "root::byd-seagull::mesh::byd-body-ccb3pb",
       "kind": "mesh",
       "name": "byd_body",
       "parentId": "root::byd-seagull",
@@ -501,7 +500,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-buttons-eap0la",
+      "id": "root::byd-seagull::mesh::byd-buttons-2bcd0s",
       "kind": "mesh",
       "name": "byd_buttons",
       "parentId": "root::byd-seagull",
@@ -531,7 +530,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-carpet-5pqm91",
+      "id": "root::byd-seagull::mesh::byd-carpet-m1nfh1",
       "kind": "mesh",
       "name": "byd_carpet",
       "parentId": "root::byd-seagull",
@@ -561,7 +560,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-ceiling-gvdg9e",
+      "id": "root::byd-seagull::mesh::byd-ceiling-1v8vzx",
       "kind": "mesh",
       "name": "byd_ceiling",
       "parentId": "root::byd-seagull",
@@ -591,7 +590,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-color-atlas-02-vfh6ev",
+      "id": "root::byd-seagull::mesh::byd-color-atlas-02-96i4o3",
       "kind": "mesh",
       "name": "byd_color_atlas_02",
       "parentId": "root::byd-seagull",
@@ -621,7 +620,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-emissiveglow-17obyu",
+      "id": "root::byd-seagull::mesh::byd-emissiveglow-uwujlm",
       "kind": "mesh",
       "name": "byd_emissiveGlow",
       "parentId": "root::byd-seagull",
@@ -651,7 +650,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-glass-25v7zm",
+      "id": "root::byd-seagull::mesh::byd-glass-diblv7",
       "kind": "mesh",
       "name": "byd_glass",
       "parentId": "root::byd-seagull",
@@ -681,7 +680,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-01-plrs49",
+      "id": "root::byd-seagull::mesh::byd-leather-01-ajaxml",
       "kind": "mesh",
       "name": "byd_leather_01",
       "parentId": "root::byd-seagull",
@@ -711,7 +710,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-02-xd1agc",
+      "id": "root::byd-seagull::mesh::byd-leather-02-zbfcfz",
       "kind": "mesh",
       "name": "byd_leather_02",
       "parentId": "root::byd-seagull",
@@ -741,7 +740,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-03-hgi2j2",
+      "id": "root::byd-seagull::mesh::byd-leather-03-zl0ukm",
       "kind": "mesh",
       "name": "byd_leather_03",
       "parentId": "root::byd-seagull",
@@ -771,7 +770,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-04-57sa8d",
+      "id": "root::byd-seagull::mesh::byd-leather-04-wros9r",
       "kind": "mesh",
       "name": "byd_leather_04",
       "parentId": "root::byd-seagull",
@@ -801,7 +800,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-05-8befbh",
+      "id": "root::byd-seagull::mesh::byd-leather-05-bcangy",
       "kind": "mesh",
       "name": "byd_leather_05",
       "parentId": "root::byd-seagull",
@@ -831,7 +830,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-06-3g0qot",
+      "id": "root::byd-seagull::mesh::byd-leather-06-xxh3x6",
       "kind": "mesh",
       "name": "byd_leather_06",
       "parentId": "root::byd-seagull",
@@ -861,7 +860,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-02-g53agm",
+      "id": "root::byd-seagull::mesh::byd-leather-black-02-57kxp3",
       "kind": "mesh",
       "name": "byd_leather_black_02",
       "parentId": "root::byd-seagull",
@@ -891,7 +890,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-03-2rcwj2",
+      "id": "root::byd-seagull::mesh::byd-leather-black-03-tsuaep",
       "kind": "mesh",
       "name": "byd_leather_black_03",
       "parentId": "root::byd-seagull",
@@ -921,7 +920,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-04-r1jms9",
+      "id": "root::byd-seagull::mesh::byd-leather-black-04-muo0dq",
       "kind": "mesh",
       "name": "byd_leather_black_04",
       "parentId": "root::byd-seagull",
@@ -951,7 +950,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-black-06-26yqzx",
+      "id": "root::byd-seagull::mesh::byd-leather-black-06-7d88jo",
       "kind": "mesh",
       "name": "byd_leather_black_06",
       "parentId": "root::byd-seagull",
@@ -981,7 +980,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-l420gr",
+      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-nny6kf",
       "kind": "mesh",
       "name": "byd_leather_dark_blue",
       "parentId": "root::byd-seagull",
@@ -1011,7 +1010,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-wheel-33e26g",
+      "id": "root::byd-seagull::mesh::byd-leather-dark-blue-wheel-jyonc3",
       "kind": "mesh",
       "name": "byd_leather_dark_blue_wheel",
       "parentId": "root::byd-seagull",
@@ -1041,7 +1040,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-light-blue-05-8hr4sf",
+      "id": "root::byd-seagull::mesh::byd-leather-light-blue-05-tp036m",
       "kind": "mesh",
       "name": "byd_leather_light_blue_05",
       "parentId": "root::byd-seagull",
@@ -1071,7 +1070,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-light-blue-06-t7n9lm",
+      "id": "root::byd-seagull::mesh::byd-leather-light-blue-06-56p06x",
       "kind": "mesh",
       "name": "byd_leather_light_blue_06",
       "parentId": "root::byd-seagull",
@@ -1101,7 +1100,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-perforated-blue-v2qcio",
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-blue-i03znl",
       "kind": "mesh",
       "name": "byd_leather_perforated_blue",
       "parentId": "root::byd-seagull",
@@ -1131,7 +1130,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-perforated-dark-blue-4gu8wx",
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-dark-blue-8yobl2",
       "kind": "mesh",
       "name": "byd_leather_perforated_dark_blue",
       "parentId": "root::byd-seagull",
@@ -1161,7 +1160,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-perforated-red-2mmao6",
+      "id": "root::byd-seagull::mesh::byd-leather-perforated-red-6n5p3i",
       "kind": "mesh",
       "name": "byd_leather_perforated_red",
       "parentId": "root::byd-seagull",
@@ -1191,7 +1190,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-pink-03-25qaf7",
+      "id": "root::byd-seagull::mesh::byd-leather-pink-03-4ypnvb",
       "kind": "mesh",
       "name": "byd_leather_pink_03",
       "parentId": "root::byd-seagull",
@@ -1221,7 +1220,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-pink-05-pzcsrj",
+      "id": "root::byd-seagull::mesh::byd-leather-pink-05-ugs7d6",
       "kind": "mesh",
       "name": "byd_leather_pink_05",
       "parentId": "root::byd-seagull",
@@ -1251,7 +1250,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-leather-pink-06-mfchcq",
+      "id": "root::byd-seagull::mesh::byd-leather-pink-06-my5ovz",
       "kind": "mesh",
       "name": "byd_leather_pink_06",
       "parentId": "root::byd-seagull",
@@ -1281,7 +1280,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-lights-cwzrsh",
+      "id": "root::byd-seagull::mesh::byd-lights-2urkpb",
       "kind": "mesh",
       "name": "byd_lights",
       "parentId": "root::byd-seagull",
@@ -1311,7 +1310,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metal-paint-7uoilc",
+      "id": "root::byd-seagull::mesh::byd-metal-paint-4jzrfj",
       "kind": "mesh",
       "name": "byd_metal_paint",
       "parentId": "root::byd-seagull",
@@ -1341,7 +1340,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-black-qovaw6",
+      "id": "root::byd-seagull::mesh::byd-metallic-black-sonso4",
       "kind": "mesh",
       "name": "byd_metallic_black",
       "parentId": "root::byd-seagull",
@@ -1371,7 +1370,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-blue-dkl7kg",
+      "id": "root::byd-seagull::mesh::byd-metallic-blue-em1h1e",
       "kind": "mesh",
       "name": "byd_metallic_blue",
       "parentId": "root::byd-seagull",
@@ -1401,7 +1400,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-pink-b2cbl0",
+      "id": "root::byd-seagull::mesh::byd-metallic-pink-qm8cvz",
       "kind": "mesh",
       "name": "byd_metallic_pink",
       "parentId": "root::byd-seagull",
@@ -1431,7 +1430,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-plastic-01-uet7wr",
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-01-hktixx",
       "kind": "mesh",
       "name": "byd_metallic_plastic_01",
       "parentId": "root::byd-seagull",
@@ -1461,7 +1460,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-plastic-02-vskzk6",
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-02-lp6pr3",
       "kind": "mesh",
       "name": "byd_metallic_plastic_02",
       "parentId": "root::byd-seagull",
@@ -1491,7 +1490,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-metallic-plastic-03-vkgwdo",
+      "id": "root::byd-seagull::mesh::byd-metallic-plastic-03-kc1oy4",
       "kind": "mesh",
       "name": "byd_metallic_plastic_03",
       "parentId": "root::byd-seagull",
@@ -1521,7 +1520,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-orange-q5d661",
+      "id": "root::byd-seagull::mesh::byd-orange-ski8qy",
       "kind": "mesh",
       "name": "byd_orange",
       "parentId": "root::byd-seagull",
@@ -1551,7 +1550,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-pink-3truft",
+      "id": "root::byd-seagull::mesh::byd-pink-5l929t",
       "kind": "mesh",
       "name": "byd_pink",
       "parentId": "root::byd-seagull",
@@ -1581,7 +1580,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-detail-bir6g6",
+      "id": "root::byd-seagull::mesh::byd-plastic-detail-u707cp",
       "kind": "mesh",
       "name": "byd_plastic_detail",
       "parentId": "root::byd-seagull",
@@ -1611,7 +1610,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-pattern-e8qoxb",
+      "id": "root::byd-seagull::mesh::byd-plastic-pattern-qx7d6a",
       "kind": "mesh",
       "name": "byd_plastic_pattern",
       "parentId": "root::byd-seagull",
@@ -1641,7 +1640,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive0-5izsag",
+      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive0-h30xm3",
       "kind": "mesh",
       "name": "byd_plastic_skin_primitive0",
       "parentId": "root::byd-seagull",
@@ -1671,7 +1670,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive1-3dn5h9",
+      "id": "root::byd-seagull::mesh::byd-plastic-skin-primitive1-za0ro9",
       "kind": "mesh",
       "name": "byd_plastic_skin_primitive1",
       "parentId": "root::byd-seagull",
@@ -1701,7 +1700,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-shadow-9yxdjr",
+      "id": "root::byd-seagull::mesh::byd-shadow-cbjiax",
       "kind": "mesh",
       "name": "byd_shadow",
       "parentId": "root::byd-seagull",
@@ -1731,7 +1730,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-steering-wheel-21b5me",
+      "id": "root::byd-seagull::mesh::byd-steering-wheel-xaammt",
       "kind": "mesh",
       "name": "byd_steering_wheel",
       "parentId": "root::byd-seagull",
@@ -1761,7 +1760,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-ibkfgt",
+      "id": "root::byd-seagull::mesh::byd-stitches-il55jz",
       "kind": "mesh",
       "name": "byd_stitches",
       "parentId": "root::byd-seagull",
@@ -1791,7 +1790,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-orange-oemqch",
+      "id": "root::byd-seagull::mesh::byd-stitches-orange-fxp3eq",
       "kind": "mesh",
       "name": "byd_stitches_orange",
       "parentId": "root::byd-seagull",
@@ -1821,7 +1820,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-pink-c5intt",
+      "id": "root::byd-seagull::mesh::byd-stitches-pink-x32vux",
       "kind": "mesh",
       "name": "byd_stitches_pink",
       "parentId": "root::byd-seagull",
@@ -1851,7 +1850,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-stitches-yellow-6ts3f8",
+      "id": "root::byd-seagull::mesh::byd-stitches-yellow-2c1rkc",
       "kind": "mesh",
       "name": "byd_stitches_yellow",
       "parentId": "root::byd-seagull",
@@ -1881,7 +1880,7 @@
       }
     },
     {
-      "id": "root::byd-seagull::mesh::byd-yellow-v55p6b",
+      "id": "root::byd-seagull::mesh::byd-yellow-hopu0g",
       "kind": "mesh",
       "name": "byd_yellow",
       "parentId": "root::byd-seagull",
@@ -1913,176 +1912,176 @@
   ],
   "materialOverrides": {
     "Aggregated_1": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_tires_Aggregated_Material_diffuse.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_tires_Aggregated_Material_metalness-mk_tires_Aggregated_Material_roughness.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_tires_Aggregated_Material_normal.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_tires_Aggregated_Material_diffuse.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_tires_Aggregated_Material_metalness-mk_tires_Aggregated_Material_roughness.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_tires_Aggregated_Material_normal.png"
     },
     "Aggregated_2": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_color_atlas_02_steering_wheel_Aggregated_Material_diffuse.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_color_atlas_02_steering_wheel_Aggregated_Material_metalness-mk_color_atlas_02_steering_wheel_Aggregated_Material_roughness.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_color_atlas_02_steering_wheel_Aggregated_Material_normal.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_color_atlas_02_steering_wheel_Aggregated_Material_diffuse.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_color_atlas_02_steering_wheel_Aggregated_Material_metalness-mk_color_atlas_02_steering_wheel_Aggregated_Material_roughness.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_color_atlas_02_steering_wheel_Aggregated_Material_normal.png"
     },
     "byd_atlas_dark": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Atlas_buttons_Black_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Atlas_buttons_normal_normal_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Atlas_buttons_Black_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Atlas_buttons_normal_normal_png.png"
     },
     "byd_atlas_metallic": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Atlas_buttons_color_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Atlas_buttons_normal_normal_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Atlas_buttons_color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Atlas_buttons_normal_normal_png.png"
     },
     "Carpet": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Carpet_Loop_BaseColor_png_001.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Carpet_Loop_Roughness_png_001.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Carpet_Loop_Normal_png_001.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_carpet_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Carpet_Loop_BaseColor_png_001.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Carpet_Loop_Roughness_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Carpet_Loop_Normal_png_001.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_carpet_png.png"
     },
     "Ceiling": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Carpet_Loop_BaseColor_png_001.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Carpet_Loop_Roughness_png_001.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Carpet_Loop_Normal_png_001.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_ceiling_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Carpet_Loop_BaseColor_png_001.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Carpet_Loop_Roughness_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Carpet_Loop_Normal_png_001.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_ceiling_png.png"
     },
     "Atlasflow_01": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/AtlasColorTexture_png.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/AtlasGrayTexture_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/AtlasColorTexture_png.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/AtlasGrayTexture_png.png"
     },
     "emissiveGlow": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/radial-gradient_png.png",
-      "emissiveTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/radial-gradient_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/radial-gradient_png.png",
+      "emissiveTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/radial-gradient_png.png"
     },
     "Atlasflow_03": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/AtlasGrayTexture_alpha_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/AtlasGrayTexture_alpha_png.png"
     },
     "Leather_black_static": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Black-Color_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_01_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_01_png.png"
     },
     "byd_leather_black_02": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Black-Color_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_02_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_02_png.png"
     },
     "byd_leather_black_03": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Black-Color_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_03_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_03_png.png"
     },
     "byd_leather_black_04": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Black-Color_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_04_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_04_png.png"
     },
     "byd_leather_black_06": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Black-Color_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_06_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Black-Color_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_06_png.png"
     },
     "byd_leather_dark_blue": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/leatherdarkblue.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_05_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/leatherdarkblue.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_05_png.png"
     },
     "byd_leather_dark_blue_wheel": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/leatherdarkblue.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_steering_wheel_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/leatherdarkblue.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_steering_wheel_png.png"
     },
     "byd_leather_light_blue_05": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-LightBlue-Color_2_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_05_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-LightBlue-Color_2_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_05_png.png"
     },
     "byd_leather_light_blue_06": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-LightBlue-Color_2_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_06_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-LightBlue-Color_2_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_06_png.png"
     },
     "byd_leather_perforated_blue": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Perforated-BlueTrim_png_001.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_perforated_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_04_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Perforated-BlueTrim_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_perforated_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_04_png.png"
     },
     "byd_leather_perforated_dark_blue": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Perforated-DarkBlue_png.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_perforated_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_02_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Perforated-DarkBlue_png.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_perforated_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_02_png.png"
     },
     "byd_leather_perforated_red": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather-Perforated-BlackTrim_png_001.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_perforated_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_04_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather-Perforated-BlackTrim_png_001.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_perforated_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_04_png.png"
     },
     "byd_leather_pink_03": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Untitled.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_03_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Untitled.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_03_png.png"
     },
     "byd_leather_pink_05": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Untitled.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_05_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Untitled.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_05_png.png"
     },
     "byd_leather_pink_06": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Untitled.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Leather_smooth_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_leather_06_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Untitled.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Leather_smooth_normal.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_leather_06_png.png"
     },
     "Light": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_lights_trunk_Aggregated_Material_diffuse.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_lights_trunk_Aggregated_Material_metalness-mk_lights_trunk_Aggregated_Material_roughness.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_lights_trunk_Aggregated_Material_normal.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_lights_trunk_Aggregated_Material_diffuse.png",
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_lights_trunk_Aggregated_Material_metalness-mk_lights_trunk_Aggregated_Material_roughness.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_lights_trunk_Aggregated_Material_normal.png"
     },
     "Plastic_Diamond_Pattern_Detail": {
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Plastic-BIG_Diamonds_Normal_png.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_plastic_detail_png.png"
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Plastic-BIG_Diamonds_Normal_png.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_plastic_detail_png.png"
     },
     "Plastic_Diamond_Pattern": {
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/Plastic-Small_Diamonds_Normal_png.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_plastic_pattern_png.png"
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/Plastic-Small_Diamonds_Normal_png.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_plastic_pattern_png.png"
     },
     "Plastic_skin": {
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_plastic_skin-BYD-Rough-Plastic_Roughness-2.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/BYD-Rough-Plastic_Normal-2_jpg.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_plastic_skin-BYD-Rough-Plastic_Roughness-2.png"
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_plastic_skin-BYD-Rough-Plastic_Roughness-2.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/BYD-Rough-Plastic_Normal-2_jpg.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_plastic_skin-BYD-Rough-Plastic_Roughness-2.png"
     },
     "byd_plastic_skin_wheel": {
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_steering_wheel-BYD-Rough-Plastic_Roughness-2.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/BYD-Rough-Plastic_Normal-2_jpg.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/mk_steering_wheel-BYD-Rough-Plastic_Roughness-2.png"
+      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_steering_wheel-BYD-Rough-Plastic_Roughness-2.png",
+      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/BYD-Rough-Plastic_Normal-2_jpg.png",
+      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/mk_steering_wheel-BYD-Rough-Plastic_Roughness-2.png"
     },
     "Shadow": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/InspectShadow-4.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/InspectShadow-4.png"
     },
     "byd_stitches_orange": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/StitchesOPC_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/StitchesOPC_png.png"
     },
     "byd_stitches_pink": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/StitchesOPC_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/StitchesOPC_png.png"
     },
     "byd_stitches_yellow": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/assets/BYD%20Seagull/StitchesOPC_png.png"
+      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD%20Seagull/StitchesOPC_png.png"
     },
     "Body_Paint": {
       "albedoColor": {
-        "r": 0.807843137254902,
-        "g": 0.8509803921568627,
-        "b": 0.18823529411764706
+        "r": 0.7764705882352941,
+        "g": 0.8274509803921568,
+        "b": 0.07058823529411765
       }
     }
   },
   "sceneBehaviors": [
     {
-      "id": "488cf065-6e08-48d4-a1a7-598c3e8e9784",
-      "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/d2f8b926-7d54-41d5-bd32-c799be37eeba/scripts/Script_001_copy.js",
-      "scriptName": "Script_001_copy.js",
+      "id": "82b4cfc3-4323-411e-a71b-47fa5a3aa5d8",
+      "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/scripts/Script_001.js",
+      "scriptName": "Script_001.js",
       "parameters": [
         {
           "name": "colorYellowBtn",
           "type": "uiElement",
           "value": {
             "id": "button_001",
-            "name": "Body-Yellow",
+            "name": "Body Yellow",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2093,7 +2092,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_002",
-            "name": "Body-White",
+            "name": "Body White",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2104,7 +2103,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_004",
-            "name": "Body-Black",
+            "name": "Body Black",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2115,7 +2114,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_003",
-            "name": "Body-Pink",
+            "name": "Body Pink",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2126,7 +2125,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_005",
-            "name": "Trim-LightBlue",
+            "name": "Trim LightBlue",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2137,7 +2136,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_007",
-            "name": "Trim-Pink",
+            "name": "Trim Pink",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2148,7 +2147,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_006",
-            "name": "Trim-DarkBlue",
+            "name": "Trim DarkBlue",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2159,7 +2158,7 @@
           "type": "uiElement",
           "value": {
             "id": "button_008",
-            "name": "Button",
+            "name": "View Switch",
             "type": "button"
           },
           "inspectorType": "uiElement",
@@ -2170,7 +2169,7 @@
           "type": "object",
           "value": {
             "id": "camera1",
-            "name": "Camera",
+            "name": "Exterior Cam",
             "type": "camera"
           },
           "inspectorType": "nodeRef",
@@ -2180,8 +2179,8 @@
           "name": "interiorCameraRef",
           "type": "object",
           "value": {
-            "id": "ebf30953-d4bb-4994-9c33-9b11da2924b8",
-            "name": "Camera_02",
+            "id": "c88533ff-e5be-4b7d-8105-27cc1f0fd1e0",
+            "name": "Interior Cam",
             "type": "camera"
           },
           "inspectorType": "nodeRef",
