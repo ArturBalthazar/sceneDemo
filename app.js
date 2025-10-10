@@ -3935,8 +3935,8 @@
           if (shake.preset === 'natural') {
             const strength = shake.strength || 1;
             // Scale down parameters by 100x so users can input 0.1, 0.2 instead of 0.001, 0.002
-            const posAmp = (shake.positionAmplitude || 0.2) * strength * 0.01;
-            const rotAmp = (shake.rotationAmplitude || 0.002) * strength * 0.01;
+            const posAmp = (shake.positionAmplitude || 0.2) * strength * 0.0001;
+            const rotAmp = (shake.rotationAmplitude || 0.002) * strength * 0.0001;
 
             // Natural idle shake offset (additive)
             const shakeOffsetX = Math.sin(shakeState.time * 0.6) * posAmp;
