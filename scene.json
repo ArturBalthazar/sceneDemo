@@ -2189,6 +2189,66 @@
         ]
       },
       "visible": true
+    },
+    {
+      "id": "root::byd-seagull-1",
+      "kind": "model",
+      "name": "byd_seagull",
+      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD_Seagull/byd_seagull.gltf",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD_Seagull/byd_seagull.gltf",
+        "file": "byd_seagull.gltf",
+        "importedAsset": true
+      }
+    },
+    {
+      "id": "root::byd-seagull-2",
+      "kind": "model",
+      "name": "byd_seagull",
+      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD_Seagull/byd_seagull.gltf",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/62300b6a-9b7e-448a-8de6-0763815368e3/assets/BYD_Seagull/byd_seagull.gltf",
+        "file": "byd_seagull.gltf",
+        "importedAsset": true
+      }
     }
   ],
   "sceneBehaviors": [
@@ -2399,6 +2459,6 @@
       "timeStep": 0.016666666666666666
     }
   },
-  "sceneVersion": 943,
+  "sceneVersion": 953,
   "version": 1
 }
