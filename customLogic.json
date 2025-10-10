@@ -2,48 +2,48 @@
   "objectLogics": {
     "__scene__": [
       {
-        "id": "82b4cfc3-4323-411e-a71b-47fa5a3aa5d8",
+        "id": "b7704a6b-ecc0-48e9-8b48-410618158d15",
         "scriptName": "Script_001.js",
         "enabled": true,
         "parameters": {
           "colorYellowBtn": {
-            "id": "button_001",
-            "name": "Body Yellow",
+            "id": "button_002",
+            "name": "Body-Yellow",
             "type": "button"
           },
           "colorWhiteBtn": {
-            "id": "button_002",
-            "name": "Body White",
+            "id": "button_003",
+            "name": "Body-White",
             "type": "button"
           },
           "colorBlackBtn": {
-            "id": "button_004",
-            "name": "Body Black",
+            "id": "button_005",
+            "name": "Body-Black",
             "type": "button"
           },
           "colorPinkBtn": {
-            "id": "button_003",
-            "name": "Body Pink",
+            "id": "button_004",
+            "name": "Body-Pink",
             "type": "button"
           },
           "trimLightBlueBtn": {
-            "id": "button_005",
-            "name": "Trim LightBlue",
+            "id": "button_006",
+            "name": "Tim-LightBlue",
             "type": "button"
           },
           "trimPinkBtn": {
-            "id": "button_007",
-            "name": "Trim Pink",
+            "id": "button_008",
+            "name": "Tim-Pink",
             "type": "button"
           },
           "trimDarkBlueBtn": {
-            "id": "button_006",
-            "name": "Trim DarkBlue",
+            "id": "button_007",
+            "name": "Tim-DarkBlue",
             "type": "button"
           },
           "viewSwapBtn": {
-            "id": "button_008",
-            "name": "View Switch",
+            "id": "button_001",
+            "name": "Switch View",
             "type": "button"
           },
           "exteriorCameraRef": {
@@ -52,7 +52,7 @@
             "type": "camera"
           },
           "interiorCameraRef": {
-            "id": "c88533ff-e5be-4b7d-8105-27cc1f0fd1e0",
+            "id": "ee7ca17b-f48b-4a80-9673-5915445d183d",
             "name": "Interior Cam",
             "type": "camera"
           },
