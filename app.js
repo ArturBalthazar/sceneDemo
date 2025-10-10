@@ -506,10 +506,12 @@
               var assetsIndex = pathParts.lastIndexOf('assets');
               if (assetsIndex >= 0 && assetsIndex < pathParts.length - 1) {
                 // Get everything after 'assets/' to preserve subdirectories
-                imageUrl = './assets/' + pathParts.slice(assetsIndex + 1).join('/');
+                var relativePath = pathParts.slice(assetsIndex + 1).join('/');
+                // URL encode each path segment to handle spaces and special characters
+                imageUrl = './assets/' + relativePath.split('/').map(function(p) { return encodeURIComponent(p); }).join('/');
               } else {
                 // Fallback: just use filename
-                imageUrl = './assets/' + pathParts[pathParts.length - 1];
+                imageUrl = './assets/' + encodeURIComponent(pathParts[pathParts.length - 1]);
               }
             }
             domElement.src = imageUrl;
@@ -884,10 +886,12 @@
               var assetsIndex = pathParts.lastIndexOf('assets');
               if (assetsIndex >= 0 && assetsIndex < pathParts.length - 1) {
                 // Get everything after 'assets/' to preserve subdirectories
-                imageUrl = './assets/' + pathParts.slice(assetsIndex + 1).join('/');
+                var relativePath = pathParts.slice(assetsIndex + 1).join('/');
+                // URL encode each path segment to handle spaces and special characters
+                imageUrl = './assets/' + relativePath.split('/').map(function(p) { return encodeURIComponent(p); }).join('/');
               } else {
                 // Fallback: just use filename
-                imageUrl = './assets/' + pathParts[pathParts.length - 1];
+                imageUrl = './assets/' + encodeURIComponent(pathParts[pathParts.length - 1]);
               }
             }
             css.backgroundImage = "url('" + imageUrl + "')";
@@ -2192,22 +2196,7 @@
           const spatialUIEnabled = node.enabled !== false;
           spatialUITransform.setEnabled(spatialUIEnabled && spatialUIVisible);
           
-          // Store spatial UI data for rendering
-          spatialUINodes.push({
-            id: node.id,
-            name: node.name,
-            transform: spatialUITransform,
-            uiElementId: spatialUIProps.uiElementId,
-            billboardMode: spatialUIProps.billboardMode || 'all',
-            maxDistance: spatialUIProps.maxDistance !== undefined ? spatialUIProps.maxDistance : 10,
-            minDistance: spatialUIProps.minDistance !== undefined ? spatialUIProps.minDistance : 0,
-            occlusionTest: spatialUIProps.occlusionTest !== false,
-            scaleWithDistance: spatialUIProps.scaleWithDistance || false,
-            fadeWithDistance: spatialUIProps.fadeWithDistance || false,
-            enabled: spatialUIEnabled && spatialUIVisible,
-            domElement: null // Will be linked when UI loads
-          });
-          
+          // Spatial UI rendering is handled by updateSpatialUI function which directly reads from scene graph
           console.log('✅ Created spatial UI node: ' + node.id + ' (UI element: ' + spatialUIProps.uiElementId + ')');
           break;
       }
@@ -2227,17 +2216,24 @@
       const assetPath = rel.includes('/') ? rel : 'assets/' + rel;
       console.log('🔗 Loading model from:', assetPath);
       
+      // URL encode the path to handle spaces and special characters
+      const encodedAssetPath = assetPath.split('/').map(function(part) {
+        return encodeURIComponent(part);
+      }).join('/');
+      console.log('🔗 Encoded path:', encodedAssetPath);
+      
       // Load the asset container with proper rootUrl/filename for GLTF so sidecars resolve correctly
       let result = null;
       const lower = assetPath.toLowerCase();
       if (lower.endsWith('.gltf')) {
-        const rootUrl = assetPath.substring(0, assetPath.lastIndexOf('/') + 1);
-        const filename = assetPath.substring(assetPath.lastIndexOf('/') + 1);
+        const lastSlash = encodedAssetPath.lastIndexOf('/');
+        const rootUrl = encodedAssetPath.substring(0, lastSlash + 1);
+        const filename = encodedAssetPath.substring(lastSlash + 1);
         console.log('🔗 GLTF Root URL:', rootUrl);
         console.log('🔗 GLTF Filename:', filename);
         result = await BABYLON.SceneLoader.LoadAssetContainerAsync(rootUrl, filename, scene);
       } else {
-        result = await BABYLON.SceneLoader.LoadAssetContainerAsync('', assetPath, scene);
+        result = await BABYLON.SceneLoader.LoadAssetContainerAsync('', encodedAssetPath, scene);
       }
       
       if (result.meshes.length > 0) {
