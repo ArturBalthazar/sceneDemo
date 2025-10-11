@@ -1,20 +1,16 @@
 class CustomLogic {
   static inspector = {
-    // ---- Which bones to use (matched by "contains", case-insensitive) ----
-    crankNameContains: { type: "string", label: "Crank Bone contains", default: "Worktable_Traverse_Crank" },
+    crankNameContains:  { type: "string", label: "Crank Bone contains",  default: "Worktable_Traverse_Crank" },
     drivenNameContains: { type: "string", label: "Driven Bone contains", default: "Worktable" },
 
-    // ---- Limits & kinematics ----
-    minRotation:  { type: "number", label: "Min Rotation (rad)", default: 0, step: 0.01 },
-    maxRotation:  { type: "number", label: "Max Rotation (rad)", default: Math.PI * 6, step: 0.01 }, // 1080°
-    rotationSpeed:{ type: "number", label: "Rotation Speed (rad/frame)", default: 0.02, step: 0.001 },
-    travelPerTurn:{ type: "number", label: "Travel per Turn (units)", default: 0.2, step: 0.01 },
+    minRotation:   { type: "number", label: "Min Rotation (rad)", default: 0, step: 0.01 },
+    maxRotation:   { type: "number", label: "Max Rotation (rad)", default: Math.PI * 6, step: 0.01 },
+    rotationSpeed: { type: "number", label: "Rotation Speed (rad/frame)", default: 0.02, step: 0.001 },
+    travelPerTurn: { type: "number", label: "Travel per Turn (units)", default: 0.2, step: 0.01 },
 
-    // ---- Axes (pick per setup) ----
     rotationAxis:    { type: "enum", label: "Rotation Axis",    default: "X", options: ["X","Y","Z"] },
     translationAxis: { type: "enum", label: "Translation Axis", default: "X", options: ["X","Y","Z"] },
 
-    // ---- UI buttons (HTML) ----
     forwardButton:  { type: "uiElement", label: "Rotate + Button" },
     backwardButton: { type: "uiElement", label: "Rotate - Button" }
   };
@@ -22,21 +18,14 @@ class CustomLogic {
   attach(self, ctx) {
     const p = this.params ?? {};
 
-    // ---------- Find bones robustly (by substring; supports "A|B" to require both) ----------
+    // ---------- Bone finder ----------
     const findBoneByContains = (skeleton, contains) => {
       if (!contains) return null;
       const tokens = contains.toLowerCase().split("|").map(s => s.trim()).filter(Boolean);
-      const matches = skeleton.bones.filter(b => {
-        const n = b.name.toLowerCase();
-        return tokens.every(t => n.includes(t));
-      });
-      if (matches.length === 1) return matches[0];
-      const exact = matches.find(b => b.name.toLowerCase() === contains.toLowerCase());
-      if (exact) return exact;
-      if (matches.length > 1) {
-        console.warn(`⚠️ Multiple bones match "${contains}":`, matches.map(b=>b.name), "→ using", matches[0].name);
-        return matches[0];
-      }
+      const matches = skeleton.bones.filter(b =>
+        tokens.every(t => b.name.toLowerCase().includes(t))
+      );
+      if (matches.length > 0) return matches[0];
       return null;
     };
 
@@ -44,35 +33,35 @@ class CustomLogic {
 
     for (const child of self.getChildren()) {
       if (!child.skeleton) continue;
-      const sk = child.skeleton;
-      const c = findBoneByContains(sk, p.crankNameContains);
-      const d = findBoneByContains(sk, p.drivenNameContains);
-      if (c && d && c !== d) { crankBone = c; drivenBone = d; skeleton = sk; break; }
+      skeleton = child.skeleton;
+      crankBone  = findBoneByContains(skeleton, p.crankNameContains);
+      drivenBone = findBoneByContains(skeleton, p.drivenNameContains);
+      if (crankBone || drivenBone) break; // allow one or both
     }
 
-    if (!crankBone || !drivenBone) {
-      console.error("❌ Could not uniquely resolve bones.",
-        "crank:", p.crankNameContains, "driven:", p.drivenNameContains);
-      if (skeleton) console.log("Bones available:", skeleton.bones.map(b=>b.name));
+    if (!crankBone && !drivenBone) {
+      console.warn("⚠️ No matching crank or driven bone found, nothing to update.");
       return;
     }
 
-    console.log(`🎯 Crank bone => ${crankBone.name} | Driven bone => ${drivenBone.name}`);
+    if (crankBone)  console.log(`🎯 Crank bone => ${crankBone.name}`);
+    if (drivenBone) console.log(`🎯 Driven bone => ${drivenBone.name}`);
 
-    const crankNode  = crankBone.getTransformNode?.()  || null;
-    const drivenNode = drivenBone.getTransformNode?.() || null;
+    const crankNode  = crankBone?.getTransformNode?.()  || null;
+    const drivenNode = drivenBone?.getTransformNode?.() || null;
 
-    // ---------- State ----------
     let crankRot = 0;
-    let dir = 0; // -1 / 0 / +1
+    let dir = 0;
     let baseDrivenPos = drivenNode ? drivenNode.position.clone() : null;
 
-    // ---------- Helpers ----------
+    // ---------- Apply rotation ----------
     const applyCrankRot = () => {
+      if (!crankBone) return;
       const rx = p.rotationAxis === "X" ? crankRot : 0;
       const ry = p.rotationAxis === "Y" ? crankRot : 0;
       const rz = p.rotationAxis === "Z" ? crankRot : 0;
       const q = BABYLON.Quaternion.FromEulerAngles(rx, ry, rz);
+
       if (crankNode) {
         crankNode.rotationQuaternion = q;
       } else {
@@ -81,7 +70,9 @@ class CustomLogic {
       }
     };
 
+    // ---------- Apply translation ----------
     const updateDriven = () => {
+      if (!drivenBone) return;
       const turns = crankRot / (2 * Math.PI);
       const travel = turns * p.travelPerTurn;
 
@@ -92,7 +83,7 @@ class CustomLogic {
         if (p.translationAxis === "Y") drivenNode.position.y += travel;
         if (p.translationAxis === "Z") drivenNode.position.z += travel;
       } else {
-        const v = new BABYLON.Vector3(0,0,0);
+        const v = new BABYLON.Vector3();
         if (p.translationAxis === "X") v.x = travel;
         if (p.translationAxis === "Y") v.y = travel;
         if (p.translationAxis === "Z") v.z = travel;
@@ -101,7 +92,7 @@ class CustomLogic {
       }
     };
 
-    // ---------- Per-frame ----------
+    // ---------- Frame update ----------
     this._updateHandle = ctx.scene.onBeforeRenderObservable.add(() => {
       if (dir === 0) return;
       crankRot += dir * p.rotationSpeed;
@@ -110,7 +101,7 @@ class CustomLogic {
       updateDriven();
     });
 
-    // ---------- Button binding (HTML DOM first, safe polling) ----------
+    // ---------- Button binding ----------
     const addDomPressHandlers = (el, direction) => {
       const down = () => { dir = direction; };
       const up   = () => { if (dir === direction) dir = 0; };
@@ -118,7 +109,7 @@ class CustomLogic {
       window.addEventListener("pointerup", up);
       el.addEventListener("pointerleave", up);
       el.addEventListener("touchstart", down, { passive: true });
-      window.addEventListener("touchend", up, { passive: true });
+      window.addEventListener("touchend", up);
       return () => {
         el.removeEventListener("pointerdown", down);
         window.removeEventListener("pointerup", up);
@@ -143,7 +134,7 @@ class CustomLogic {
     };
 
     const tryBindBoth = () => {
-      const okF = bindButton(p.forwardButton,  +1);
+      const okF = bindButton(p.forwardButton, +1);
       const okB = bindButton(p.backwardButton, -1);
       return okF || okB;
     };
