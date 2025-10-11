@@ -50,6 +50,33 @@
       }
     },
     {
+      "id": "text_001",
+      "name": "Text",
+      "type": "text",
+      "parentId": null,
+      "style": {
+        "display": "inline-block",
+        "alignSelf": "flex-start",
+        "justifySelf": "center",
+        "width": "auto",
+        "height": "auto",
+        "color": "#ffffff",
+        "fontSize": "24px",
+        "fontWeight": "600",
+        "marginTop": "18px",
+        "zIndex": 9,
+        "fontFamily": "'Trebuchet MS', sans-serif",
+        "marginRight": "18px",
+        "marginBottom": "18px",
+        "marginLeft": "18px"
+      },
+      "content": {
+        "text": "Milling Machine"
+      },
+      "visible": true,
+      "enabled": true
+    },
+    {
       "id": "button_001",
       "name": "Button",
       "type": "button",
@@ -361,10 +388,83 @@
         "transform": "translateX(0px) translateY(0px) rotate(180deg) scaleX(1) scaleY(1)",
         "transition": "all 0.3s ease"
       }
+    },
+    {
+      "id": "button_005",
+      "name": "Button Copy 3",
+      "type": "button",
+      "parentId": null,
+      "style": {
+        "display": "inline-flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "40px",
+        "height": "40px",
+        "backgroundColor": "rgba(0, 0, 0, 0.4)",
+        "color": "#ffffff",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "cursor": "pointer",
+        "padding": "8px 16px",
+        "borderWidth": "1px",
+        "borderColor": "rgba(255, 255, 255, 1)",
+        "borderTopLeftRadius": "50px",
+        "borderTopRightRadius": "50px",
+        "borderBottomLeftRadius": "50px",
+        "borderBottomRightRadius": "50px",
+        "paddingTop": "3px",
+        "paddingRight": "3px",
+        "paddingBottom": "3px",
+        "paddingLeft": "3px",
+        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1)"
+      },
+      "content": {
+        "text": ""
+      },
+      "visible": true,
+      "enabled": true,
+      "effects": [
+        {
+          "id": "effect_1760135484099",
+          "type": "frostedBackground",
+          "shadowX": "0px",
+          "shadowY": "4px",
+          "shadowBlur": "8px",
+          "shadowSpread": "0px",
+          "shadowColor": "rgba(0, 0, 0, 0.25)"
+        }
+      ],
+      "anchoredTo": "53728b82-aeb4-4f08-970f-1ab789b30280",
+      "hoverStyle": {
+        "transform": "translateX(0px) translateY(0px) rotate(0deg) scaleX(.8) scaleY(.8)"
+      }
+    },
+    {
+      "id": "image_006",
+      "name": "Image",
+      "type": "image",
+      "parentId": "button_005",
+      "style": {
+        "display": "block",
+        "alignSelf": "center",
+        "justifySelf": "center",
+        "width": "80%",
+        "height": "80%",
+        "borderColor": "#6c757d",
+        "borderWidth": "0px",
+        "borderRadius": "4px"
+      },
+      "content": {
+        "imageUrl": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png"
+      },
+      "visible": true,
+      "enabled": true
     }
   ],
   "metadata": {
     "createdAt": "2025-10-10T18:36:55.231Z",
-    "lastModified": "2025-10-10T23:25:46.125Z"
+    "lastModified": "2025-10-11T00:09:00.685Z"
   }
 }
