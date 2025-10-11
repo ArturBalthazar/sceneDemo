@@ -2,7 +2,12 @@
   "deletedMaterials": [
     "defaultCube::mat::6"
   ],
-  "materialOverrides": {},
+  "materialOverrides": {
+    "Metal_Roller_Painted_Faded_Green": {
+      "metallic": 0,
+      "roughness": 0.08
+    }
+  },
   "nodes": [
     {
       "camera": {
@@ -13,6 +18,13 @@
         "maxZ": 100,
         "minZ": 0.1,
         "radius": 6,
+        "shake": {
+          "frequency": 1,
+          "positionAmplitude": 10,
+          "preset": "none",
+          "rotationAmplitude": 1,
+          "strength": 2
+        },
         "target": [
           0,
           1.2,
@@ -21,13 +33,8 @@
         "targetMode": "position",
         "targetObject": null,
         "type": "ArcRotate",
-        "shake": {
-          "preset": "none",
-          "strength": 2,
-          "frequency": 1,
-          "positionAmplitude": 10,
-          "rotationAmplitude": 1
-        }
+        "lowerRadiusLimit": 3,
+        "upperRadiusLimit": 6
       },
       "enabled": true,
       "id": "camera1",
@@ -44,7 +51,54 @@
           0,
           0
         ]
-      }
+      },
+      "customBehaviors": [
+        {
+          "id": "eb4ff1f8-1ec0-4f65-b1d8-5e7a4fa932ba",
+          "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/scripts/Script_002.js",
+          "scriptName": "Script_002.js",
+          "parameters": [
+            {
+              "name": "alphaMin",
+              "type": "number",
+              "value": 60,
+              "inspectorType": "number",
+              "label": "Alpha Minimum (degrees)"
+            },
+            {
+              "name": "alphaMax",
+              "type": "number",
+              "value": 120,
+              "inspectorType": "number",
+              "label": "Alpha Maximum (degrees)"
+            },
+            {
+              "name": "betaMin",
+              "type": "number",
+              "value": 65,
+              "inspectorType": "number",
+              "label": "Beta Minimum (degrees)"
+            },
+            {
+              "name": "betaMax",
+              "type": "number",
+              "value": 85,
+              "inspectorType": "number",
+              "label": "Beta Maximum (degrees)"
+            },
+            {
+              "name": "smoothingFactor",
+              "type": "number",
+              "value": 0.1,
+              "inspectorType": "number",
+              "label": "Smoothing Factor",
+              "max": 1,
+              "step": 0.01
+            }
+          ],
+          "enabled": true
+        }
+      ]
     },
     {
       "enabled": true,
@@ -81,20 +135,149 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine",
-      "kind": "model",
-      "metadata": {
-        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/Milling-Machine.glb",
-        "file": "Milling-Machine.glb",
-        "importedAsset": true
+      "id": "53728b82-aeb4-4f08-970f-1ab789b30280",
+      "kind": "spatialui",
+      "name": "UI Anchor",
+      "spatialUI": {
+        "cssStyle": {},
+        "fadeInOut": false,
+        "htmlContent": "<button id=\"button_001\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_001\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
+        "linkedUIElementId": "button_001",
+        "maxDistance": 100,
+        "minDistance": 0,
+        "occlusionTest": false,
+        "scaleWithDistance": false
       },
-      "name": "Milling-Machine",
-      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/Milling-Machine.glb",
       "transform": {
         "position": [
+          0.4652599096298218,
+          1.104103446006775,
+          0.2958761751651764
+        ],
+        "rotation": [
           0,
           0,
           0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true
+    },
+    {
+      "enabled": true,
+      "id": "760616aa-00b2-4c3a-9c88-d6ed956e20fe",
+      "kind": "spatialui",
+      "name": "UI Anchor_02",
+      "spatialUI": {
+        "cssStyle": {},
+        "fadeInOut": false,
+        "htmlContent": "<button id=\"button_002\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 4px; padding-right: 3px; padding-bottom: 2px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_002\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; transform: translateX(0px) translateY(0px) rotate(180deg) scaleX(1) scaleY(1); transition: all .3s ease; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
+        "linkedUIElementId": "button_002",
+        "maxDistance": 100,
+        "minDistance": 0,
+        "occlusionTest": false,
+        "scaleWithDistance": false
+      },
+      "transform": {
+        "position": [
+          -0.3766690194606781,
+          1.1095013618469238,
+          0.2886255979537964
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true
+    },
+    {
+      "enabled": true,
+      "id": "07963686-0e84-4c97-882c-86cf2c715318",
+      "kind": "spatialui",
+      "name": "UI Anchor_03",
+      "spatialUI": {
+        "cssStyle": {},
+        "fadeInOut": false,
+        "htmlContent": "<button id=\"button_003\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_004\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
+        "linkedUIElementId": "button_003",
+        "maxDistance": 100,
+        "minDistance": 0,
+        "occlusionTest": false,
+        "scaleWithDistance": false
+      },
+      "transform": {
+        "position": [
+          0.00674120057374239,
+          0.5745491087436676,
+          0.9251654148101807
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true
+    },
+    {
+      "enabled": true,
+      "id": "c83079c6-8f7b-4f6a-8189-da2bb4df1ea3",
+      "kind": "spatialui",
+      "name": "UI Anchor_04",
+      "spatialUI": {
+        "cssStyle": {},
+        "fadeInOut": false,
+        "htmlContent": "<button id=\"button_004\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 4px; padding-right: 3px; padding-bottom: 2px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_005\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; transform: translateX(0px) translateY(0px) rotate(180deg) scaleX(1) scaleY(1); transition: all .3s ease; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
+        "linkedUIElementId": "button_004",
+        "maxDistance": 100,
+        "minDistance": 0,
+        "occlusionTest": false,
+        "scaleWithDistance": false
+      },
+      "transform": {
+        "position": [
+          0.00674120057374239,
+          0.37995022535324097,
+          0.9251654148101807
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true
+    },
+    {
+      "id": "fa1311ae-5111-4192-903f-07f7d275c348",
+      "kind": "spatialui",
+      "name": "UI Anchor_05",
+      "transform": {
+        "position": [
+          0,
+          1.794420599937439,
+          -0.19563303887844086
         ],
         "rotation": [
           0,
@@ -108,85 +291,236 @@
         ]
       },
       "visible": true,
+      "enabled": true,
+      "spatialUI": {
+        "htmlContent": "<button id=\"button_005\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_006\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
+        "cssStyle": {},
+        "maxDistance": 100,
+        "minDistance": 0,
+        "scaleWithDistance": false,
+        "fadeInOut": false,
+        "occlusionTest": false,
+        "linkedUIElementId": "button_005"
+      }
+    },
+    {
       "customBehaviors": [
         {
-          "id": "a5e854e5-a830-42f3-9e7e-cb770ce03387",
-          "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/scripts/Script_001.js",
-          "scriptName": "Script_001.js",
+          "enabled": true,
+          "id": "7e8e1a8c-263f-43b0-b79f-43dafac6c30d",
           "parameters": [
             {
-              "name": "minRotation",
-              "type": "number",
-              "value": 0,
+              "inspectorType": "string",
+              "label": "Crank Bone contains",
+              "name": "crankNameContains",
+              "type": "text",
+              "value": "Worktable_Traverse_Crank"
+            },
+            {
+              "inspectorType": "string",
+              "label": "Driven Bone contains",
+              "name": "drivenNameContains",
+              "type": "text",
+              "value": "Worktable"
+            },
+            {
               "inspectorType": "number",
               "label": "Min Rotation (rad)",
-              "step": 0.01
+              "name": "minRotation",
+              "step": 0.01,
+              "type": "number",
+              "value": 0
             },
             {
-              "name": "maxRotation",
-              "type": "number",
-              "value": 20,
               "inspectorType": "number",
               "label": "Max Rotation (rad)",
-              "step": 0.01
+              "name": "maxRotation",
+              "step": "0.01 }, // 1080°",
+              "type": "number",
+              "value": 20
             },
             {
-              "name": "rotationSpeed",
-              "type": "number",
-              "value": 0.02,
               "inspectorType": "number",
               "label": "Rotation Speed (rad/frame)",
-              "step": 0.001
-            },
-            {
-              "name": "travelPerTurn",
+              "name": "rotationSpeed",
+              "step": 0.001,
               "type": "number",
-              "value": 0.2,
-              "inspectorType": "number",
-              "label": "Worktable Travel per Turn (X units)",
-              "step": 0.01
+              "value": 0.02
             },
             {
+              "inspectorType": "number",
+              "label": "Travel per Turn (units)",
+              "name": "travelPerTurn",
+              "step": 0.01,
+              "type": "number",
+              "value": 0.2
+            },
+            {
+              "inspectorType": "enum",
+              "label": "Rotation Axis",
+              "name": "rotationAxis",
+              "options": [
+                "X",
+                "Y",
+                "Z"
+              ],
+              "type": "enum",
+              "value": "X"
+            },
+            {
+              "inspectorType": "enum",
+              "label": "Translation Axis",
+              "name": "translationAxis",
+              "options": [
+                "X",
+                "Y",
+                "Z"
+              ],
+              "type": "enum",
+              "value": "X"
+            },
+            {
+              "inspectorType": "uiElement",
+              "label": "Rotate + Button",
               "name": "forwardButton",
               "type": "uiElement",
               "value": {
                 "id": "button_001",
                 "name": "Button",
                 "type": "button"
-              },
-              "inspectorType": "uiElement",
-              "label": "Rotate +X Button"
+              }
             },
             {
+              "inspectorType": "uiElement",
+              "label": "Rotate - Button",
               "name": "backwardButton",
               "type": "uiElement",
               "value": {
                 "id": "button_002",
                 "name": "Button Copy 1",
                 "type": "button"
-              },
-              "inspectorType": "uiElement",
-              "label": "Rotate -X Button"
+              }
             }
           ],
-          "enabled": true
+          "scriptName": "Script_001_copy.js",
+          "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/scripts/Script_001_copy.js"
         },
         {
-          "id": "5de18ce9-f7d3-4cf1-b727-cc9246e22c16",
+          "enabled": true,
+          "id": "850a09df-cc90-4cd9-afaf-ff24324aac7a",
+          "parameters": [
+            {
+              "inspectorType": "string",
+              "label": "Crank Bone contains",
+              "name": "crankNameContains",
+              "type": "text",
+              "value": "Saddle_Traverse_Crank"
+            },
+            {
+              "inspectorType": "string",
+              "label": "Driven Bone contains",
+              "name": "drivenNameContains",
+              "type": "text",
+              "value": "Saddle"
+            },
+            {
+              "inspectorType": "number",
+              "label": "Min Rotation (rad)",
+              "name": "minRotation",
+              "step": 0.01,
+              "type": "number",
+              "value": 0
+            },
+            {
+              "inspectorType": "number",
+              "label": "Max Rotation (rad)",
+              "name": "maxRotation",
+              "step": "0.01 }, // 1080°",
+              "type": "number",
+              "value": 10
+            },
+            {
+              "inspectorType": "number",
+              "label": "Rotation Speed (rad/frame)",
+              "name": "rotationSpeed",
+              "step": 0.001,
+              "type": "number",
+              "value": 0.02
+            },
+            {
+              "inspectorType": "number",
+              "label": "Travel per Turn (units)",
+              "name": "travelPerTurn",
+              "step": 0.01,
+              "type": "number",
+              "value": 0.2
+            },
+            {
+              "inspectorType": "enum",
+              "label": "Rotation Axis",
+              "name": "rotationAxis",
+              "options": [
+                "X",
+                "Y",
+                "Z"
+              ],
+              "type": "enum",
+              "value": "Y"
+            },
+            {
+              "inspectorType": "enum",
+              "label": "Translation Axis",
+              "name": "translationAxis",
+              "options": [
+                "X",
+                "Y",
+                "Z"
+              ],
+              "type": "enum",
+              "value": "Y"
+            },
+            {
+              "inspectorType": "uiElement",
+              "label": "Rotate + Button",
+              "name": "forwardButton",
+              "type": "uiElement",
+              "value": {
+                "id": "button_003",
+                "name": "Button Copy 2",
+                "type": "button"
+              }
+            },
+            {
+              "inspectorType": "uiElement",
+              "label": "Rotate - Button",
+              "name": "backwardButton",
+              "type": "uiElement",
+              "value": {
+                "id": "button_004",
+                "name": "Button Copy 1 Copy 1",
+                "type": "button"
+              }
+            }
+          ],
+          "scriptName": "Script_001_copy.js",
+          "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/scripts/Script_001_copy.js"
+        },
+        {
+          "id": "d3da3409-505b-46ad-95d7-0992da1086eb",
           "scriptPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/scripts/Script_001_copy.js",
           "scriptName": "Script_001_copy.js",
           "parameters": [
             {
               "name": "crankNameContains",
               "type": "text",
-              "value": "Saddle_Traverse_Crank",
+              "value": "Swivel",
               "inspectorType": "string",
               "label": "Crank Bone contains"
             },
             {
               "name": "drivenNameContains",
               "type": "text",
-              "value": "Saddle",
+              "value": "2",
               "inspectorType": "string",
               "label": "Driven Bone contains"
             },
@@ -201,7 +535,7 @@
             {
               "name": "maxRotation",
               "type": "number",
-              "value": 10,
+              "value": 200,
               "inspectorType": "number",
               "label": "Max Rotation (rad)",
               "step": "0.01 }, // 1080°"
@@ -209,7 +543,7 @@
             {
               "name": "rotationSpeed",
               "type": "number",
-              "value": 0.02,
+              "value": 0.005,
               "inspectorType": "number",
               "label": "Rotation Speed (rad/frame)",
               "step": 0.001
@@ -237,7 +571,7 @@
             {
               "name": "translationAxis",
               "type": "enum",
-              "value": "Y",
+              "value": "X",
               "inspectorType": "enum",
               "label": "Translation Axis",
               "options": [
@@ -250,8 +584,8 @@
               "name": "forwardButton",
               "type": "uiElement",
               "value": {
-                "id": "button_003",
-                "name": "Button Copy 2",
+                "id": "button_005",
+                "name": "Button Copy 3",
                 "type": "button"
               },
               "inspectorType": "uiElement",
@@ -260,11 +594,7 @@
             {
               "name": "backwardButton",
               "type": "uiElement",
-              "value": {
-                "id": "button_004",
-                "name": "Button Copy 1 Copy 1",
-                "type": "button"
-              },
+              "value": null,
               "inspectorType": "uiElement",
               "label": "Rotate - Button"
             }
@@ -272,21 +602,46 @@
           "enabled": true
         }
       ],
-      "inputControl": {
-        "locomotionType": "none"
-      }
+      "enabled": true,
+      "id": "root::milling-machine2",
+      "kind": "model",
+      "metadata": {
+        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/Milling-Machine2.glb",
+        "file": "Milling-Machine2.glb",
+        "importedAsset": true
+      },
+      "name": "Milling-Machine2",
+      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/Milling-Machine2.glb",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive0-a4rjzl",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive0-9jzidy",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive0",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive0",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -308,15 +663,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive1-vgsycn",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive1-j5w8sh",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive1",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive1",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -338,15 +693,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive2-ng01c7",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive2-8eblp7",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive2",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive2",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -368,15 +723,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive3-r8vy4v",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive3-fv3oqy",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive3",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive3",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -398,15 +753,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive4-ljrbjp",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive4-act9r4",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive4",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive4",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -428,15 +783,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive5-e78x5h",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive5-ry3j8p",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive5",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive5",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -458,15 +813,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive6-qtn5cz",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive6-jz79vn",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive6",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive6",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -488,15 +843,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive7-6ksnbl",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive7-eyue9r",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive7",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive7",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -518,15 +873,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive8-y8l7dy",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive8-3dsyub",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive8",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive8",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -548,15 +903,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive9-hbrbp2",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive9-z20u1k",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive9",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive9",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -578,15 +933,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive10-div3ue",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive10-h9tqnu",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive10",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive10",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -608,15 +963,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive11-kgkhdd",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive11-4snzbf",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive11",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive11",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -638,15 +993,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive12-9y5svl",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive12-4hexee",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive12",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive12",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -668,15 +1023,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive13-kxeibm",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive13-3nx52a",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive13",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive13",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -698,15 +1053,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive14-uqa2or",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive14-a5swnb",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive14",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive14",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -728,15 +1083,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive15-2zqajk",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive15-f8s3po",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive15",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive15",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -758,15 +1113,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive16-w0okcc",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive16-1k6e5i",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive16",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive16",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -788,15 +1143,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive17-53ywvm",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive17-6rjuo9",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive17",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive17",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -818,15 +1173,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive18-rg7b36",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive18-6rtien",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive18",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive18",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -848,15 +1203,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive19-ji65gv",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive19-0r1nc5",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive19",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive19",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -878,15 +1233,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive20-uc014r",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive20-ps8abl",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive20",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive20",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -908,15 +1263,15 @@
     },
     {
       "enabled": true,
-      "id": "root::milling-machine::mesh::milling-machine-primitive21-60q3hi",
+      "id": "root::milling-machine2::mesh::milling-machine-primitive21-xnggoz",
       "kind": "mesh",
       "metadata": {
         "importedAsset": true,
         "sourceMeshName": "Milling_Machine_primitive21",
-        "sourceModelId": "root::milling-machine"
+        "sourceModelId": "root::milling-machine2"
       },
       "name": "Milling_Machine_primitive21",
-      "parentId": "root::milling-machine",
+      "parentId": "root::milling-machine2",
       "transform": {
         "position": [
           0,
@@ -935,142 +1290,6 @@
         ]
       },
       "visible": true
-    },
-    {
-      "id": "53728b82-aeb4-4f08-970f-1ab789b30280",
-      "kind": "spatialui",
-      "name": "UI Anchor",
-      "transform": {
-        "position": [
-          0.4652599096298218,
-          1.104103446006775,
-          0.2958761751651764
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "spatialUI": {
-        "htmlContent": "<button id=\"button_001\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_001\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
-        "cssStyle": {},
-        "maxDistance": 100,
-        "minDistance": 0,
-        "scaleWithDistance": false,
-        "fadeInOut": false,
-        "occlusionTest": false,
-        "linkedUIElementId": "button_001"
-      }
-    },
-    {
-      "id": "760616aa-00b2-4c3a-9c88-d6ed956e20fe",
-      "kind": "spatialui",
-      "name": "UI Anchor_02",
-      "transform": {
-        "position": [
-          -0.3766690194606781,
-          1.1095013618469238,
-          0.2886255979537964
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "spatialUI": {
-        "htmlContent": "<button id=\"button_002\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 4px; padding-right: 3px; padding-bottom: 2px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_002\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; transform: translateX(0px) translateY(0px) rotate(180deg) scaleX(1) scaleY(1); transition: all .3s ease; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
-        "cssStyle": {},
-        "maxDistance": 100,
-        "minDistance": 0,
-        "scaleWithDistance": false,
-        "fadeInOut": false,
-        "occlusionTest": false,
-        "linkedUIElementId": "button_002"
-      }
-    },
-    {
-      "id": "07963686-0e84-4c97-882c-86cf2c715318",
-      "kind": "spatialui",
-      "name": "UI Anchor_03",
-      "transform": {
-        "position": [
-          0.00674120057374239,
-          0.5745491087436676,
-          0.9251654148101807
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "spatialUI": {
-        "htmlContent": "<button id=\"button_003\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_004\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
-        "cssStyle": {},
-        "maxDistance": 100,
-        "minDistance": 0,
-        "scaleWithDistance": false,
-        "fadeInOut": false,
-        "occlusionTest": false,
-        "linkedUIElementId": "button_003"
-      }
-    },
-    {
-      "id": "c83079c6-8f7b-4f6a-8189-da2bb4df1ea3",
-      "kind": "spatialui",
-      "name": "UI Anchor_04",
-      "transform": {
-        "position": [
-          0.00674120057374239,
-          0.37995022535324097,
-          0.9251654148101807
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "spatialUI": {
-        "htmlContent": "<button id=\"button_004\" style=\"backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: 40px; height: 40px; display: inline-flex; justify-content: center; align-items: center; align-self: center; justify-self: center; background-color: rgba(0, 0, 0, 0.4); border-width: 1px; border-color: rgba(255, 255, 255, 1); border-style: solid; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; color: #ffffff; font-size: 14px; font-weight: 500; padding: 8px 16px; padding-top: 4px; padding-right: 3px; padding-bottom: 2px; padding-left: 3px; cursor: pointer; transform: translateX(0px) translateY(0px) rotate(0deg) scaleX(1) scaleY(1); box-sizing: border-box\"><img id=\"image_005\" style=\"width: 80%; height: 80%; display: block; align-self: center; justify-self: center; border-width: 0px; border-color: #6c757d; border-style: solid; border-radius: 4px; transform: translateX(0px) translateY(0px) rotate(180deg) scaleX(1) scaleY(1); transition: all .3s ease; box-sizing: border-box; object-fit: contain\" src=\"https://vtpjflkpgzjfveqepzvc.supabase.co/storage/v1/object/public/projects/867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/f060bfda-5973-41c0-8d97-34543df1dc94/rotate.png\" alt=\"Image\" /></button>",
-        "cssStyle": {},
-        "maxDistance": 100,
-        "minDistance": 0,
-        "scaleWithDistance": false,
-        "fadeInOut": false,
-        "occlusionTest": false,
-        "linkedUIElementId": "button_004"
-      }
     }
   ],
   "sceneSettings": {
@@ -1140,6 +1359,6 @@
       "timeStep": 0.016666666666666666
     }
   },
-  "sceneVersion": 687,
+  "sceneVersion": 917,
   "version": 1
 }
