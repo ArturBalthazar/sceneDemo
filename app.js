@@ -1076,10 +1076,7 @@
       console.log('🔍 RUNTIME: Loading texture from storage path:', assetStoragePath);
       
       // Use the toRelativeAssetPath function to convert storage path to relative path
-      const rel = toRelativeAssetPath(assetStoragePath);
-      // Check if rel already starts with a directory (assets/, UI/, scripts/, etc.)
-      // If not, it's a bare filename, so add assets/
-      const url = rel.includes('/') ? rel : 'assets/' + rel;
+      const url = toRelativeAssetPath(assetStoragePath);
       
       console.log('🔍 RUNTIME: Converted storage path to URL:', assetStoragePath, '->', url);
       
@@ -1643,8 +1640,7 @@
 
       try {
         // Convert storage path to asset path
-        const rel = toRelativeAssetPath(audioNode.audioFile);
-        const audioUrl = rel.includes('/') ? rel : 'assets/' + rel;
+        const audioUrl = toRelativeAssetPath(audioNode.audioFile);
         console.log('🔊 Loading audio: ' + audioNode.name + ' from ' + audioUrl);
         
         // Create audio element
@@ -2211,9 +2207,8 @@
     try {
       // Convert storage path to asset path
       const rel = toRelativeAssetPath(node.src);
-      // Check if rel already includes a directory path (contains '/')
-      // If not, it's a bare filename, so add 'assets/' prefix
-      const assetPath = rel.includes('/') ? rel : 'assets/' + rel;
+      // Use the path as-is (toRelativeAssetPath already handles directory structure correctly)
+      const assetPath = rel;
       console.log('🔗 Loading model from:', assetPath);
       
       // URL encode the path to handle spaces and special characters
@@ -2593,8 +2588,7 @@
       
       if (env.useIBL && env.iblPath) {
         try {
-          const rel = toRelativeAssetPath(env.iblPath);
-          const assetPath = rel.includes('/') ? rel : 'assets/' + rel;
+          const assetPath = toRelativeAssetPath(env.iblPath);
           console.log('🌍 Loading IBL for SCENE LIGHTING from asset path:', assetPath);
           
           let environmentTexture = null;
@@ -2764,8 +2758,7 @@
         skyboxMaterial.diffuseTexture = null;
 
         if (sbType === 'panoramic' && env.skyboxPanoramaPath) {
-          const rel = toRelativeAssetPath(env.skyboxPanoramaPath);
-          const panoPath = rel.includes('/') ? rel : 'assets/' + rel;
+          const panoPath = toRelativeAssetPath(env.skyboxPanoramaPath);
           console.log('🌄 Applying panoramic skybox:', panoPath);
           const tex = new BABYLON.Texture(panoPath, scene, false, true, BABYLON.Texture.TRILINEAR_SAMPLINGMODE);
           tex.coordinatesMode = BABYLON.Texture.FIXED_EQUIRECTANGULAR_MODE;
@@ -2783,10 +2776,7 @@
           const faces = env.skyboxTextures;
           const order = ['px','nx','py','ny','pz','nz'];
           if (order.every(f => faces[f])) {
-            const urls = order.map(f => {
-              const rel = toRelativeAssetPath(faces[f]);
-              return rel.includes('/') ? rel : 'assets/' + rel;
-            });
+            const urls = order.map(f => toRelativeAssetPath(faces[f]));
             console.log('🧊 Applying cube skybox with faces:', urls);
             const cube = BABYLON.CubeTexture.CreateFromImages(urls, scene);
             cube.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
@@ -2972,7 +2962,7 @@
   function toRelativeAssetPath(storagePath) {
     const pathStr = String(storagePath);
     // 1) If looks like '<uid>/projects/<projectId>/...', keep everything after projectId
-    //    This preserves the full path: assets/subfolder/file.ext
+    //    This preserves the full path: assets/subfolder/file.ext OR root file.ext
     const parts = pathStr.split('/');
     const projIdx = parts.indexOf('projects');
     if (projIdx >= 0 && parts.length > projIdx + 2) {
@@ -2985,9 +2975,9 @@
     if (idx >= 0) {
       return pathStr.substring(idx + 1); // +1 to skip the leading '/'
     }
-    // 3) Fallback to filename
+    // 3) Fallback to filename (keep at root, don't add assets/ prefix)
     const filename = parts[parts.length - 1];
-    if (filename) return 'assets/' + filename; // Add assets/ prefix for bare filenames
+    if (filename) return filename; // Return bare filename for root assets
     // 4) Ultimate fallback: sanitize path without regex
     return pathStr.split('/').join('_').split('\\').join('_');
   }
