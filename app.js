@@ -1,5 +1,5 @@
 
-// Dream Builder Runtime - Self-contained scene renderer
+// Musecraft Runtime - Self-contained scene renderer
 (async function() {
   const canvas = document.getElementById('renderCanvas');
   if (!canvas) {
@@ -32,8 +32,8 @@
   let spatialUIContainer = null; // DOM container for spatial UI elements
   let updateSpatialUI = null; // Function to update spatial UI (defined after scene loads)
   
-  // Custom Logic system variables
-  let customLogicManager = null;
+  // Runtime Logic system variables
+  let runtimeLogicManager = null;
   
   // Performance monitoring
   let fpsCounter = null;
@@ -46,23 +46,23 @@
     return i >= 0 ? id.slice(i + MESH_TAG.length) : null;
   }
 
-  // Custom Logic Manager for executing user scripts (synced with viewer.js)
-  class CustomLogicManager {
+  // Runtime Logic Manager for executing user scripts (synced with viewer.js)
+  class RuntimeLogicManager {
     constructor(scene) {
       this.scene = scene;
       this.activeLogics = new Map(); // objectId -> array of logic instances
-      console.log('🧠 CustomLogicManager initialized');
+      console.log('🧠 RuntimeLogicManager initialized');
     }
 
-    async loadCustomLogics(customLogicData) {
-      if (!customLogicData || !customLogicData.objectLogics) {
+    async loadRuntimeLogics(runtimeLogicData) {
+      if (!runtimeLogicData || !runtimeLogicData.objectLogics) {
         console.log('🧠 No custom logic data provided');
         return;
       }
 
-      console.log('🧠 Loading custom logics:', customLogicData.objectLogics);
+      console.log('🧠 Loading custom logics:', runtimeLogicData.objectLogics);
 
-      for (const [objectId, logics] of Object.entries(customLogicData.objectLogics)) {
+      for (const [objectId, logics] of Object.entries(runtimeLogicData.objectLogics)) {
         // Handle scene-level logic (objectId === '__scene__')
         let babylonObject;
         if (objectId === '__scene__') {
@@ -129,7 +129,7 @@
                   return nodeRef;
                 }
                 
-                // If it's an object with id property (from CustomLogic UI)
+                // If it's an object with id property (from RuntimeLogic UI)
                 if (typeof nodeRef === 'object' && nodeRef.id) {
                   return scene.getNodeById(nodeRef.id);
                 }
@@ -288,12 +288,12 @@
         // Build the function body step by step to avoid escaping issues
         var functionBody = transformedScript;
         functionBody += '\n\n';
-        functionBody += 'if (typeof CustomLogic === "undefined") {\n';
-        functionBody += '  console.error("🧠 CustomLogic class not found in script");\n';
+        functionBody += 'if (typeof RuntimeLogic === "undefined") {\n';
+        functionBody += '  console.error("🧠 RuntimeLogic class not found in script");\n';
         functionBody += '  return null;\n';
         functionBody += '}\n';
-        functionBody += 'console.log("🧠 CustomLogic class found:", CustomLogic);\n';
-        functionBody += 'return CustomLogic;';
+        functionBody += 'console.log("🧠 RuntimeLogic class found:", RuntimeLogic);\n';
+        functionBody += 'return RuntimeLogic;';
         
         const scriptFunction = new Function('BABYLON', functionBody);
         
@@ -339,7 +339,7 @@
       }
       
       this.activeLogics.clear();
-      console.log('🧠 Custom logic manager disposed');
+      console.log('🧠 Runtime logic manager disposed');
     }
   }
 
@@ -353,6 +353,10 @@
       this.elementMap = new Map();
       this.container = null;
       this.globalAnimations = [];
+      this.screenSizeSettings = {
+        mobile: { enabled: false, width: 768 },
+        tablet: { enabled: false, width: 1024 }
+      };
       console.log('🎨 UILoader initialized');
     }
 
@@ -360,7 +364,7 @@
       try {
         // Try to load animations.json from local path
         try {
-          const animResponse = await fetch('./UI/animations.json', { cache: 'no-store' });
+          const animResponse = await fetch('./ui/animations.json', { cache: 'no-store' });
           if (animResponse.ok) {
             const animData = await animResponse.json();
             this.globalAnimations = animData.animations || [];
@@ -372,7 +376,7 @@
         }
         
         // Try to load ui.json from local path
-        const response = await fetch('./UI/ui.json', {
+        const response = await fetch('./ui/ui.json', {
           cache: 'no-store',
           headers: { 'Cache-Control': 'no-cache' }
         });
@@ -387,10 +391,10 @@
         // Filter out anchored UI elements - they're rendered in 3D space, not as screen overlay
         const anchoredUIIds = new Set();
         
-        // Get anchored UI IDs from scene graph
+        // Get anchored UI IDs from scene graph (excluding deleted ones)
         if (this.sceneGraph && this.sceneGraph.nodes) {
           this.sceneGraph.nodes.forEach(function(node) {
-            if (node.kind === 'spatialui' && node.spatialUI && node.spatialUI.linkedUIElementId) {
+            if (node.kind === 'spatialui' && node.spatialUI && node.spatialUI.linkedUIElementId && !(node.metadata && node.metadata.deleted === true)) {
               anchoredUIIds.add(node.spatialUI.linkedUIElementId);
             }
           });
@@ -400,6 +404,12 @@
         this.elements = (uiConfig.elements || []).filter(function(el) {
           return !el.anchoredTo && !anchoredUIIds.has(el.id);
         });
+        
+        // Load screen size settings
+        if (uiConfig.screenSizeSettings) {
+          this.screenSizeSettings = uiConfig.screenSizeSettings;
+          console.log('✅ Loaded screen size settings:', this.screenSizeSettings);
+        }
         
         console.log('✅ Loaded ' + this.elements.length + ' UI elements (anchored elements excluded)');
         return true;
@@ -422,7 +432,7 @@
         right: 0;
         bottom: 0;
         pointer-events: none;
-        z-index: 1000;
+        z-index: 20000;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
@@ -540,27 +550,34 @@
       // Apply animations
       if (element.assignedAnimations && element.assignedAnimations.length > 0) {
         var animationDurations = element.animationDurations || {};
-        var animationNames = [];
-        var animationDurationsList = [];
+        var animationEasings = element.animationEasings || {};
+        var animationLoopCounts = element.animationLoopCounts || {};
+        var animationDelays = element.animationDelays || {};
+        var animationDirections = element.animationDirections || {};
+        var animationFillModes = element.animationFillModes || {};
+        var animationParts = [];
         var self = this;
-        
+
         element.assignedAnimations.forEach(function(animId) {
           var animation = self.globalAnimations.find(function(anim) { return anim.id === animId; });
           if (animation) {
-            animationNames.push(animation.internalName);
-            animationDurationsList.push((animationDurations[animId] || '1') + 's');
+            var dur = (animationDurations[animId] || '1') + 's';
+            var easing = animationEasings[animId] || 'ease';
+            var delay = (animationDelays[animId] || '0') + 's';
+            var loopCount = animationLoopCounts[animId] || 'infinite';
+            var direction = animationDirections[animId] || 'normal';
+            var fillMode = animationFillModes[animId] || 'none';
+            animationParts.push(animation.internalName + ' ' + dur + ' ' + easing + ' ' + delay + ' ' + loopCount + ' ' + direction + ' ' + fillMode);
           }
         });
-        
-        if (animationNames.length > 0) {
-          domElement.style.animation = animationNames.map(function(name, i) {
-            return name + ' ' + animationDurationsList[i] + ' infinite';
-          }).join(', ');
+
+        if (animationParts.length > 0) {
+          domElement.style.animation = animationParts.join(', ');
         }
       }
       
       // Apply hover and active state styles
-      if (element.hoverStyle || element.activeStyle) {
+      if (element.hoverStyle || element.activeStyle || element.mobileStyle || element.mobileHoverStyle || element.mobileActiveStyle || element.tabletStyle || element.tabletHoverStyle || element.tabletActiveStyle) {
         this.applyPseudoStates(domElement, element);
       }
       
@@ -579,11 +596,11 @@
         domElement.style.pointerEvents = 'auto';
       }
       
-      // Custom logic support
+      // Runtime logic support
       var self = this;
-      if (element.customLogic) {
+      if (element.runtimeLogic) {
         try {
-          var handler = new Function('element', 'scene', 'engine', element.customLogic);
+          var handler = new Function('element', 'scene', 'engine', element.runtimeLogic);
           domElement.addEventListener('click', function(e) {
             e.stopPropagation();
             handler(domElement, self.scene, self.engine);
@@ -628,15 +645,17 @@
     }
 
     applyPseudoStates(domElement, element) {
+      var self = this;
       var uniqueClass = 'ui-element-' + element.id;
       domElement.classList.add(uniqueClass);
       
-      if (element.hoverStyle || element.activeStyle) {
+      if (element.hoverStyle || element.activeStyle || element.mobileStyle || element.mobileHoverStyle || element.mobileActiveStyle || element.tabletStyle || element.tabletHoverStyle || element.tabletActiveStyle) {
         domElement.style.pointerEvents = 'auto';
       }
       
       var cssRules = '';
       
+      // Desktop styles (default)
       if (element.hoverStyle) {
         var hoverStyles = Object.entries(element.hoverStyle)
           .map(function([key, value]) {
@@ -655,6 +674,83 @@
           })
           .join(' ');
         cssRules += '.' + uniqueClass + ':active { ' + activeStyles + ' }\n';
+      }
+      
+      // Mobile styles (if enabled)
+      if (this.screenSizeSettings.mobile.enabled) {
+        var mobileMaxWidth = this.screenSizeSettings.mobile.width;
+        
+        if (element.mobileStyle) {
+          var mobileStyles = Object.entries(element.mobileStyle)
+            .map(function([key, value]) {
+              var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              return cssKey + ': ' + value + ' !important;';
+            })
+            .join(' ');
+          cssRules += '@media (max-width: ' + mobileMaxWidth + 'px) { .' + uniqueClass + ' { ' + mobileStyles + ' } }\n';
+        }
+        
+        if (element.mobileHoverStyle) {
+          var mobileHoverStyles = Object.entries(element.mobileHoverStyle)
+            .map(function([key, value]) {
+              var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              return cssKey + ': ' + value + ' !important;';
+            })
+            .join(' ');
+          cssRules += '@media (max-width: ' + mobileMaxWidth + 'px) { .' + uniqueClass + ':hover { ' + mobileHoverStyles + ' } }\n';
+        }
+        
+        if (element.mobileActiveStyle) {
+          var mobileActiveStyles = Object.entries(element.mobileActiveStyle)
+            .map(function([key, value]) {
+              var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              return cssKey + ': ' + value + ' !important;';
+            })
+            .join(' ');
+          cssRules += '@media (max-width: ' + mobileMaxWidth + 'px) { .' + uniqueClass + ':active { ' + mobileActiveStyles + ' } }\n';
+        }
+      }
+      
+      // Tablet styles (if enabled)
+      if (this.screenSizeSettings.tablet.enabled) {
+        var tabletMaxWidth = this.screenSizeSettings.tablet.width;
+        var mobileMaxWidth = this.screenSizeSettings.mobile.enabled ? this.screenSizeSettings.mobile.width : 0;
+        
+        // Tablet styles should apply between mobile and tablet breakpoints
+        var minWidth = this.screenSizeSettings.mobile.enabled ? mobileMaxWidth + 1 : 0;
+        var mediaQuery = minWidth > 0 
+          ? '@media (min-width: ' + minWidth + 'px) and (max-width: ' + tabletMaxWidth + 'px)' 
+          : '@media (max-width: ' + tabletMaxWidth + 'px)';
+        
+        if (element.tabletStyle) {
+          var tabletStyles = Object.entries(element.tabletStyle)
+            .map(function([key, value]) {
+              var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              return cssKey + ': ' + value + ' !important;';
+            })
+            .join(' ');
+          cssRules += mediaQuery + ' { .' + uniqueClass + ' { ' + tabletStyles + ' } }\n';
+        }
+        
+        if (element.tabletHoverStyle) {
+          var tabletHoverStyles = Object.entries(element.tabletHoverStyle)
+            .map(function([key, value]) {
+              var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              return cssKey + ': ' + value + ' !important;';
+            })
+            .join(' ');
+          cssRules += mediaQuery + ' { .' + uniqueClass + ':hover { ' + tabletHoverStyles + ' } }\n';
+        }
+        
+        if (element.tabletActiveStyle) {
+          var tabletActiveStyles = Object.entries(element.tabletActiveStyle)
+            .map(function([key, value]) {
+              var cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+              return cssKey + ': ' + value + ' !important;';
+            })
+            .join(' ');
+          cssRules += mediaQuery + ' { .' + uniqueClass + ':active { ' + tabletActiveStyles + ' } }\n';
+        }
       }
       
       if (cssRules) {
@@ -703,96 +799,151 @@
     }
 
     applyPseudoEffects(domElement, element) {
+      var self = this;
       var uniqueClass = 'ui-element-' + element.id;
       domElement.classList.add(uniqueClass);
       
       var cssRules = '';
       
-      // Check if any effect has hover or active settings
+      // Helper function to generate effect CSS for a given settings key
+      var generateEffectCSS = function(settingsKey) {
+        var filters = [];
+        var shadows = [];
+        var backdropBlur = null;
+        
+        element.effects.forEach(function(effect) {
+          if (effect.enabled === false) return;
+          
+          var getVal = function(prop) {
+            return effect[settingsKey]?.[prop] !== undefined ? effect[settingsKey][prop] : effect[prop];
+          };
+          
+          switch (effect.type) {
+            case 'dropShadow':
+              shadows.push((getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
+              break;
+            case 'innerShadow':
+              shadows.push('inset ' + (getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
+              break;
+            case 'blur':
+              filters.push('blur(' + (getVal('blurAmount') || '0px') + ')');
+              break;
+            case 'frostedBackground':
+              backdropBlur = 'blur(' + (getVal('frostedBlur') || '10px') + ')';
+              break;
+          }
+        });
+        
+        var effectStyles = '';
+        if (shadows.length > 0) effectStyles += 'box-shadow: ' + shadows.join(', ') + ' !important;';
+        if (filters.length > 0) effectStyles += 'filter: ' + filters.join(' ') + ' !important;';
+        if (backdropBlur) effectStyles += 'backdrop-filter: ' + backdropBlur + ' !important;';
+        
+        return effectStyles;
+      };
+      
+      // Check if any effect has settings for any state
       var hasHoverSettings = element.effects.some(function(eff) { 
         return eff.hoverSettings && Object.keys(eff.hoverSettings).length > 0; 
       });
       var hasActiveSettings = element.effects.some(function(eff) { 
         return eff.activeSettings && Object.keys(eff.activeSettings).length > 0; 
       });
+      var hasMobileSettings = element.effects.some(function(eff) { 
+        return eff.mobileSettings && Object.keys(eff.mobileSettings).length > 0; 
+      });
+      var hasMobileHoverSettings = element.effects.some(function(eff) { 
+        return eff.mobileHoverSettings && Object.keys(eff.mobileHoverSettings).length > 0; 
+      });
+      var hasMobileActiveSettings = element.effects.some(function(eff) { 
+        return eff.mobileActiveSettings && Object.keys(eff.mobileActiveSettings).length > 0; 
+      });
+      var hasTabletSettings = element.effects.some(function(eff) { 
+        return eff.tabletSettings && Object.keys(eff.tabletSettings).length > 0; 
+      });
+      var hasTabletHoverSettings = element.effects.some(function(eff) { 
+        return eff.tabletHoverSettings && Object.keys(eff.tabletHoverSettings).length > 0; 
+      });
+      var hasTabletActiveSettings = element.effects.some(function(eff) { 
+        return eff.tabletActiveSettings && Object.keys(eff.tabletActiveSettings).length > 0; 
+      });
       
-      if (hasHoverSettings || hasActiveSettings) {
+      if (hasHoverSettings || hasActiveSettings || hasMobileHoverSettings || hasMobileActiveSettings || hasTabletHoverSettings || hasTabletActiveSettings) {
         domElement.style.pointerEvents = 'auto';
       }
       
-      // Generate CSS for hover effects
+      // Desktop hover effects
       if (hasHoverSettings) {
-        var filters = [];
-        var shadows = [];
-        var backdropBlur = null;
-        
-        element.effects.forEach(function(effect) {
-          if (effect.enabled === false) return;
-          
-          var getVal = function(prop) {
-            return effect.hoverSettings?.[prop] !== undefined ? effect.hoverSettings[prop] : effect[prop];
-          };
-          
-          switch (effect.type) {
-            case 'dropShadow':
-              shadows.push((getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
-              break;
-            case 'innerShadow':
-              shadows.push('inset ' + (getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
-              break;
-            case 'blur':
-              filters.push('blur(' + (getVal('blurAmount') || '0px') + ')');
-              break;
-            case 'frostedBackground':
-              backdropBlur = 'blur(' + (getVal('frostedBlur') || '10px') + ')';
-              break;
-          }
-        });
-        
-        var hoverStyles = '';
-        if (shadows.length > 0) hoverStyles += 'box-shadow: ' + shadows.join(', ') + ' !important;';
-        if (filters.length > 0) hoverStyles += 'filter: ' + filters.join(' ') + ' !important;';
-        if (backdropBlur) hoverStyles += 'backdrop-filter: ' + backdropBlur + ' !important;';
+        var hoverStyles = generateEffectCSS('hoverSettings');
         if (hoverStyles) {
           cssRules += '.' + uniqueClass + ':hover { ' + hoverStyles + ' }\n';
         }
       }
       
-      // Generate CSS for active effects
+      // Desktop active effects
       if (hasActiveSettings) {
-        var filters = [];
-        var shadows = [];
-        var backdropBlur = null;
-        
-        element.effects.forEach(function(effect) {
-          if (effect.enabled === false) return;
-          
-          var getVal = function(prop) {
-            return effect.activeSettings?.[prop] !== undefined ? effect.activeSettings[prop] : effect[prop];
-          };
-          
-          switch (effect.type) {
-            case 'dropShadow':
-              shadows.push((getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
-              break;
-            case 'innerShadow':
-              shadows.push('inset ' + (getVal('shadowX') || '0px') + ' ' + (getVal('shadowY') || '0px') + ' ' + (getVal('shadowBlur') || '0px') + ' ' + (getVal('shadowSpread') || '0px') + ' ' + (getVal('shadowColor') || 'rgba(0,0,0,0.25)'));
-              break;
-            case 'blur':
-              filters.push('blur(' + (getVal('blurAmount') || '0px') + ')');
-              break;
-            case 'frostedBackground':
-              backdropBlur = 'blur(' + (getVal('frostedBlur') || '10px') + ')';
-              break;
-          }
-        });
-        
-        var activeStyles = '';
-        if (shadows.length > 0) activeStyles += 'box-shadow: ' + shadows.join(', ') + ' !important;';
-        if (filters.length > 0) activeStyles += 'filter: ' + filters.join(' ') + ' !important;';
-        if (backdropBlur) activeStyles += 'backdrop-filter: ' + backdropBlur + ' !important;';
+        var activeStyles = generateEffectCSS('activeSettings');
         if (activeStyles) {
           cssRules += '.' + uniqueClass + ':active { ' + activeStyles + ' }\n';
+        }
+      }
+      
+      // Mobile effects (if enabled)
+      if (this.screenSizeSettings.mobile.enabled) {
+        var mobileMaxWidth = this.screenSizeSettings.mobile.width;
+        
+        if (hasMobileSettings) {
+          var mobileStyles = generateEffectCSS('mobileSettings');
+          if (mobileStyles) {
+            cssRules += '@media (max-width: ' + mobileMaxWidth + 'px) { .' + uniqueClass + ' { ' + mobileStyles + ' } }\n';
+          }
+        }
+        
+        if (hasMobileHoverSettings) {
+          var mobileHoverStyles = generateEffectCSS('mobileHoverSettings');
+          if (mobileHoverStyles) {
+            cssRules += '@media (max-width: ' + mobileMaxWidth + 'px) { .' + uniqueClass + ':hover { ' + mobileHoverStyles + ' } }\n';
+          }
+        }
+        
+        if (hasMobileActiveSettings) {
+          var mobileActiveStyles = generateEffectCSS('mobileActiveSettings');
+          if (mobileActiveStyles) {
+            cssRules += '@media (max-width: ' + mobileMaxWidth + 'px) { .' + uniqueClass + ':active { ' + mobileActiveStyles + ' } }\n';
+          }
+        }
+      }
+      
+      // Tablet effects (if enabled)
+      if (this.screenSizeSettings.tablet.enabled) {
+        var tabletMaxWidth = this.screenSizeSettings.tablet.width;
+        var mobileMaxWidth = this.screenSizeSettings.mobile.enabled ? this.screenSizeSettings.mobile.width : 0;
+        
+        // Tablet effects should apply between mobile and tablet breakpoints
+        var minWidth = this.screenSizeSettings.mobile.enabled ? mobileMaxWidth + 1 : 0;
+        var mediaQuery = minWidth > 0 
+          ? '@media (min-width: ' + minWidth + 'px) and (max-width: ' + tabletMaxWidth + 'px)' 
+          : '@media (max-width: ' + tabletMaxWidth + 'px)';
+        
+        if (hasTabletSettings) {
+          var tabletStyles = generateEffectCSS('tabletSettings');
+          if (tabletStyles) {
+            cssRules += mediaQuery + ' { .' + uniqueClass + ' { ' + tabletStyles + ' } }\n';
+          }
+        }
+        
+        if (hasTabletHoverSettings) {
+          var tabletHoverStyles = generateEffectCSS('tabletHoverSettings');
+          if (tabletHoverStyles) {
+            cssRules += mediaQuery + ' { .' + uniqueClass + ':hover { ' + tabletHoverStyles + ' } }\n';
+          }
+        }
+        
+        if (hasTabletActiveSettings) {
+          var tabletActiveStyles = generateEffectCSS('tabletActiveSettings');
+          if (tabletActiveStyles) {
+            cssRules += mediaQuery + ' { .' + uniqueClass + ':active { ' + tabletActiveStyles + ' } }\n';
+          }
         }
       }
       
@@ -960,16 +1111,19 @@
         animation.keyframes.forEach(function(keyframe) {
           css += '  ' + keyframe.percentage + '% {\n';
           
+          // Use individual CSS transform properties (translate, scale, rotate)
+          // so animated properties don't override non-animated transform values.
+          
           Object.entries(keyframe.properties).forEach(function([property, value]) {
             if (property === 'opacity') {
               css += '    opacity: ' + (value / 100) + ';\n';
             } else if (property === 'scale') {
-              css += '    transform: scale(' + (value.x || 1) + ', ' + (value.y || 1) + ');\n';
+              css += '    scale: ' + (value.x || 1) + ' ' + (value.y || 1) + ';\n';
             } else if (property === 'translate') {
               var unit = value.unit || 'px';
-              css += '    transform: translate(' + (value.x || 0) + unit + ', ' + (value.y || 0) + unit + ');\n';
+              css += '    translate: ' + (value.x || 0) + unit + ' ' + (value.y || 0) + unit + ';\n';
             } else if (property === 'rotation') {
-              css += '    transform: rotate(' + value + 'deg);\n';
+              css += '    rotate: ' + value + 'deg;\n';
             } else if (property === 'background-color' || property === 'text-color' || property === 'border-color') {
               var cssProperty = property === 'text-color' ? 'color' : property;
               css += '    ' + cssProperty + ': ' + value + ';\n';
@@ -1018,6 +1172,32 @@
       overlay.classList.remove('hidden');
       text.textContent = message;
     }
+    
+    // Update progress bar
+    const progressBarGlow = document.getElementById('progressBarGlow');
+    const progressBarSolid = document.getElementById('progressBarSolid');
+    if (progressBarGlow && progressBarSolid) {
+      // Define loading steps
+      const steps = [
+        'Initializing viewer...',
+        'Loading scene...',
+        'Creating scene objects...',
+        'Initializing physics...',
+        'Applying scene settings...',
+        'Preparing scene...',
+        'Setting up input controls...',
+        'Loading custom logic...',
+        'Loading UI...',
+        'Finalizing...'
+      ];
+      
+      const stepIndex = steps.findIndex(function(step) { return step === message; });
+      if (stepIndex >= 0) {
+        const progress = ((stepIndex + 1) / steps.length) * 100;
+        progressBarGlow.style.width = progress + '%';
+        progressBarSolid.style.width = progress + '%';
+      }
+    }
   }
 
   // Hide loading
@@ -1041,16 +1221,16 @@
   // Texture helpers for overrides
   function isTextureProperty(prop) {
     const textureProps = [
-      'albedoTexture', 'baseTexture', 'diffuseTexture',
-      'metallicTexture', 'roughnessTexture', 'metallicRoughnessTexture',
+      // PBR Material textures
+      'albedoTexture', 'baseTexture',
+      'metallicTexture', 'normalTexture',
+      'emissiveTexture', 'opacityTexture',
+      'ambientTexture', 'lightmapTexture',
       'reflectionTexture', 'refractionTexture',
-      'normalTexture', 'bumpTexture',
-      'emissiveTexture',
-      'opacityTexture',
-      'ambientTexture',
-      'lightmapTexture',
       'clearCoatTexture', 'clearCoatNormalTexture', 'clearCoatRoughnessTexture',
-      'sheenTexture', 'sheenRoughnessTexture'
+      'sheenTexture', 'sheenRoughnessTexture',
+      // Standard Material textures
+      'diffuseTexture', 'specularTexture', 'bumpTexture'
     ];
     return textureProps.includes(prop);
   }
@@ -1233,8 +1413,8 @@
         scene.render();
         
         // Update custom logic instances
-        if (customLogicManager) {
-          customLogicManager.update(engine.getDeltaTime() / 1000); // Convert to seconds
+        if (runtimeLogicManager) {
+          runtimeLogicManager.update(engine.getDeltaTime() / 1000); // Convert to seconds
         }
         
         // Update spatial UI positions
@@ -1263,8 +1443,8 @@
       if (cameraCollisionManager) {
         cameraCollisionManager.dispose();
       }
-      if (customLogicManager) {
-        customLogicManager.dispose();
+      if (runtimeLogicManager) {
+        runtimeLogicManager.dispose();
       }
       // Dispose audio elements
       if (audioNodes) {
@@ -1280,24 +1460,24 @@
       }
     });
 
-    // Load custom logic data from customLogic.json file
+    // Load custom logic data from runtimeLogic.json file
     showLoading('Loading custom logic...');
-    let customLogicData = null;
+    let runtimeLogicData = null;
     
     try {
-      console.log('🧠 Attempting to load custom logic from customLogic.json');
-      const response = await fetch('customLogic.json', { 
+      console.log('🧠 Attempting to load custom logic from runtimeLogic.json');
+      const response = await fetch('runtimeLogic.json', { 
         cache: 'no-store', 
         headers: { 'Cache-Control': 'no-cache' } 
       });
       
       if (response.ok) {
-        customLogicData = await response.json();
-        console.log('🧠 Loaded custom logic data from file:', customLogicData);
+        runtimeLogicData = await response.json();
+        console.log('🧠 Loaded custom logic data from file:', runtimeLogicData);
         
         // Load script contents from separate files
-        if (customLogicData && customLogicData.objectLogics) {
-          for (const [objectId, logics] of Object.entries(customLogicData.objectLogics)) {
+        if (runtimeLogicData && runtimeLogicData.objectLogics) {
+          for (const [objectId, logics] of Object.entries(runtimeLogicData.objectLogics)) {
             for (const logic of logics) {
               if (logic.scriptPath && !logic.scriptContent) {
                 try {
@@ -1321,9 +1501,9 @@
           }
         }
       } else if (response.status === 404) {
-        console.log('🧠 No customLogic.json found - no custom logic to load');
+        console.log('🧠 No runtimeLogic.json found - no custom logic to load');
       } else {
-        console.error('🧠 Failed to load customLogic.json:', response.status, response.statusText);
+        console.error('🧠 Failed to load runtimeLogic.json:', response.status, response.statusText);
       }
     } catch (error) {
       console.log('🧠 No custom logic data available (this is normal if no custom logic was added):', error.message);
@@ -1363,7 +1543,7 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
-        z-index: 1000;
+        z-index: 0;
       `;
       document.body.appendChild(spatialUIContainer);
       
@@ -1376,9 +1556,9 @@
         
         if (!camera) return;
         
-        // Find all spatial UI nodes from scene graph
+        // Find all spatial UI nodes from scene graph (excluding deleted ones)
         const spatialUINodesFromGraph = EXPORTED_SCENE_GRAPH.nodes.filter(function(node) {
-          return node.kind === 'spatialui' && node.spatialUI;
+          return node.kind === 'spatialui' && node.spatialUI && !(node.metadata && node.metadata.deleted === true);
         });
         
         spatialUINodesFromGraph.forEach(function(node) {
@@ -1395,7 +1575,6 @@
             container = document.createElement('div');
             container.id = 'spatial-ui-container-' + id;
             container.style.position = 'absolute';
-            container.style.zIndex = '10000';
             
             spatialUIContainer.appendChild(container);
             spatialUIElements.set(id, container);
@@ -1554,10 +1733,10 @@
     }
 
     // Initialize custom logic manager and load logics (AFTER spatial UI so it can reference UI elements)
-    if (customLogicData && scene) {
-      customLogicManager = new CustomLogicManager(scene);
-      await customLogicManager.loadCustomLogics(customLogicData);
-      console.log('🧠 Custom logic system initialized');
+    if (runtimeLogicData && scene) {
+      runtimeLogicManager = new RuntimeLogicManager(scene);
+      await runtimeLogicManager.loadRuntimeLogics(runtimeLogicData);
+      console.log('🧠 Runtime logic system initialized');
     }
 
     // Hide loading overlay
@@ -1699,7 +1878,7 @@
   function updateActiveController(sceneGraph, scene) {
     if (sceneGraph && sceneGraph.nodes) {
       const activeControllerNode = sceneGraph.nodes.find(function(node) {
-        return node.inputControl && node.inputControl.active && node.inputControl.locomotionType !== 'none';
+        return node.inputControl && node.inputControl.active && node.inputControl.locomotionType !== 'none' && !(node.metadata && node.metadata.deleted === true);
       });
       
       if (activeControllerNode) {
@@ -1832,6 +2011,12 @@
   }
 
   async function instantiateNode(node, scene) {
+    // Skip instantiation of deleted objects (soft-deleted, in trash bin)
+    if (node.metadata && node.metadata.deleted === true) {
+      console.log('🗑️ Skipping instantiation of deleted object:', node.name, '(' + node.id + ')');
+      return;
+    }
+
     const position = new BABYLON.Vector3(...node.transform.position);
     const rotation = node.transform.rotation ? new BABYLON.Vector3(...node.transform.rotation) : BABYLON.Vector3.Zero();
     const scaling = node.transform.scaling ? new BABYLON.Vector3(...node.transform.scaling) : BABYLON.Vector3.One();
@@ -1841,7 +2026,7 @@
         case 'camera':
           // Create camera based on type stored in scene graph
           let camera;
-          const cameraProps = node.camera || { type: 'ArcRotate', minZ: 0.1, maxZ: 100 };
+          const cameraProps = node.camera || { type: 'ArcRotate', minZ: 0.1, maxZ: 1000 };
           
           if (cameraProps.type === 'Universal') {
             camera = new BABYLON.UniversalCamera(node.id, position, scene);
@@ -1898,7 +2083,7 @@
           
           // Set common camera properties (use exact values from editor)
           camera.minZ = typeof cameraProps.minZ === 'number' ? cameraProps.minZ : 0.01;
-          camera.maxZ = typeof cameraProps.maxZ === 'number' ? cameraProps.maxZ : 100;
+          camera.maxZ = typeof cameraProps.maxZ === 'number' ? cameraProps.maxZ : 1000;
           camera.fov = cameraProps.fov || Math.PI / 4;
           
           // Apply enabled state
@@ -1927,17 +2112,23 @@
               break;
             }
             case 'Spot': {
-              // Compute direction from node rotation
-              let direction = new BABYLON.Vector3(0, -1, 0);
-              if (node.transform.rotation) {
-                direction = BABYLON.Vector3.Forward().rotateByQuaternionToRef(
-                  BABYLON.Quaternion.FromEulerAngles(
-                    node.transform.rotation[0],
-                    node.transform.rotation[1],
-                    node.transform.rotation[2]
-                  ),
-                  new BABYLON.Vector3()
-                );
+              // Prefer explicitly stored direction, fall back to computing from rotation
+              let direction;
+              if (lightProps.direction && Array.isArray(lightProps.direction)) {
+                direction = new BABYLON.Vector3(...lightProps.direction);
+              } else {
+                direction = new BABYLON.Vector3(0, -1, 0);
+                if (node.transform.rotation) {
+                  const baseDirection = new BABYLON.Vector3(0, -1, 0);
+                  direction = baseDirection.rotateByQuaternionToRef(
+                    BABYLON.Quaternion.FromEulerAngles(
+                      node.transform.rotation[0],
+                      node.transform.rotation[1],
+                      node.transform.rotation[2]
+                    ),
+                    new BABYLON.Vector3()
+                  );
+                }
               }
               light = new BABYLON.SpotLight(
                 node.id,
@@ -1953,20 +2144,25 @@
               break;
             }
             case 'Directional': {
-              // Compute direction from node rotation
-              let direction = new BABYLON.Vector3(0, -1, 0);
-              if (node.transform.rotation) {
-                direction = BABYLON.Vector3.Forward().rotateByQuaternionToRef(
-                  BABYLON.Quaternion.FromEulerAngles(
-                    node.transform.rotation[0],
-                    node.transform.rotation[1],
-                    node.transform.rotation[2]
-                  ),
-                  new BABYLON.Vector3()
-                );
+              // Prefer explicitly stored direction, fall back to computing from rotation
+              let direction;
+              if (lightProps.direction && Array.isArray(lightProps.direction)) {
+                direction = new BABYLON.Vector3(...lightProps.direction);
+              } else {
+                direction = new BABYLON.Vector3(0, -1, 0);
+                if (node.transform.rotation) {
+                  const baseDirection = new BABYLON.Vector3(0, -1, 0);
+                  direction = baseDirection.rotateByQuaternionToRef(
+                    BABYLON.Quaternion.FromEulerAngles(
+                      node.transform.rotation[0],
+                      node.transform.rotation[1],
+                      node.transform.rotation[2]
+                    ),
+                    new BABYLON.Vector3()
+                  );
+                }
               }
               light = new BABYLON.DirectionalLight(node.id, direction, scene);
-              // Position directional for better shadow casting
               light.position = position;
               break;
             }
@@ -2033,86 +2229,124 @@
                 console.warn('⚠️ RUNTIME: Child mesh not found (stableId/legacy):', node.id);
               }
             }
-          } else if (node.id === 'defaultCube') {
-            mesh = BABYLON.MeshBuilder.CreateBox(node.id, { size: 2 }, scene);
-            mesh.position = position;
-            mesh.rotation = rotation;
-            mesh.scaling = scaling;
-            
-            // Create PBR material for better IBL visualization
-            const cubeMaterial = new BABYLON.PBRMaterial('defaultCubeMaterial', scene);
-            cubeMaterial.albedoColor = new BABYLON.Color3(0.8, 0.8, 0.8);
-            cubeMaterial.metallic = 0.1;
-            cubeMaterial.roughness = 0.3;
-            mesh.material = cubeMaterial;
-            
-            // Apply physics if object has physics properties
-            if (node.physics && node.physics.enabled && scene.getPhysicsEngine()) {
-              console.log('🔷 Applying physics to cube:', node.physics.type, node.physics.impostor);
-              applyPhysicsToObject(mesh, node.physics, scene, node);
-            }
-          } else if (node.id === 'ground') {
-            mesh = BABYLON.MeshBuilder.CreateGround(node.id, { width: 6, height: 6 }, scene);
-            mesh.position = position;
-            mesh.rotation = rotation;
-            mesh.scaling = scaling;
-            
-            // Create PBR material for better IBL visualization
-            const groundMaterial = new BABYLON.PBRMaterial('groundMaterial', scene);
-            groundMaterial.albedoColor = new BABYLON.Color3(0.5, 0.5, 0.5);
-            groundMaterial.metallic = 0.0;
-            groundMaterial.roughness = 0.8;
-            mesh.material = groundMaterial;
-            
-            // Apply physics if object has physics properties
-            if (node.physics && node.physics.enabled && scene.getPhysicsEngine()) {
-              console.log('🔷 Applying physics to ground:', node.physics.type, node.physics.impostor);
-              applyPhysicsToObject(mesh, node.physics, scene, node);
-            }
           } else if (node.metadata && node.metadata.primitiveType) {
-            // Handle primitive meshes created by addPrimitiveMesh
+            // ── Primitive type set by inspector (checked FIRST so a changed defaultCube/ground shape is respected) ──
             const primitiveType = node.metadata.primitiveType;
-            
+            const primitiveParams = node.metadata.primitiveParams || {};
+
+            console.log(`🔷 Creating primitive ${primitiveType} with params:`, primitiveParams);
+
             switch (primitiveType) {
               case 'plane':
-                mesh = BABYLON.MeshBuilder.CreatePlane(node.id, { size: 2 }, scene);
+                mesh = BABYLON.MeshBuilder.CreateGround(node.id, {
+                  width: primitiveParams.width || 2,
+                  height: primitiveParams.height || 2,
+                  subdivisions: primitiveParams.subdivisions || 1
+                }, scene);
                 break;
               case 'cube':
-                mesh = BABYLON.MeshBuilder.CreateBox(node.id, { size: 2 }, scene);
+                mesh = BABYLON.MeshBuilder.CreateBox(node.id, {
+                  width: primitiveParams.width || 2,
+                  height: primitiveParams.height || 2,
+                  depth: primitiveParams.depth || 2
+                }, scene);
                 break;
               case 'sphere':
-                mesh = BABYLON.MeshBuilder.CreateSphere(node.id, { diameter: 2 }, scene);
+                mesh = BABYLON.MeshBuilder.CreateSphere(node.id, {
+                  diameter: primitiveParams.diameter || 2,
+                  segments: primitiveParams.segments || 32
+                }, scene);
                 break;
               case 'cylinder':
-                mesh = BABYLON.MeshBuilder.CreateCylinder(node.id, { height: 2, diameter: 2 }, scene);
+                mesh = BABYLON.MeshBuilder.CreateCylinder(node.id, {
+                  height: primitiveParams.height || 2,
+                  diameterTop: primitiveParams.diameterTop || 2,
+                  diameterBottom: primitiveParams.diameterBottom || 2,
+                  tessellation: primitiveParams.tessellation || 24
+                }, scene);
                 break;
               case 'cone':
-                mesh = BABYLON.MeshBuilder.CreateCylinder(node.id, { height: 2, diameterTop: 0, diameterBottom: 2 }, scene);
+                mesh = BABYLON.MeshBuilder.CreateCylinder(node.id, {
+                  height: primitiveParams.height || 2,
+                  diameterTop: 0,
+                  diameterBottom: primitiveParams.diameter || 2,
+                  tessellation: primitiveParams.tessellation || 24
+                }, scene);
                 break;
               default:
                 console.warn('⚠️ Unknown primitive type:', primitiveType);
                 break;
             }
-            
+
             if (mesh) {
               mesh.position = position;
               mesh.rotation = rotation;
               mesh.scaling = scaling;
-              
-              // Create default PBR material (same as runtime)
-              const material = new BABYLON.PBRMaterial(node.id + '_material', scene);
-              material.albedoColor = new BABYLON.Color3(0.8, 0.8, 0.8);
-              material.metallic = 0.1;
-              material.roughness = 0.5;
-              mesh.material = material;
-              
+
+              const primMaterialName = (node.metadata && node.metadata.materialName) || (node.id + '_material');
+              const existingPrimMat = scene.materials.find(function(m) { return m.name === primMaterialName; });
+              if (existingPrimMat) {
+                mesh.material = existingPrimMat;
+              } else {
+                const material = new BABYLON.PBRMaterial(primMaterialName, scene);
+                material.albedoColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+                material.metallic = 0.1;
+                material.roughness = 0.5;
+                mesh.material = material;
+              }
+
               console.log('✅ Created ' + primitiveType + ' primitive in runtime:', node.id);
-              
-              // Apply physics if object has physics properties
+
               if (node.physics && node.physics.enabled && scene.getPhysicsEngine()) {
                 console.log('🔷 Applying physics to ' + primitiveType + ':', node.physics.type, node.physics.impostor);
                 applyPhysicsToObject(mesh, node.physics, scene, node);
               }
+            }
+          } else if (node.id === 'defaultCube') {
+            // ── Legacy fallback: default cube with no primitiveType override ──
+            mesh = BABYLON.MeshBuilder.CreateBox(node.id, { size: 2 }, scene);
+            mesh.position = position;
+            mesh.rotation = rotation;
+            mesh.scaling = scaling;
+
+            const cubeMaterialName = (node.metadata && node.metadata.materialName) || 'defaultCubeMaterial';
+            const existingCubeMat = scene.materials.find(function(m) { return m.name === cubeMaterialName; });
+            if (existingCubeMat) {
+              mesh.material = existingCubeMat;
+            } else {
+              const cubeMaterial = new BABYLON.PBRMaterial(cubeMaterialName, scene);
+              cubeMaterial.albedoColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+              cubeMaterial.metallic = 0.1;
+              cubeMaterial.roughness = 0.3;
+              mesh.material = cubeMaterial;
+            }
+
+            if (node.physics && node.physics.enabled && scene.getPhysicsEngine()) {
+              console.log('🔷 Applying physics to cube:', node.physics.type, node.physics.impostor);
+              applyPhysicsToObject(mesh, node.physics, scene, node);
+            }
+          } else if (node.id === 'ground') {
+            // ── Legacy fallback: default ground with no primitiveType override ──
+            mesh = BABYLON.MeshBuilder.CreateGround(node.id, { width: 6, height: 6 }, scene);
+            mesh.position = position;
+            mesh.rotation = rotation;
+            mesh.scaling = scaling;
+
+            const groundMaterialName = (node.metadata && node.metadata.materialName) || 'groundMaterial';
+            const existingGroundMat = scene.materials.find(function(m) { return m.name === groundMaterialName; });
+            if (existingGroundMat) {
+              mesh.material = existingGroundMat;
+            } else {
+              const groundMaterial = new BABYLON.PBRMaterial(groundMaterialName, scene);
+              groundMaterial.albedoColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+              groundMaterial.metallic = 0.0;
+              groundMaterial.roughness = 0.8;
+              mesh.material = groundMaterial;
+            }
+
+            if (node.physics && node.physics.enabled && scene.getPhysicsEngine()) {
+              console.log('🔷 Applying physics to ground:', node.physics.type, node.physics.impostor);
+              applyPhysicsToObject(mesh, node.physics, scene, node);
             }
           }
           
@@ -2594,7 +2828,7 @@
           let environmentTexture = null;
           if (assetPath.toLowerCase().endsWith('.env')) {
             console.log('📦 Loading .env IBL texture for scene lighting...');
-            environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(assetPath, scene);
+            environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(assetPath, scene, '.env');
           } else {
             console.log('📦 Loading .hdr IBL texture for scene lighting...');
             environmentTexture = new BABYLON.HDRCubeTexture(assetPath, scene, 128, false, true, false, true);
@@ -2642,6 +2876,20 @@
         fm === 'exp'    ? BABYLON.Scene.FOGMODE_EXP    :
         fm === 'exp2'   ? BABYLON.Scene.FOGMODE_EXP2   :
                           BABYLON.Scene.FOGMODE_NONE;
+
+      // Apply fog parameters when fog is enabled
+      if (fm && fm !== 'none') {
+        if (Array.isArray(env.fogColor) && env.fogColor.length === 3) {
+          const [fr, fg, fb] = env.fogColor;
+          scene.fogColor = new BABYLON.Color3(fr, fg, fb);
+        }
+        if (fm === 'linear') {
+          if (typeof env.fogStart === 'number') scene.fogStart = env.fogStart;
+          if (typeof env.fogEnd === 'number') scene.fogEnd = env.fogEnd;
+        } else {
+          if (typeof env.fogDensity === 'number') scene.fogDensity = env.fogDensity;
+        }
+      }
     }
     
     // Image processing settings
@@ -2766,7 +3014,9 @@
           // Apply skybox rotation
           if (typeof env.skyboxRotation === 'number') {
             const rotationRadians = env.skyboxRotation * Math.PI / 180;
-            tex.setReflectionTextureMatrix(BABYLON.Matrix.RotationY(rotationRadians));
+            // BABYLON.Texture doesn't have setReflectionTextureMatrix (only CubeTexture does)
+            // Use uOffset for equirectangular panoramic rotation
+            tex.uOffset = rotationRadians / (2 * Math.PI);
             console.log('🔄 Applied skybox rotation:', env.skyboxRotation, 'degrees');
           }
           
@@ -2834,9 +3084,138 @@
     console.log('🔍 RUNTIME: Available materials:', scene.materials.map(m => ({ name: m.name, uniqueId: m.uniqueId })));
     
     for (const [materialName, properties] of Object.entries(overrides)) {
+      // Skip orphan materials with fake users (editor-only placeholders)
+      if (properties.__fakeUser && properties.__isOrphan) {
+        console.log('⏭️ RUNTIME: Skipping orphan material with fake user: ' + materialName + ' (editor-only)');
+        continue;
+      }
+      
+      const shaderType = properties.metadata?.shaderType;
+      const snippetId = properties.metadata?.shaderSnippetId;
+      const shaderSource = properties.metadata?.shaderSource;
+      
       // Only look for materials by name (stable identifier)
-      const material = scene.materials.find(m => m.name === materialName);
-      console.log('🔍 RUNTIME: Looking for material by name:', materialName, 'found:', !!material);
+      let material = scene.materials.find(m => m.name === materialName);
+      console.log('🔍 RUNTIME: Looking for material by name: "' + materialName + '", found:', !!material);
+      
+      // If material doesn't exist but we have metadata, create it based on shader type
+      if (!material && shaderType) {
+        console.log('🎨 RUNTIME: Material "' + materialName + '" not found, creating new ' + shaderType + ' material');
+        
+        if (shaderType === 'pbr') {
+          // Create PBR material
+          material = new BABYLON.PBRMaterial(materialName, scene);
+          console.log('✅ RUNTIME: Created PBR material: ' + materialName);
+        } else if (shaderType === 'standard') {
+          // Create Standard material
+          material = new BABYLON.StandardMaterial(materialName, scene);
+          console.log('✅ RUNTIME: Created Standard material: ' + materialName);
+        } else if (shaderType === 'custom' && snippetId && shaderSource === 'url') {
+          // Create NME shader material
+          console.log('🎨 RUNTIME: Creating custom NME shader material: ' + materialName + ' from snippet ' + snippetId);
+          // NME shaders need to be loaded asynchronously, handle below
+        }
+        
+        // Assign the newly created material to meshes that need it
+        if (material && EXPORTED_SCENE_GRAPH.nodes) {
+          let meshesAssigned = 0;
+          EXPORTED_SCENE_GRAPH.nodes.forEach(function(node) {
+            if (node.metadata?.materialName === materialName) {
+              const mesh = scene.getMeshById(node.id) || 
+                          scene.getMeshByName(node.name) ||
+                          scene.meshes.find(function(m) { return m.metadata?.graphNodeId === node.id; });
+              
+              if (mesh) {
+                console.log('🔗 RUNTIME: Assigning ' + shaderType + ' material "' + materialName + '" to mesh: ' + mesh.name);
+                mesh.material = material;
+                meshesAssigned++;
+              }
+            }
+          });
+          console.log('📊 RUNTIME: Assigned ' + shaderType + ' material "' + materialName + '" to ' + meshesAssigned + ' mesh(es)');
+        }
+      }
+      
+      // If it's a custom shader with NME snippet and not found, try to create it asynchronously
+      if (!material && shaderType === 'custom' && snippetId && shaderSource === 'url') {
+        console.log('🎨 RUNTIME: Creating custom NME shader material: ' + materialName + ' from snippet ' + snippetId);
+        try {
+          const formattedSnippetId = snippetId.startsWith('#') ? snippetId : '#' + snippetId;
+          BABYLON.NodeMaterial.ParseFromSnippetAsync(formattedSnippetId, scene).then(function(nodeMaterial) {
+            if (nodeMaterial) {
+              nodeMaterial.name = materialName;
+              nodeMaterial.build(false);
+              
+              // Find all meshes that should use this material
+              let meshesAssigned = 0;
+              
+              // First, try to find meshes by checking scene graph nodes
+              if (EXPORTED_SCENE_GRAPH.nodes) {
+                EXPORTED_SCENE_GRAPH.nodes.forEach(function(node) {
+                  if (node.metadata?.materialName === materialName) {
+                    const mesh = scene.getMeshById(node.id) || 
+                                scene.getMeshByName(node.name) ||
+                                scene.meshes.find(function(m) { return m.metadata?.graphNodeId === node.id; });
+                    
+                    if (mesh) {
+                      console.log('🔗 RUNTIME: Assigning NME shader "' + materialName + '" to mesh: ' + mesh.name + ' (from scene graph)');
+                      mesh.material = nodeMaterial;
+                      meshesAssigned++;
+                    }
+                  }
+                });
+              }
+              
+              // Fallback: check if any mesh's current material name matches
+              if (meshesAssigned === 0) {
+                scene.meshes.forEach(function(mesh) {
+                  if (mesh.material && mesh.material.name === materialName) {
+                    console.log('🔗 RUNTIME: Assigning NME shader to mesh: ' + mesh.name + ' (by material name match)');
+                    mesh.material = nodeMaterial;
+                    meshesAssigned++;
+                  }
+                });
+              }
+              
+              console.log('📊 RUNTIME: Assigned NME shader "' + materialName + '" to ' + meshesAssigned + ' mesh(es)');
+              console.log('✅ RUNTIME: Created and assigned NME shader material: ' + materialName);
+            }
+          }).catch(function(error) {
+            console.error('❌ RUNTIME: Failed to load NME shader for ' + materialName + ':', error);
+          });
+        } catch (error) {
+          console.error('❌ RUNTIME: Error creating NME shader material:', error);
+        }
+        continue; // Skip property application for now, will be applied when NME loads
+      }
+      
+      // Also handle the case where material exists but needs to be replaced with NME shader
+      if (material && shaderType === 'custom' && snippetId && shaderSource === 'url') {
+        if (!(material instanceof BABYLON.NodeMaterial)) {
+          console.log('🎨 RUNTIME: Replacing existing material with NME shader: ' + materialName);
+          try {
+            const formattedSnippetId = snippetId.startsWith('#') ? snippetId : '#' + snippetId;
+            BABYLON.NodeMaterial.ParseFromSnippetAsync(formattedSnippetId, scene).then(function(nodeMaterial) {
+              if (nodeMaterial) {
+                nodeMaterial.name = materialName;
+                nodeMaterial.build(false);
+                scene.meshes.forEach(function(mesh) {
+                  if (mesh.material === material) {
+                    mesh.material = nodeMaterial;
+                  }
+                });
+                material.dispose();
+                material = nodeMaterial;
+                console.log('✅ RUNTIME: Replaced material with NME shader: ' + materialName);
+              }
+            }).catch(function(error) {
+              console.error('❌ RUNTIME: Failed to replace material with NME shader:', error);
+            });
+          } catch (error) {
+            console.error('❌ RUNTIME: Error replacing material with NME shader:', error);
+          }
+        }
+      }
       
       if (material) {
         console.log('✨ RUNTIME: Applying overrides to material:', material.name, 'uniqueId:', material.uniqueId);
@@ -2844,6 +3223,9 @@
         
         // Apply each property override
         for (const [property, value] of Object.entries(properties)) {
+          if (property.startsWith('__')) { // Skip internal metadata properties
+            continue;
+          }
           try {
               console.log('🔍 RUNTIME: Processing property:', property, 'value:', value, 'isTexture:', isTextureProperty(property));
               
@@ -2926,8 +3308,14 @@
                 }
               } else {
                 // Handle non-texture properties
-                material[property] = value;
-                console.log('✅ RUNTIME: Applied non-texture property:', materialName + '.' + property + ' = ' + value);
+                // Special handling for color properties (stored as arrays, need to convert to Color3)
+                if (property.includes('Color') && Array.isArray(value) && value.length === 3) {
+                  material[property] = new BABYLON.Color3(value[0], value[1], value[2]);
+                  console.log('✅ RUNTIME: Applied color property:', materialName + '.' + property + ' = [' + value.join(', ') + ']');
+                } else {
+                  material[property] = value;
+                  console.log('✅ RUNTIME: Applied non-texture property:', materialName + '.' + property + ' = ' + value);
+                }
                 
                 // Special handling for lightmap shadow mapping
                 if (property === 'useLightmapAsShadowmap') {
@@ -3407,6 +3795,9 @@
     let foundCount = 0;
     
     for (const node of manager.sceneGraph.nodes) {
+      // Skip deleted objects
+      if (node.metadata && node.metadata.deleted === true) continue;
+      
       if (node.inputControl && node.inputControl.locomotionType !== 'none') {
         const babylonObject = manager.scene.getNodeById(node.id);
         if (babylonObject) {
@@ -3870,6 +4261,8 @@
       scene: scene,
       sceneGraph: sceneGraph,
       cameraShakeTimers: new Map(), // cameraId -> { time, baseTarget, baseAlpha, baseBeta }
+      beforeRenderObserver: null, // Store observer reference for disposal
+      afterRenderObserver: null, // Store observer reference for disposal
       
       initialize: function() {
         this.scanForShakeCameras();
@@ -3882,6 +4275,9 @@
         let foundCount = 0;
 
         for (const node of this.sceneGraph.nodes) {
+          // Skip deleted objects
+          if (node.metadata && node.metadata.deleted === true) continue;
+          
           if (node.kind === 'camera' && node.camera && node.camera.shake && node.camera.shake.preset !== 'none') {
             const babylonCamera = this.scene.getCameraById(node.id);
             
@@ -3925,8 +4321,8 @@
           if (shake.preset === 'natural') {
             const strength = shake.strength || 1;
             // Scale down parameters by 100x so users can input 0.1, 0.2 instead of 0.001, 0.002
-            const posAmp = (shake.positionAmplitude || 0.2) * strength * 0.0001;
-            const rotAmp = (shake.rotationAmplitude || 0.002) * strength * 0.0001;
+            const posAmp = (shake.positionAmplitude || 0.2) * strength * 0.00002;
+            const rotAmp = (shake.rotationAmplitude || 0.002) * strength * 0.00002;
 
             // Natural idle shake offset (additive)
             const shakeOffsetX = Math.sin(shakeState.time * 0.6) * posAmp;
@@ -3951,7 +4347,7 @@
           const self = this;
           
           // Apply shake before each frame renders
-          this.scene.onBeforeRenderObservable.add(function() {
+          this.beforeRenderObserver = this.scene.onBeforeRenderObservable.add(function() {
             self.updateCameraShakes();
             
             // Apply visual shake offsets to cameras (saved to restore later)
@@ -3961,46 +4357,49 @@
               
               const offset = camera._visualShakeOffset;
               
-              // Save original values
-              if (!camera._originalBeforeShake) {
-                camera._originalBeforeShake = {};
+              // Save current values BEFORE applying shake (so we can restore them after render)
+              // This captures the user's current camera position/rotation for this frame
+              if (!camera._preShakeThisFrame) {
+                camera._preShakeThisFrame = {};
               }
               
               if (camera instanceof BABYLON.ArcRotateCamera) {
-                camera._originalBeforeShake.alpha = camera.alpha;
-                camera._originalBeforeShake.beta = camera.beta;
-                camera._originalBeforeShake.target = camera.target.clone();
+                camera._preShakeThisFrame.alpha = camera.alpha;
+                camera._preShakeThisFrame.beta = camera.beta;
+                camera._preShakeThisFrame.target = camera.target.clone();
                 
-                // Apply shake for this frame
-                camera.target = camera.target.add(new BABYLON.Vector3(offset.x, offset.y, 0));
+                // Apply shake ADDITIVELY to current position
                 camera.alpha += offset.alpha;
                 camera.beta += offset.beta;
+                camera.target = camera.target.add(new BABYLON.Vector3(offset.x, offset.y, 0));
               } else {
-                camera._originalBeforeShake.position = camera.position.clone();
+                camera._preShakeThisFrame.position = camera.position.clone();
+                
+                // Apply shake ADDITIVELY to current position
                 camera.position = camera.position.add(new BABYLON.Vector3(offset.x, offset.y, 0));
               }
             }
           });
           
-          // Restore original values after render to prevent them from being saved/broadcast
-          this.scene.onAfterRenderObservable.add(function() {
+          // Restore pre-shake values after render to prevent shake from being permanently applied
+          this.afterRenderObserver = this.scene.onAfterRenderObservable.add(function() {
             for (const [cameraId] of self.cameraShakeTimers) {
               const camera = self.scene.getCameraById(cameraId);
-              if (!camera || !camera._originalBeforeShake) continue;
+              if (!camera || !camera._preShakeThisFrame) continue;
               
               if (camera instanceof BABYLON.ArcRotateCamera) {
-                if (camera._originalBeforeShake.target) {
-                  camera.target = camera._originalBeforeShake.target;
+                if (camera._preShakeThisFrame.target) {
+                  camera.target = camera._preShakeThisFrame.target;
                 }
-                if (camera._originalBeforeShake.alpha !== undefined) {
-                  camera.alpha = camera._originalBeforeShake.alpha;
+                if (camera._preShakeThisFrame.alpha !== undefined) {
+                  camera.alpha = camera._preShakeThisFrame.alpha;
                 }
-                if (camera._originalBeforeShake.beta !== undefined) {
-                  camera.beta = camera._originalBeforeShake.beta;
+                if (camera._preShakeThisFrame.beta !== undefined) {
+                  camera.beta = camera._preShakeThisFrame.beta;
                 }
               } else {
-                if (camera._originalBeforeShake.position) {
-                  camera.position = camera._originalBeforeShake.position;
+                if (camera._preShakeThisFrame.position) {
+                  camera.position = camera._preShakeThisFrame.position;
                 }
               }
             }
@@ -4011,6 +4410,15 @@
       },
       
       dispose: function() {
+        // Remove observers to prevent multiple shake applications
+        if (this.beforeRenderObserver && this.scene) {
+          this.scene.onBeforeRenderObservable.remove(this.beforeRenderObserver);
+          this.beforeRenderObserver = null;
+        }
+        if (this.afterRenderObserver && this.scene) {
+          this.scene.onAfterRenderObservable.remove(this.afterRenderObserver);
+          this.afterRenderObserver = null;
+        }
         this.cameraShakeTimers.clear();
         console.log('📹 CameraShakeManager disposed');
       }
@@ -4038,6 +4446,9 @@
         let foundCount = 0;
 
         for (const node of this.sceneGraph.nodes) {
+          // Skip deleted objects
+          if (node.metadata && node.metadata.deleted === true) continue;
+          
           if (node.kind === 'camera' && node.camera && node.camera.targetMode === 'object' && node.camera.targetObject) {
             const babylonCamera = this.scene.getCameraById(node.id);
             const targetObject = this.scene.getNodeById(node.camera.targetObject);
