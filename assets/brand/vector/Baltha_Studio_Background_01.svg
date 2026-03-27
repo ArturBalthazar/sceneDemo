@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: url(#Gradiente_sem_nome_36);
+      }
+
+      .cls-3 {
+        fill: url(#Gradiente_sem_nome_36-4);
+      }
+
+      .cls-4 {
+        fill: url(#Gradiente_sem_nome_36-2);
+      }
+
+      .cls-5 {
+        fill: url(#Gradiente_sem_nome_36-3);
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x="420" y="-420" width="1080" height="1920" transform="translate(1500 -420) rotate(90)"/>
+    </clipPath>
+    <radialGradient id="Gradiente_sem_nome_36" data-name="Gradiente sem nome 36" cx="-4406.46" cy="-3840.24" fx="-4406.46" fy="-3840.24" r="769.93" gradientTransform="translate(5251.58 4054.34) scale(1 .92)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#98a1e5"/>
+      <stop offset="1" stop-color="#a44978"/>
+    </radialGradient>
+    <radialGradient id="Gradiente_sem_nome_36-2" data-name="Gradiente sem nome 36" cx="-2654.89" cy="-3840.24" fx="-2654.89" fy="-3840.24" r="769.93" gradientTransform="translate(3379.48 4054.34) scale(.73 .92)" xlink:href="#Gradiente_sem_nome_36"/>
+    <radialGradient id="Gradiente_sem_nome_36-3" data-name="Gradiente sem nome 36" cx="-235.92" cy="-3840.24" fx="-235.92" fy="-3840.24" r="769.93" gradientTransform="translate(1921.97 4054.35) scale(.51 .92)" xlink:href="#Gradiente_sem_nome_36"/>
+    <radialGradient id="Gradiente_sem_nome_36-4" data-name="Gradiente sem nome 36" cx="7762.23" cy="-3840.24" fx="7762.23" fy="-3840.24" r="769.93" gradientTransform="translate(36.85 4054.35) scale(.24 .92)" xlink:href="#Gradiente_sem_nome_36"/>
+  </defs>
+  <g class="cls-6">
+    <g>
+      <rect class="cls-2" x="-14.8" y="0" width="868.27" height="1080"/>
+      <rect class="cls-4" x="807.69" y="0" width="635.32" height="1080" rx="32" ry="32"/>
+      <rect class="cls-5" x="1360.36" y="0" width="444.99" height="1080" rx="32" ry="32"/>
+      <rect class="cls-3" x="1722.72" y="0" width="212.07" height="1080" rx="32" ry="32"/>
+    </g>
+  </g>
+</svg>
