@@ -1,0 +1,125 @@
+{
+  "objectLogics": {
+    "__scene__": [
+      {
+        "id": "0d31a4f9-7c38-4bd2-99a9-312998850aa0",
+        "scriptName": "Script_001.js",
+        "enabled": true,
+        "parameters": {
+          "colorYellowBtn": {
+            "id": "button_001",
+            "name": "Body-Yellow",
+            "type": "button"
+          },
+          "colorWhiteBtn": {
+            "id": "button_002",
+            "name": "Body-White",
+            "type": "button"
+          },
+          "colorBlackBtn": {
+            "id": "button_004",
+            "name": "Body-Black",
+            "type": "button"
+          },
+          "colorPinkBtn": {
+            "id": "button_003",
+            "name": "Body-Pink",
+            "type": "button"
+          },
+          "trimLightBlueBtn": {
+            "id": "button_005",
+            "name": "Trim-LightBlue",
+            "type": "button"
+          },
+          "trimPinkBtn": {
+            "id": "button_007",
+            "name": "Trim-Pink",
+            "type": "button"
+          },
+          "trimDarkBlueBtn": {
+            "id": "button_006",
+            "name": "Trim-DarkBlue",
+            "type": "button"
+          },
+          "viewSwapBtn": {
+            "id": "button_008",
+            "name": "Switch",
+            "type": "button"
+          },
+          "exteriorCameraRef": {
+            "id": "camera1",
+            "name": "Exterior Cam",
+            "type": "camera"
+          },
+          "interiorCameraRef": {
+            "id": "ae35315d-7dae-4955-bd8d-9463dad8bf1a",
+            "name": "Interior Cam",
+            "type": "camera"
+          },
+          "carRef": {
+            "id": "root::byd-seagull-v4",
+            "name": "BYD_Seagull_v4",
+            "type": "mesh"
+          },
+          "rotationStrength": 0.01
+        },
+        "scriptPath": "scripts/Script_001.js"
+      },
+      {
+        "id": "1a631a8e-9924-48bc-bded-a2d3a6d579a0",
+        "scriptName": "Script_002.js",
+        "enabled": true,
+        "parameters": {
+          "carRoot": {
+            "id": "root::byd-seagull-v4",
+            "name": "BYD_Seagull_v4",
+            "type": "mesh"
+          },
+          "buttonDoors": {
+            "id": "button_017",
+            "name": "Doors-Button",
+            "type": "button"
+          },
+          "buttonChargingPort": {
+            "id": "button_015",
+            "name": "EV-Button",
+            "type": "button"
+          },
+          "buttonTrunk": {
+            "id": "button_016",
+            "name": "Trunk-Button",
+            "type": "button"
+          },
+          "buttonNFC": {
+            "id": "button_014",
+            "name": "NFC-Button",
+            "type": "button"
+          },
+          "buttonToggleInterior": {
+            "id": "button_008",
+            "name": "Switch",
+            "type": "button"
+          },
+          "buttonSteeringWheel": {
+            "id": "button_013",
+            "name": "SteeringWheel-Button",
+            "type": "button"
+          },
+          "buttonScreen": {
+            "id": "button_012",
+            "name": "Screen-Button",
+            "type": "button"
+          },
+          "framesDoors": 300,
+          "framesChargingPort": 300,
+          "framesTrunk": 500,
+          "framesNFC": 300,
+          "framesSteeringWheel": 600,
+          "framesScreen": 300,
+          "speedMultiplier": 2
+        },
+        "scriptPath": "scripts/Script_002.js"
+      }
+    ]
+  }
+}
