@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Meetcraft Editor Export</title>
+  <title>Musecraft Editor Export</title>
   <style>
     html, body, #renderCanvas {
       width: 100%;
@@ -21,28 +21,78 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: radial-gradient(circle at center bottom, #081428 0%, #1a1a1a 70%);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 1000;
+      transition: opacity 0.5s ease;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     
     #loadingOverlay.hidden {
-      display: none;
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .logo-video {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto -12px;
+      display: block;
+    }
+    
+    .logo-name {
+      height: 48px;
+      margin: 0 auto 24px;
+      display: block;
+    }
+    
+    .progress-container {
+      width: 300px;
+      margin: 0 auto 20px;
+    }
+    
+    .progress-bar-bg {
+      height: 6px;
+      background: #4B4B4B;
+      border-radius: 9999px;
+      position: relative;
+    }
+    
+    .progress-bar-glow {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 150%;
+      transition: width 0.5s ease-out;
+      filter: blur(8px);
+      background: linear-gradient(90deg, #93b4f3 0%, #d9a2fe 50%, #ebac53 100%);
+    }
+    
+    .progress-bar-solid {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.5s ease-out;
+      background: linear-gradient(90deg, #93b4f3 0%, #d9a2fe 50%, #ebac53 100%);
     }
     
     #loadingText {
-      color: white;
+      color: rgba(255, 255, 255, 0.7);
       text-align: center;
-      font-size: 18px;
+      font-size: 14px;
     }
     
     .error {
       color: #ff6b6b;
       font-size: 16px;
       max-width: 400px;
+      text-align: center;
+      padding: 20px;
     }
     
     /* Bottom panel styles */
@@ -95,7 +145,17 @@
   
   <!-- Loading overlay -->
   <div id="loadingOverlay">
-    <div id="loadingText">Loading scene...</div>
+    <video class="logo-video" autoplay loop muted playsinline>
+      <source src="logo.webm" type="video/webm">
+    </video>
+    <img src="musecraft-logo-5.png" alt="Musecraft" class="logo-name">
+    <div class="progress-container">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-glow" id="progressBarGlow" style="width: 0%"></div>
+        <div class="progress-bar-solid" id="progressBarSolid" style="width: 0%"></div>
+      </div>
+    </div>
+    <div id="loadingText">Initializing viewer...</div>
   </div>
   
   <!-- Bottom panel with FPS and Audio controls -->
