@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 105,
+  "sceneVersion": 107,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -669,6 +669,48 @@
         "importedAsset": true,
         "sourceModelId": "root::petwheels",
         "sourceMeshName": "Petwheels_Lines"
+      }
+    },
+    {
+      "id": "efe8233c-1ba5-46ac-b813-7b29dd9c73ae",
+      "kind": "camera",
+      "name": "Camera",
+      "transform": {
+        "position": [
+          5,
+          5,
+          5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "camera": {
+        "type": "ArcRotate",
+        "minZ": 0.1,
+        "maxZ": 1000,
+        "fov": 0.7853981633974483,
+        "active": true,
+        "alpha": -1.5707963267948966,
+        "beta": 1.0471975511965976,
+        "radius": 10,
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "lowerRadiusLimit": 0,
+        "upperRadiusLimit": 100,
+        "wheelDeltaPercentage": 0.01
       }
     }
   ],
