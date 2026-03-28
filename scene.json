@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 8,
+  "sceneVersion": 16,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -151,14 +151,14 @@
       "name": "Cube",
       "transform": {
         "position": [
-          0,
+          -3.503068208694458,
           3.0103824138641357,
           -1.6266255378723145
         ],
         "scaling": [
-          1,
-          1,
-          1
+          0.874345600605011,
+          0.9622942209243774,
+          0.10890717804431915
         ]
       },
       "visible": true,
@@ -170,7 +170,7 @@
       "name": "Ground Plane",
       "transform": {
         "position": [
-          0,
+          1.2163060903549194,
           0,
           0
         ],
@@ -178,6 +178,11 @@
           3,
           1,
           3
+        ],
+        "rotation": [
+          0,
+          0,
+          0.5046414994208679
         ]
       },
       "visible": true,
