@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 107,
+  "sceneVersion": 61,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -14,8 +14,8 @@
         0,
         0
       ],
-      "useIBL": true,
-      "iblPath": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/byd-inspector.env",
+      "useIBL": false,
+      "iblPath": null,
       "iblIntensity": 1,
       "iblRotation": 0,
       "useSkybox": false,
@@ -31,7 +31,12 @@
         "py": null,
         "pz": null
       },
-      "fogMode": "none"
+      "fogMode": "linear",
+      "fogColor": [
+        0.058823529411764705,
+        0.0392156862745098,
+        0.2
+      ]
     },
     "imageProcessing": {
       "contrast": 1,
@@ -70,14 +75,54 @@
   },
   "nodes": [
     {
+      "id": "camera1",
+      "kind": "camera",
+      "name": "Camera",
+      "transform": {
+        "position": [
+          8.65,
+          5,
+          -8.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "enabled": true,
+      "camera": {
+        "type": "ArcRotate",
+        "active": true,
+        "minZ": 0.1,
+        "maxZ": 10000,
+        "fov": 0.7853981633974483,
+        "alpha": 1.5405581897003766,
+        "beta": 1.3449598978466835,
+        "radius": 5.1577617055544245,
+        "target": [
+          0,
+          1,
+          0
+        ],
+        "targetMode": "object",
+        "targetObject": "root::spaceship2",
+        "targetOffset": [
+          0,
+          1,
+          0
+        ]
+      }
+    },
+    {
       "id": "light1",
       "kind": "light",
       "name": "Light",
       "transform": {
         "position": [
           0,
-          5,
-          -4
+          10,
+          0
         ],
         "rotation": [
           0,
@@ -100,317 +145,18 @@
           0.3,
           0.3
         ]
-      },
-      "visible": true,
-      "metadata": {}
-    },
-    {
-      "id": "defaultCube",
-      "kind": "mesh",
-      "name": "Cube",
-      "transform": {
-        "position": [
-          0,
-          1,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "f6b93782-9a6f-4fa1-b65a-fdc89f200cab",
-      "kind": "mesh",
-      "name": "Sphere",
-      "transform": {
-        "position": [
-          2,
-          1,
-          2
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "metadata": {
-        "primitiveType": "sphere",
-        "primitiveParams": {
-          "type": "sphere",
-          "diameter": 2,
-          "segments": 32
-        },
-        "materialName": "Material"
-      },
-      "parentId": "defaultCube"
-    },
-    {
-      "id": "3fe591e0-6d0d-4b36-95eb-554feb40864c",
-      "kind": "mesh",
-      "name": "Cylinder",
-      "transform": {
-        "position": [
-          -2,
-          -2,
-          -2
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "metadata": {
-        "primitiveType": "cylinder",
-        "primitiveParams": {
-          "type": "cylinder",
-          "height": 2,
-          "diameterTop": 2,
-          "diameterBottom": 2,
-          "tessellation": 24
-        },
-        "materialName": "Material_02"
       }
     },
     {
-      "id": "3dce125a-1bb1-4311-8a5c-14af94100eaa",
-      "kind": "mesh",
-      "name": "Cone",
-      "transform": {
-        "position": [
-          2,
-          2,
-          -2
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "metadata": {
-        "primitiveType": "cone",
-        "primitiveParams": {
-          "type": "cone",
-          "height": 2,
-          "diameter": 2,
-          "tessellation": 24
-        },
-        "materialName": "Material_03"
-      }
-    },
-    {
-      "id": "077ad6d0-8d2f-45ac-b63b-4f6bc69156b6",
-      "kind": "transformnode",
-      "name": "Transform Node",
-      "transform": {
-        "position": [
-          -2,
-          -2,
-          2
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true
-    },
-    {
-      "id": "73dfccee-ffdb-42a4-9416-c6a0bae6c925",
-      "kind": "audio",
-      "name": "Audio",
-      "transform": {
-        "position": [
-          4,
-          4,
-          4
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "audio": {
-        "volume": 1,
-        "loop": true,
-        "spatialAudio": false,
-        "radius": 10,
-        "audioFile": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/cobot_arm.m4a"
-      }
-    },
-    {
-      "id": "8ae0f8db-b08d-45db-bd04-f271207fc9ee",
-      "kind": "spatialui",
-      "name": "UI Anchor",
-      "transform": {
-        "position": [
-          -4,
-          1,
-          -3.9623970985412598
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "spatialUI": {
-        "htmlContent": "",
-        "cssStyle": {},
-        "maxDistance": 100,
-        "minDistance": 0,
-        "scaleWithDistance": false,
-        "fadeInOut": false,
-        "occlusionTest": false
-      },
-      "parentId": "defaultCube"
-    },
-    {
-      "id": "1500eb0f-79b9-459e-a24a-896d50dcd0ad",
-      "kind": "particle",
-      "name": "Particle Effect",
-      "transform": {
-        "position": [
-          -0.06392845511436462,
-          2,
-          0.15279598534107208
-        ],
-        "rotation": [
-          0,
-          0,
-          0
-        ],
-        "scaling": [
-          1,
-          1,
-          1
-        ]
-      },
-      "visible": true,
-      "enabled": true,
-      "particle": {
-        "id": "1500eb0f-79b9-459e-a24a-896d50dcd0ad",
-        "name": "Particle Effect",
-        "runtime": "ParticleSystem",
-        "capacity": 200,
-        "playOnStart": true,
-        "disposeOnStop": false,
-        "billboardMode": "ALL",
-        "blendMode": "STANDARD",
-        "updateSpeed": 0.01,
-        "emitRate": 50,
-        "emitter": {
-          "kind": "point"
-        },
-        "minEmitPower": 1,
-        "maxEmitPower": 2,
-        "gravity": [
-          0,
-          -2,
-          0
-        ],
-        "direction1": [
-          -0.5,
-          1,
-          -0.5
-        ],
-        "direction2": [
-          0.5,
-          1.5,
-          0.5
-        ],
-        "minAngularSpeed": -1,
-        "maxAngularSpeed": 1,
-        "minSize": 0.5,
-        "maxSize": 1.5,
-        "minLifeTime": 2,
-        "maxLifeTime": 4,
-        "enableColorGradients": true,
-        "colorGradients": [
-          {
-            "t": 0,
-            "r": 1,
-            "g": 1,
-            "b": 1,
-            "a": 0.2
-          },
-          {
-            "t": 0.5,
-            "r": 0.8,
-            "g": 0.8,
-            "b": 1,
-            "a": 0.8
-          },
-          {
-            "t": 1,
-            "r": 0.6,
-            "g": 0.6,
-            "b": 0.9,
-            "a": 0
-          }
-        ]
-      }
-    },
-    {
-      "id": "root::byd-seagull-shell-black-v1",
+      "id": "root::anchors",
       "kind": "model",
-      "name": "BYD_Seagull_Shell_Black_v1",
-      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/Models/842e5115-3c47-4712-a612-7c3797b7a37f_BYD_Seagull_Shell_Black_v1.glb",
+      "name": "anchors",
+      "src": "Baltha Studio - Musecraft/assets/models/anchors.glb",
       "transform": {
         "position": [
           0,
           0,
-          -4.917299270629883
+          0
         ],
         "rotation": [
           0,
@@ -426,111 +172,581 @@
       "visible": true,
       "enabled": true,
       "metadata": {
-        "assetId": "489ee669-427c-4e63-b8a0-fa8dc1364cea",
-        "file": "BYD_Seagull_Shell_Black_v1.glb",
+        "assetId": "/assets/models/anchors.glb",
+        "file": "anchors.glb",
         "importedAsset": true
       }
     },
     {
-      "id": "root::byd-seagull-shell-black-v1::mesh::mk-body-pxgaor",
+      "id": "root::anchors::mesh::desktop1-k4khe1",
       "kind": "mesh",
-      "name": "mk_body",
-      "parentId": "root::byd-seagull-shell-black-v1",
+      "name": "desktop1",
+      "parentId": "root::anchors",
       "transform": {
         "position": [
-          0,
-          0,
-          0
+          -32.25944519042969,
+          -0.24208128452301025,
+          -19.824060440063477
         ],
         "rotation": [
-          0,
-          0,
-          0
+          1.3962636016195753,
+          2.9503279286985817,
+          -1.1644684401907405e-8
         ],
         "scaling": [
-          1,
-          1,
-          1
+          0.3000001013278961,
+          0.30000007152557373,
+          0.30000007152557373
         ]
       },
       "visible": true,
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::byd-seagull-shell-black-v1",
-        "sourceMeshName": "mk_body"
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "desktop1"
       }
     },
     {
-      "id": "root::byd-seagull-shell-black-v1::mesh::simplebaked-mesh-34rx1k",
+      "id": "root::anchors::mesh::desktop2-wmslkg",
       "kind": "mesh",
-      "name": "SimpleBaked_Mesh",
-      "parentId": "root::byd-seagull-shell-black-v1",
+      "name": "desktop2",
+      "parentId": "root::anchors",
       "transform": {
         "position": [
-          0,
-          0,
-          0
+          -37.239768981933594,
+          7.249861717224121,
+          -49.60225296020508
         ],
         "rotation": [
-          0,
-          -1.5707964953822937,
-          0
+          1.3962646170779989,
+          0.3734892295201861,
+          -1.8673879077764555e-9
         ],
         "scaling": [
-          0.8522219657897949,
-          0.8522217869758606,
-          0.6979029178619385
+          0.30000001192092896,
+          0.30000007152557373,
+          0.30000007152557373
         ]
       },
       "visible": true,
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::byd-seagull-shell-black-v1",
-        "sourceMeshName": "SimpleBaked_Mesh"
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "desktop2"
       }
     },
     {
-      "id": "root::byd-seagull-shell-black-v1::mesh::atlas-01-f8hnx9",
+      "id": "root::anchors::mesh::desktop3-gg7qwa",
       "kind": "mesh",
-      "name": "Atlas_01",
-      "parentId": "root::byd-seagull-shell-black-v1",
+      "name": "desktop3",
+      "parentId": "root::anchors",
       "transform": {
         "position": [
-          0,
-          0,
-          0
+          17.209426879882812,
+          10.366297721862793,
+          -65.05253601074219
         ],
         "rotation": [
-          0,
-          0,
-          0
+          1.4660783142924139,
+          -0.49278620281551405,
+          -9.797337575259066e-8
         ],
         "scaling": [
-          1,
-          1,
-          1
+          0.30000001192092896,
+          0.30000001192092896,
+          0.30000001192092896
         ]
       },
       "visible": true,
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::byd-seagull-shell-black-v1",
-        "sourceMeshName": "Atlas_01"
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "desktop3"
       }
     },
     {
-      "id": "root::petwheels",
+      "id": "root::anchors::mesh::desktop4-dtjrzv",
+      "kind": "mesh",
+      "name": "desktop4",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          70.21405792236328,
+          4.163898468017578,
+          -46.58708953857422
+        ],
+        "rotation": [
+          1.367824086866207,
+          -2.1184598197195283,
+          -0.2409490693566652
+        ],
+        "scaling": [
+          0.2999999523162842,
+          0.30000007152557373,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "desktop4"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::mobile2-88jtm9",
+      "kind": "mesh",
+      "name": "mobile2",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          -36.791168212890625,
+          7.654245376586914,
+          -46.793174743652344
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0.0786556202233677,
+          0
+        ],
+        "scaling": [
+          0.30000001192092896,
+          0.30000007152557373,
+          0.30000007152557373
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "mobile2"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::mobile3-p13c69",
+      "kind": "mesh",
+      "name": "mobile3",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          15.709224700927734,
+          11.063165664672852,
+          -61.37155532836914
+        ],
+        "rotation": [
+          1.4835296923468062,
+          2.4451187091895514,
+          -3.1415919223415285
+        ],
+        "scaling": [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "mobile3"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::mobile4-mcg5jy",
+      "kind": "mesh",
+      "name": "mobile4",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          66.00556182861328,
+          3.6337356567382812,
+          -44.603939056396484
+        ],
+        "rotation": [
+          1.4835309576310962,
+          1.2461499921325752,
+          -3.1415916749999035
+        ],
+        "scaling": [
+          0.2999999523162842,
+          0.30000004172325134,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "mobile4"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::mobile1-nbf45s",
+      "kind": "mesh",
+      "name": "mobile1",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          -29.804670333862305,
+          1.8604494333267212,
+          -22.804546356201172
+        ],
+        "rotation": [
+          1.4835295926878336,
+          2.6116941818371897,
+          2.4658951803966944e-8
+        ],
+        "scaling": [
+          0.30000007152557373,
+          0.30000004172325134,
+          0.30000007152557373
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "mobile1"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::anchor-1-oubj7l",
+      "kind": "mesh",
+      "name": "anchor_1",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          -38.45775604248047,
+          -2.2400083541870117,
+          -7.390049457550049
+        ],
+        "rotation": [
+          0.0000020774731658491844,
+          0.8417502146116445,
+          3.14158801246311
+        ],
+        "scaling": [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "anchor_1"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::anchor-2-n7r5cm",
+      "kind": "mesh",
+      "name": "anchor_2",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          -37.44516372680664,
+          4.094385623931885,
+          -63.911373138427734
+        ],
+        "rotation": [
+          3.8066152606344023e-13,
+          2.6990524228067376,
+          3.1415863672848685
+        ],
+        "scaling": [
+          0.30000004172325134,
+          0.30000001192092896,
+          0.30000004172325134
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "anchor_2"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::anchor-4-yhcsix",
+      "kind": "mesh",
+      "name": "anchor_4",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          79.76947784423828,
+          1.5799570083618164,
+          -39.329097747802734
+        ],
+        "rotation": [
+          7.815562162293704e-14,
+          2.0900097887991436,
+          3.141585652028238
+        ],
+        "scaling": [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "anchor_4"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::anchor-3-xyfxlp",
+      "kind": "mesh",
+      "name": "anchor_3",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          27.235084533691406,
+          8.527190208435059,
+          -75.09420013427734
+        ],
+        "rotation": [
+          7.800335632634327e-7,
+          -2.281469280125812,
+          -3.1415922957918436
+        ],
+        "scaling": [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "anchor_3"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::desktop5-715q30",
+      "kind": "mesh",
+      "name": "desktop5",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          29.61736488342285,
+          -2.7245445251464844,
+          -16.302419662475586
+        ],
+        "rotation": [
+          1.483529761412241,
+          -2.38298102994879,
+          4.77147773534676e-8
+        ],
+        "scaling": [
+          0.2999999523162842,
+          0.30000004172325134,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "desktop5"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::mobile5-e2re63",
+      "kind": "mesh",
+      "name": "mobile5",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          25.630456924438477,
+          -2.0307140350341797,
+          -17.645540237426758
+        ],
+        "rotation": [
+          1.483529761412241,
+          0.758611623641003,
+          -3.141592605875016
+        ],
+        "scaling": [
+          0.2999999523162842,
+          0.30000004172325134,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "mobile5"
+      }
+    },
+    {
+      "id": "root::anchors::mesh::anchor-5-r2hhq0",
+      "kind": "mesh",
+      "name": "anchor_5",
+      "parentId": "root::anchors",
+      "transform": {
+        "position": [
+          32.84503173828125,
+          -3.2057085037231445,
+          -9.474689483642578
+        ],
+        "rotation": [
+          4.0605230766307954e-13,
+          -1.825024550010254,
+          3.1415870825399725
+        ],
+        "scaling": [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.30000001192092896
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::anchors",
+        "sourceMeshName": "anchor_5"
+      }
+    },
+    {
+      "id": "root::spaceship2",
       "kind": "model",
-      "name": "petwheels",
-      "src": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/petwheels.gltf",
+      "name": "spaceship2",
+      "src": "Baltha Studio - Musecraft/assets/models/spaceship2.glb",
       "transform": {
         "position": [
           0,
           0,
-          5.260108470916748
+          0
+        ],
+        "rotation": [
+          0,
+          3.141592653589793,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "assetId": "/assets/models/spaceship2.glb",
+        "file": "spaceship2.glb",
+        "importedAsset": true
+      },
+      "inputControl": {
+        "idleAnimationId": "",
+        "idleAnimationName": "",
+        "blendTime": 0.2,
+        "speed": 0.2,
+        "speedBoostEnabled": true,
+        "speedBoostKey": {
+          "ctrl": false,
+          "shift": false,
+          "alt": false,
+          "key": "",
+          "multiplier": 2
+        },
+        "forward": {
+          "keyBinding": {
+            "ctrl": false,
+            "shift": false,
+            "alt": false,
+            "key": "KeyW"
+          },
+          "animationId": "",
+          "animationName": "",
+          "boostAnimationId": "",
+          "boostAnimationName": ""
+        },
+        "backward": {
+          "keyBinding": {
+            "ctrl": false,
+            "shift": false,
+            "alt": false,
+            "key": "KeyS"
+          },
+          "animationId": "",
+          "animationName": "",
+          "boostAnimationId": "",
+          "boostAnimationName": ""
+        },
+        "turnLeft": {
+          "keyBinding": {
+            "ctrl": false,
+            "shift": false,
+            "alt": false,
+            "key": "KeyD"
+          },
+          "animationId": "",
+          "animationName": "",
+          "boostAnimationId": "",
+          "boostAnimationName": ""
+        },
+        "turnRight": {
+          "keyBinding": {
+            "ctrl": false,
+            "shift": false,
+            "alt": false,
+            "key": "KeyA"
+          },
+          "animationId": "",
+          "animationName": "",
+          "boostAnimationId": "",
+          "boostAnimationName": ""
+        },
+        "jump": {
+          "keyBinding": {
+            "ctrl": false,
+            "shift": false,
+            "alt": false,
+            "key": "Space"
+          },
+          "animationId": "",
+          "animationName": "",
+          "backwardAnimationId": "",
+          "backwardAnimationName": "",
+          "boostAnimationId": "",
+          "boostAnimationName": "",
+          "boostBackwardAnimationId": "",
+          "boostBackwardAnimationName": ""
+        },
+        "locomotionType": "Input Control 1",
+        "active": true
+      }
+    },
+    {
+      "id": "root::spaceship2::mesh::spaceship-primitive0-wkktnn",
+      "kind": "mesh",
+      "name": "Spaceship_primitive0",
+      "parentId": "root::spaceship2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
         ],
         "rotation": [
           0,
@@ -546,16 +762,106 @@
       "visible": true,
       "enabled": true,
       "metadata": {
-        "assetId": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/petwheels.gltf",
-        "file": "petwheels.gltf",
+        "importedAsset": true,
+        "sourceModelId": "root::spaceship2",
+        "sourceMeshName": "Spaceship_primitive0"
+      }
+    },
+    {
+      "id": "root::spaceship2::mesh::spaceship-primitive1-uq21bd",
+      "kind": "mesh",
+      "name": "Spaceship_primitive1",
+      "parentId": "root::spaceship2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::spaceship2",
+        "sourceMeshName": "Spaceship_primitive1"
+      }
+    },
+    {
+      "id": "root::rockring2",
+      "kind": "model",
+      "name": "rockring2",
+      "src": "Baltha Studio - Musecraft/assets/models/rockring2.glb",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "assetId": "/assets/models/rockring2.glb",
+        "file": "rockring2.glb",
         "importedAsset": true
       }
     },
     {
-      "id": "root::petwheels::mesh::petwheels-coloratlas-0sefz2",
+      "id": "root::rockring2::mesh::ship-01-nddsp5",
       "kind": "mesh",
-      "name": "Petwheels-ColorAtlas",
-      "parentId": "root::petwheels",
+      "name": "ship 01",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          491.8418884277344,
+          137.18235778808594,
+          -61.195926666259766
+        ],
+        "rotation": [
+          0,
+          0.6623288441405659,
+          0
+        ],
+        "scaling": [
+          6.502906799316406,
+          6.502908229827881,
+          6.502906799316406
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "ship 01"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::original-low-primitive0-j45ojn",
+      "kind": "mesh",
+      "name": "Original_low_primitive0",
+      "parentId": "root::rockring2",
       "transform": {
         "position": [
           0,
@@ -577,15 +883,15 @@
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::petwheels",
-        "sourceMeshName": "Petwheels-ColorAtlas"
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Original_low_primitive0"
       }
     },
     {
-      "id": "root::petwheels::mesh::petwheels-textured-primitive0-8lnayp",
+      "id": "root::rockring2::mesh::original-low-primitive1-ths6mi",
       "kind": "mesh",
-      "name": "Petwheels-Textured_primitive0",
-      "parentId": "root::petwheels",
+      "name": "Original_low_primitive1",
+      "parentId": "root::rockring2",
       "transform": {
         "position": [
           0,
@@ -607,15 +913,15 @@
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::petwheels",
-        "sourceMeshName": "Petwheels-Textured_primitive0"
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Original_low_primitive1"
       }
     },
     {
-      "id": "root::petwheels::mesh::petwheels-textured-primitive1-87kgfx",
+      "id": "root::rockring2::mesh::mesh-0-primitive0-7cfjbe",
       "kind": "mesh",
-      "name": "Petwheels-Textured_primitive1",
-      "parentId": "root::petwheels",
+      "name": "Mesh_0_primitive0",
+      "parentId": "root::rockring2",
       "transform": {
         "position": [
           0,
@@ -637,48 +943,319 @@
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::petwheels",
-        "sourceMeshName": "Petwheels-Textured_primitive1"
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive0"
       }
     },
     {
-      "id": "root::petwheels::mesh::petwheels-lines-skj8s3",
+      "id": "root::rockring2::mesh::mesh-0-primitive1-ful4ef",
       "kind": "mesh",
-      "name": "Petwheels_Lines",
-      "parentId": "root::petwheels",
+      "name": "Mesh_0_primitive1",
+      "parentId": "root::rockring2",
       "transform": {
         "position": [
           0,
-          -0.5027883648872375,
+          0,
           0
         ],
         "rotation": [
           0,
-          -0.26452568388303016,
+          0,
           0
         ],
         "scaling": [
-          0.22176000475883484,
-          0.22176000475883484,
-          0.22176000475883484
+          1,
+          1,
+          1
         ]
       },
       "visible": true,
       "enabled": true,
       "metadata": {
         "importedAsset": true,
-        "sourceModelId": "root::petwheels",
-        "sourceMeshName": "Petwheels_Lines"
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive1"
       }
     },
     {
-      "id": "efe8233c-1ba5-46ac-b813-7b29dd9c73ae",
-      "kind": "camera",
-      "name": "Camera",
+      "id": "root::rockring2::mesh::mesh-0-primitive2-5pewg7",
+      "kind": "mesh",
+      "name": "Mesh_0_primitive2",
+      "parentId": "root::rockring2",
       "transform": {
         "position": [
-          5,
-          5,
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive2"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::mesh-0-primitive3-g47no2",
+      "kind": "mesh",
+      "name": "Mesh_0_primitive3",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive3"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::mesh-0-primitive4-zxmal4",
+      "kind": "mesh",
+      "name": "Mesh_0_primitive4",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive4"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::mesh-0-primitive5-synvft",
+      "kind": "mesh",
+      "name": "Mesh_0_primitive5",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive5"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::mesh-0-primitive6-433afy",
+      "kind": "mesh",
+      "name": "Mesh_0_primitive6",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive6"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::mesh-0-primitive7-0xuyc6",
+      "kind": "mesh",
+      "name": "Mesh_0_primitive7",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Mesh_0_primitive7"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::curve-0dvxak",
+      "kind": "mesh",
+      "name": "Curve",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Curve"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::circle-002-zt8cpj",
+      "kind": "mesh",
+      "name": "Circle.002",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          0.07808713614940643,
+          -0.15111517906188965,
+          -40.76189422607422
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          0.24000000953674316,
+          0.24000000953674316,
+          0.24000000953674316
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Circle.002"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::object-6-xtelix",
+      "kind": "mesh",
+      "name": "Object_6",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          -0.00011162567534483969,
+          -16.652812957763672,
+          -40.95796203613281
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          3.4356417655944824,
+          3.435642957687378,
+          3.435642957687378
+        ]
+      },
+      "visible": true,
+      "enabled": true,
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Object_6"
+      }
+    },
+    {
+      "id": "root::rockring2::mesh::logo-5dqk6d",
+      "kind": "mesh",
+      "name": "Logo",
+      "parentId": "root::rockring2",
+      "transform": {
+        "position": [
+          -0.8,
+          0,
           5
         ],
         "rotation": [
@@ -694,43 +1271,27 @@
       },
       "visible": true,
       "enabled": true,
-      "camera": {
-        "type": "ArcRotate",
-        "minZ": 0.1,
-        "maxZ": 1000,
-        "fov": 0.7853981633974483,
-        "active": true,
-        "alpha": -1.5707963267948966,
-        "beta": 1.0471975511965976,
-        "radius": 10,
-        "target": [
-          0,
-          0,
-          0
-        ],
-        "lowerRadiusLimit": 0,
-        "upperRadiusLimit": 100,
-        "wheelDeltaPercentage": 0.01
+      "metadata": {
+        "importedAsset": true,
+        "sourceModelId": "root::rockring2",
+        "sourceMeshName": "Logo"
       }
     }
   ],
-  "materialToObjectMap": {
-    "Body_Paint": "root::byd-seagull-shell-black-v1",
-    "SimpleBaked_Material": "root::byd-seagull-shell-black-v1",
-    "Atlas-01": "root::byd-seagull-shell-black-v1",
-    "ColorAtlas_01": "root::petwheels",
-    "Petwheels-Aggregated_Material": "root::petwheels",
-    "Petwheels_Lines": "root::petwheels"
-  },
   "materialOverrides": {
     "defaultCubeMaterial": {
-      "albedoColor": [
-        0.8,
-        0.8,
-        0.8
-      ],
-      "metallic": 0.1,
-      "roughness": 0.3
+      "albedoColor": {
+        "r": 0.8509803921568627,
+        "g": 0.24705882352941178,
+        "b": 0.24705882352941178
+      }
+    },
+    "groundMaterial": {
+      "albedoColor": {
+        "r": 0.2627450980392157,
+        "g": 0.6039215686274509,
+        "b": 0.8156862745098039
+      }
     },
     "default material": {
       "diffuseColor": [
@@ -745,24 +1306,6 @@
       ]
     },
     "Material": {
-      "albedoColor": [
-        0.8,
-        0.8,
-        0.8
-      ],
-      "metallic": 0.1,
-      "roughness": 0.5
-    },
-    "Material_02": {
-      "albedoColor": [
-        0.8,
-        0.8,
-        0.8
-      ],
-      "metallic": 0.1,
-      "roughness": 0.5
-    },
-    "Material_03": {
       "albedoColor": [
         0.8,
         0.8,
@@ -805,7 +1348,7 @@
         0.7
       ]
     },
-    "73dfccee-ffdb-42a4-9416-c6a0bae6c925_billboard_material": {
+    "camera1_icon_billboard_material": {
       "diffuseColor": [
         1,
         1,
@@ -817,105 +1360,208 @@
         1
       ],
       "emissiveColor": [
-        0.006999999999999999,
-        0.006999999999999999,
-        0.006999999999999999
+        0.7,
+        0.7,
+        0.7
       ]
     },
-    "8ae0f8db-b08d-45db-bd04-f271207fc9ee_billboard_material": {
-      "diffuseColor": [
+    "__GLTFLoader._default": {
+      "albedoColor": [
         1,
         1,
         1
       ],
-      "specularColor": [
+      "metallic": 1,
+      "roughness": 1
+    },
+    "scifi_structure_vertical_layered_metal.002": {
+      "albedoColor": [
+        0.3649519383907318,
+        0.3649519383907318,
+        0.3649519383907318
+      ],
+      "metallic": 1,
+      "roughness": 1
+    },
+    "ColorAtlas_02.001": {
+      "albedoColor": [
         1,
         1,
         1
       ],
+      "metallic": 1,
+      "roughness": 1,
       "emissiveColor": [
-        0.006999999999999999,
-        0.006999999999999999,
-        0.006999999999999999
+        1,
+        1,
+        1
       ]
     },
-    "1500eb0f-79b9-459e-a24a-896d50dcd0ad_billboard_material": {
-      "diffuseColor": [
+    "ship 01": {
+      "albedoColor": [
         1,
         1,
         1
       ],
-      "specularColor": [
-        1,
-        1,
-        1
-      ],
+      "metallic": 1,
+      "roughness": 1,
       "emissiveColor": [
-        0.006999999999999999,
-        0.006999999999999999,
-        0.006999999999999999
+        1,
+        1,
+        1
       ]
     },
-    "Body_Paint": {
+    "CustomMaterial.004": {
+      "albedoColor": [
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "roughness": 1
+    },
+    "Material.003": {
+      "albedoColor": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "metallic": 0.6000000238418579,
+      "roughness": 0.4000000059604645
+    },
+    "plates_k": {
       "albedoColor": [
         0,
+        0.9411764740943909,
+        1
+      ],
+      "metallic": 0.5,
+      "roughness": 0.5,
+      "emissiveColor": [
         0,
-        0
-      ],
-      "metallic": 0.20000000298023224,
-      "roughness": 0.10000000149011612
+        0.13725490868091583,
+        1
+      ]
     },
-    "SimpleBaked_Material": {
+    "ob_2540110aout": {
       "albedoColor": [
         1,
         1,
         1
       ],
-      "metallic": 1,
-      "roughness": 1
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
     },
-    "Atlas-01": {
+    "plates_c": {
       "albedoColor": [
         1,
         1,
         1
       ],
-      "metallic": 1,
-      "roughness": 1
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
     },
-    "ColorAtlas_01": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/AtlasColorTexture.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/AtlasGrayTexture.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/Petwheels-ColorAtlas_lightmap.png",
+    "plates_j": {
       "albedoColor": [
         1,
         1,
         1
       ],
-      "metallic": 1,
-      "roughness": 1
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
     },
-    "Petwheels-Aggregated_Material": {
-      "albedoTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/Petwheels-Textured_Aggregated_Material_diffuse.png",
-      "metallicTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/Petwheels-Textured_lightmap-Petwheels-Textured_Aggregated_Material_roughness.png",
-      "bumpTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/Petwheels-Textured_Aggregated_Material_normal.png",
-      "ambientTexture": "867a8a57-eee4-40db-a3b8-7d15faa374e3/projects/8615288e-799f-459d-b454-4599a316c2f9/assets/Petwheels-Textured_lightmap-Petwheels-Textured_Aggregated_Material_roughness.png",
+    "ob_ca39": {
       "albedoColor": [
         1,
         1,
         1
       ],
-      "metallic": 0.800000011920929,
-      "roughness": 1
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
     },
-    "Petwheels_Lines": {
+    "plates_c1": {
+      "albedoColor": [
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
+    },
+    "plates_09b": {
+      "albedoColor": [
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
+    },
+    "ob_ca40": {
+      "albedoColor": [
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.8999999761581421
+    },
+    "Material.006": {
       "albedoColor": [
         0.800000011920929,
         0.800000011920929,
         0.800000011920929
       ],
       "metallic": 0,
-      "roughness": 0.5
+      "roughness": 0.5,
+      "emissiveColor": [
+        0.20000000298023224,
+        0.20000000298023224,
+        0.20000000298023224
+      ]
+    },
+    "Crystal_Self": {
+      "albedoColor": [
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.5309091210365295,
+      "roughness": 0.5418181419372559
+    },
+    "Material.004": {
+      "albedoColor": [
+        1,
+        1,
+        1
+      ],
+      "metallic": 0.75,
+      "roughness": 0.25,
+      "emissiveColor": [
+        0.20000000298023224,
+        0.20000000298023224,
+        0.20000000298023224
+      ]
     }
+  },
+  "materialToObjectMap": {
+    "__GLTFLoader._default": "root::anchors",
+    "scifi_structure_vertical_layered_metal.002": "root::spaceship2",
+    "ColorAtlas_02.001": "root::spaceship2",
+    "ship 01": "root::rockring2",
+    "CustomMaterial.004": "root::rockring2",
+    "Material.003": "root::rockring2",
+    "plates_k": "root::rockring2",
+    "ob_2540110aout": "root::rockring2",
+    "plates_c": "root::rockring2",
+    "plates_j": "root::rockring2",
+    "ob_ca39": "root::rockring2",
+    "plates_c1": "root::rockring2",
+    "plates_09b": "root::rockring2",
+    "ob_ca40": "root::rockring2",
+    "Material": "root::rockring2",
+    "Material.006": "root::rockring2",
+    "Crystal_Self": "root::rockring2",
+    "Material.004": "root::rockring2"
   }
 }
