@@ -1,36 +1,8 @@
 {
   "version": "1.0.0",
-  "elements": [
-    {
-      "id": "button_001",
-      "name": "Button",
-      "type": "button",
-      "parentId": null,
-      "style": {
-        "display": "inline-flex",
-        "justifyContent": "center",
-        "alignItems": "center",
-        "alignSelf": "center",
-        "justifySelf": "center",
-        "width": "120px",
-        "height": "40px",
-        "backgroundColor": "#007bff",
-        "color": "#ffffff",
-        "borderRadius": "4px",
-        "fontSize": "14px",
-        "fontWeight": "500",
-        "cursor": "pointer",
-        "padding": "8px 16px"
-      },
-      "content": {
-        "text": ""
-      },
-      "visible": true,
-      "enabled": true
-    }
-  ],
+  "elements": [],
   "metadata": {
-    "createdAt": "2026-03-28T00:12:58.636Z",
-    "lastModified": "2026-03-28T00:18:05.196Z"
+    "createdAt": "2026-03-27T22:20:38.090Z",
+    "lastModified": "2026-03-27T22:20:38.090Z"
   }
 }
