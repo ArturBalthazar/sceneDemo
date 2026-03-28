@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sceneVersion": 5,
+  "sceneVersion": 7,
   "sceneSettings": {
     "environment": {
       "clearColor": [
@@ -153,7 +153,7 @@
         "position": [
           0,
           2.147830009460449,
-          9.74209213256836
+          -1.6266255378723145
         ],
         "scaling": [
           1,
